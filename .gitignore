@@ -1,5 +1,5 @@
 .env
-/node_modules
-/.pnp
+/node_modules 
+/.pnp 
 package-lock.json
-.DS_store
+.DS store
