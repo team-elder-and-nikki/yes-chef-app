@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node app.ts",
+    "start": "tsc && node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch *.ts --ext .ts,.js --ignore node_modules/* --ignore dist/* --exec node --loader ts-node/esm app.ts"
   },
