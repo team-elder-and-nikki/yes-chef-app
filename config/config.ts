@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+
 const env = './config/.env';
 dotenv.config({ path: env });
-import mongoose from 'mongoose';
 
 export const SERVER = {
 	SERVER_HOSTNAME: process.env.SERVER_HOSTNAME || 'localhost',
