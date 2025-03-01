@@ -1,12 +1,23 @@
-import express from "express";
-import bodyParser from "body-parser";
+import express from 'express';
+import { SERVER } from './config/config.js';
 
-const PORT = 8000;
-const app = express();
+const PORT = SERVER.SERVER_PORT;
 
-app.use(bodyParser.urlencoded({extended : false}));
-app.use(bodyParser.json());
+try {
+    
+	console.info('Starting Express Application');
+	const app = express();
 
-app.listen(PORT || process.env.PORT, ()=>{
-    console.log(`Backend server ${PORT ?? process.env.PORT}`)
-});
+	app.use(express.urlencoded({ extended: true }));
+	app.use(express.json());
+
+	app.listen(PORT, () => {
+		console.log(`The Server is running use ^c to chill server`);
+		console.log(`Server started on ${SERVER.SERVER_HOSTNAME}:${PORT}`);
+		
+    });
+    
+} catch (err) {
+	console.error('Failed to start server:', err);
+	process.exit(1);
+}
