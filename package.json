@@ -1,24 +1,9 @@
 {
-  "name": "yes-chef-app",
-  "version": "0.0.0",
-  "description": "",
-  "main": "app.js",
+  "module": "true",
   "scripts": {
-    "start": "node app.js",
+    "start": "node app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/team-elder-and-nikki/yes-chef-app.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/team-elder-and-nikki/yes-chef-app/issues"
-  },
-  "homepage": "https://github.com/team-elder-and-nikki/yes-chef-app#readme",
   "dependencies": {
     "body-parser": "^1.20.3",
     "express": "^4.21.2"
