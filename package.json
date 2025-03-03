@@ -1,21 +1,37 @@
 {
-  "type": "module",
-  "scripts": {
-    "start": "tsc && node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch *.ts --ext .ts,.js --ignore node_modules/* --ignore dist/* --exec node --loader ts-node/esm app.ts"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongodb": "^6.14.0",
-    "mongoose": "^8.11.0"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.13.8",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
-  }
+	"type": "module",
+	"scripts": {
+		"start": "tsc && node dist/app.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon --watch *.ts --ext .ts,.js --ignore node_modules/* --ignore dist/* --exec node --loader ts-node/esm app.ts",
+    "vitedev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+	},
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"mongodb": "^6.14.0",
+		"mongoose": "^8.11.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.0",
+		"@types/node": "^22.13.8",
+		"nodemon": "^3.1.9",
+		"ts-node": "^10.9.2",
+		"@eslint/js": "^9.21.0",
+		"@types/react": "^19.0.10",
+		"@types/react-dom": "^19.0.4",
+		"@vitejs/plugin-react": "^4.3.4",
+		"eslint": "^9.21.0",
+		"eslint-plugin-react-hooks": "^5.1.0",
+		"eslint-plugin-react-refresh": "^0.4.19",
+		"globals": "^15.15.0",
+		"typescript": "~5.7.2",
+		"typescript-eslint": "^8.24.1",
+		"vite": "^6.2.0"
+	}
 }
