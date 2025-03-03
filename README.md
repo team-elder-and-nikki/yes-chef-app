@@ -26,12 +26,12 @@ A smart restaurant kitchen management system where users can track orders from t
 - [Nikki](https://github.com/code-guppy)
 
 ## Members:
-- [Thomas Harris](https://github.com/LodenH16)
-- [Megan McNeill](https://github.com/bluethreadmade)
-- [Sarah A](https://github.com/Sah11-0)
-- [Jamal Hall](https://github.com/JamalHall)
 - [Anton Shelkovnikov](https://github.com/Antosha9108)
+- [Jamal Hall](https://github.com/JamalHall)
+- [Megan McNeill](https://github.com/bluethreadmade)
 - [Richard Choi](https://github.com/choir241)
+- [Sarah A](https://github.com/Sah11-0)
+- [Thomas Harris](https://github.com/LodenH16)
 - [Tynon Johnson](https://github.com/tdjohnson7)
 
 # Team Contribution Guide:
