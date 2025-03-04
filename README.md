@@ -10,6 +10,8 @@
     - [Figma](#figma)
     - [Coding Conventions](#coding-conventions)
     - [Libraries/Frameworks](#librariesframeworks)
+    - [Testing Documentation & Edge Cases](#testing-documentation--edge-cases)
+    - [Backend API Endpoints](#backend-api-endpoints)
     - [Backend Mock Data](#backend-mock-data)
     - [Conventional Commits](#conventional-commit-guide)
     - [PR Review Guide](#pr-review-guide)
