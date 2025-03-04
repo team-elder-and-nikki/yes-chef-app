@@ -7,6 +7,7 @@
 - [Team Contribution Guide](#team-contribution-guide)
     - [Installation](#installation)
     - [MVP Requirements](#mvp-requirements)
+    - [Sprint Board Schedule](#sprint-board-schedule)
     - [Figma](#figma)
     - [Coding Conventions](#coding-conventions)
     - [Libraries/Frameworks](#librariesframeworks)
@@ -53,6 +54,10 @@ A smart restaurant kitchen management system where users can track orders from t
 ## MVP requirements
 
 To review the MVP requirements of this project broken down into digestible chunks, view the [MVP requirements docs.](https://docs.google.com/document/d/1L4ml2u57-JFyGDXHCbUYrBwTQwhRcvqpuD_KcdFK-lU/edit?tab=t.0)
+
+## Sprint Board Schedule
+
+![sprint board schedule](https://github.com/user-attachments/assets/867f5cab-6e62-4fd9-ac4c-4b766208bec6)
 
 ## Figma
 
