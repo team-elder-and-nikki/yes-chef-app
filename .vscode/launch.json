@@ -1,15 +1,31 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug TypeScript IC",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": ["run", "dev"],
-            "skipFiles": ["<node_internals>/**"],
-            "console": "internalConsole",
-            "restart": true
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Debug Server",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "dev-server"],
+			"skipFiles": ["<node_internals>/**"],
+			"console": "integratedTerminal",
+			"restart": true
+		},
+		{
+			"name": "Run Client",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "dev-client"],
+			"skipFiles": ["<node_internals>/**"],
+			"console": "integratedTerminal",
+			"restart": true
+		}
+	],
+	"compounds": [
+		{
+			"name": "Debug Full Stack",
+			"configurations": ["Debug Server", "Run Client"]
+		}
+	]
 }
