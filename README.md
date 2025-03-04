@@ -10,6 +10,8 @@
     - [Figma](#figma)
     - [Coding Conventions](#coding-conventions)
     - [Libraries/Frameworks](#librariesframeworks)
+    - [Testing Documentation & Edge Cases](#testing-documentation--edge-cases)
+    - [Backend API Endpoints](#backend-api-endpoints)
     - [Backend Mock Data](#backend-mock-data)
     - [Conventional Commits](#conventional-commit-guide)
     - [PR Review Guide](#pr-review-guide)
@@ -65,6 +67,14 @@ View the [coding conventions doc](https://docs.google.com/document/d/1DktER3x-T0
 ## Libraries/Frameworks
 
 To see library or framework options for a variety of elements in an application, see the [library/framework research docs.](https://docs.google.com/document/d/1sZcluuOlHF7ttIkxly3LVJzM1CVMBsbvdvfuaCZV2jY/edit?tab=t.0#heading=h.5mqau96ajv7y)
+
+## Testing Documentation & Edge Cases
+
+Comprehensive testing documentation and anticipated edge cases are listed [here](https://docs.google.com/document/d/1SBnXl-W_sP6PCThaKONXHr4OOzeANBDImqPwfOQrvQc/edit?usp=sharing).
+
+## Backend API Endpoints
+
+View and update the [Endpoints Documentation](https://docs.google.com/document/d/1dMqOEiEz2Khetr4HKWKi1XJLsVp8Jo-X4btzkiniiZw/edit?usp=sharing) as we progress through building the app.
 
 ## Backend mock data
 
