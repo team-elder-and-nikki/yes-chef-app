@@ -16,3 +16,13 @@ export default defineConfig({
     outDir: resolve(__dirname, '../dist/client')
   }
 })
+
+
+// // https://vite.dev/config/
+// export default defineConfig({
+//   plugins: [
+//     react(),     
+//     tailwindcss(),
+//   ],
+// >>>>>>> main
+// })
