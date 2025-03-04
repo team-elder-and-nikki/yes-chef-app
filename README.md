@@ -66,6 +66,14 @@ View the [coding conventions doc](https://docs.google.com/document/d/1DktER3x-T0
 
 To see library or framework options for a variety of elements in an application, see the [library/framework research docs.](https://docs.google.com/document/d/1sZcluuOlHF7ttIkxly3LVJzM1CVMBsbvdvfuaCZV2jY/edit?tab=t.0#heading=h.5mqau96ajv7y)
 
+## Testing Documentation & Edge Cases
+
+Comprehensive testing documentation and anticipated edge cases are listed [here](https://docs.google.com/document/d/1SBnXl-W_sP6PCThaKONXHr4OOzeANBDImqPwfOQrvQc/edit?usp=sharing).
+
+## Backend API Endpoints
+
+View and update the [Endpoints Documentation](https://docs.google.com/document/d/1dMqOEiEz2Khetr4HKWKi1XJLsVp8Jo-X4btzkiniiZw/edit?usp=sharing) as we progress through building the app.
+
 ## Backend mock data
 
 View the [Menu and inventory arrays](https://docs.google.com/document/d/1kXmBnlvrd-d3it6-zWGigqS6M3VL5ouMVKxu_-tARbM/edit?tab=t.0) for the backend database and mock data for the menu and inventory items.
