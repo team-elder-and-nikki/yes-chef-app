@@ -33,6 +33,8 @@ A smart restaurant kitchen management system where users can track orders from t
 - [Sarah A](https://github.com/Sah11-0)
 - [Thomas Harris](https://github.com/LodenH16)
 - [Tynon Johnson](https://github.com/tdjohnson7)
+- [Yassah Reed](https://github.com/Yassahr)
+
 
 # Team Contribution Guide:
 
