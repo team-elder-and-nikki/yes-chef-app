@@ -1,15 +1,59 @@
 {
   "type": "module",
+  "description": "Smart Restaraunt Management System",
+  "contributors": [
+    {
+      "name": "Elder",
+      "url": "https://github.com/elderheim"
+    },
+    {
+      "name": "Nikki",
+      "url": "https://github.com/code-guppy"
+    },
+    {
+      "name": "Anton Shelkovnikov",
+      "url": "https://github.com/Antosha9108"
+    },
+    {
+      "name": "Megan McNeill",
+      "url": "https://github.com/bluethreadmade"
+    },
+    {
+      "name": "Jamal Hall",
+      "url": "https://github.com/JamalHall"
+    },
+    {
+      "name": "Richard Choi",
+      "url": "https://github.com/choir241"
+    },
+    {
+      "name": "Sarah A",
+      "url": "https://github.com/Sah11-0"
+    },
+    {
+      "name": "Thomas Harris",
+      "url": "https://github.com/LodenH16"
+    },
+    {
+      "name": "Tynon Johnson",
+      "url": "https://github.com/tdjohnson7"
+    }
+  ],
+  "name": "yes-chef",
+  "version": "0.0.0",
   "scripts": {
     "start": "tsc && node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch *.ts --ext .ts,.js --ignore node_modules/* --ignore dist/* --exec node --loader ts-node/esm app.ts"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.0.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongodb": "^6.14.0",
-    "mongoose": "^8.11.0"
+    "mongoose": "^8.11.0",
+    "tailwindcss": "^4.0.9"
+    
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
