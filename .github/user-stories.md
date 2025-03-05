@@ -4,17 +4,53 @@
 This document contains the users stories for Yes Chef for the following users: kitchen staff, cashier and management
 ---
 
-## User Story: Cashier
-### Feature: Ordering Screen
-#### User Story #
-As a restaurant cashier, I want to be able to navigate through all the menu items and the food categories in the most frictionless method for myself and be able to add any menu items using the POS systems and send them to the kitchen using the cart menu interface. To help keep the app design focused on a good user experience when it comes to the layout of the page sections
-Using the application as a restaraunt cashier to see how friendly the UI is during rush hour or slow hours
+### Feature: Adding menu items
+#### User Story # 
+As a Cashier, I want to be able to add menu items to the customer cart for checkout using click interface to add either one or multiple menu itemsthis will help to easily add menu items as customers request them to prevent a long process of adding more items to order.
 
 **Acceptance Criteria:**
-[]Navigate through menu categories - ex: appetizers, pasta, pizza, entrees, desserts
-[]Navigate through menu items
-[]Add menu items to code
-[]Send kitchen menu items
+[]user able to add item to cart
+[]cost of item displays in cart
+[]user is able to add multiple of the same item to the cart
+ 
+
+ 
+
+### Feature: Removing menu items
+#### User Story # 
+As a Cashier, I want to remove menu items from the order using simple clicking mechanism so that unwanted items can be quickly removed without causing delays in the checkout process
+
+**Acceptance Criteria:**
+[]user can remove items from the order cart and the price is no longer included in the total
+[]user can remove multiple of the same item from the order cart
+ 
+
+### Feature: Sending meeting items to the Kitchen
+#### User Story # 
+As a Cashier, I want to complete the order and send to the kitchen to start order using seamless completion that may involve a button so that kitchen can start on orders asap and prevent delays in service
+
+**Acceptance Criteria:**
+[]user can signify order is ready to be started by kitchen staff
+[]user can complete order
+ 
+
+### Feature: Calculating total and subtotals
+#### User Story # 
+As a Cashier, I want clearly see the current total of an order  without have to switch screens  so that I can communicate with the patient the cost of all items on order and the subtotal
+
+**Acceptance Criteria:**
+[]user can view total and Subtotal calculated in live time
+[]user can view cost of each menu items on display
+[]total and subtotal displayed on screen
+ 
+
+### Feature: Changing food category displays
+#### User Story # 
+As a Cashier, I want to transition for menu categories(apps, entrees, desserts, etc) using a simple interface that displays all of the category options so that I can quickly identify the requested menu item and add them to order
+
+
+[]user can see all of the menu categories 
+[]user can see all of the menu items within that category when said category is choosen
 
 ---
 ## User Story: Management
