@@ -52,8 +52,8 @@
     "express": "^4.21.2",
     "mongodb": "^6.14.0",
     "mongoose": "^8.11.0",
+    "npm": "^11.1.0",
     "tailwindcss": "^4.0.9"
-    
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
