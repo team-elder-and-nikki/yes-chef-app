@@ -42,18 +42,24 @@
   "name": "yes-chef",
   "version": "0.0.0",
   "scripts": {
-    "start": "node app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch *.ts --ext .ts,.js --ignore node_modules/* --ignore dist/* --exec node --loader ts-node/esm app.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
-    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongodb": "^6.14.0",
+    "mongoose": "^8.11.0",
     "npm": "^11.1.0",
     "tailwindcss": "^4.0.9"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.19.5",
-    "@types/express": "^5.0.0"
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.8",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
   }
 }
