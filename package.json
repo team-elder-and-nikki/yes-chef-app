@@ -42,7 +42,7 @@
   "name": "yes-chef",
   "version": "0.0.0",
   "scripts": {
-    "start": "node app.ts",
+    "start": "node server/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
