@@ -1,4 +1,4 @@
-import MenuCategoryNav from "../components/ui/MenuCategoryNav";
+import MenuCategoryNav from "../components/MenuCategoryNav";
 
 
 export default function Menu() {
