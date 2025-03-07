@@ -1,21 +1,29 @@
+import { Route, Routes, BrowserRouter } from "react-router";
 import "./App.css";
+import Menu from "./pages/Menu";
+import Inventory from "./pages/Inventory";
+import Reports from "./pages/Reports";
+import Orders from "./pages/Orders";
+import Kitchen from "./pages/Kitchen";
+
 import { CartProvider } from "./context/CartContext";
-import { CartTable, } from "./components/CartTable";
-import { MenuItem } from "./components/MenuItemTest";
 
-
+// Example: import { Button } from "@/components/ui/button";
 
 function App() {
   return (
     <CartProvider>
-      <div className="App">
-        <h1>POS System</h1>
-        <MenuItem />
-        <CartTable />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Menu />}></Route>
+          <Route path="/inventory" element={<Inventory />}></Route>
+          <Route path="/kitchen" element={<Kitchen />}></Route>
+          <Route path="/orders" element={<Orders />}></Route>
+          <Route path="/reports" element={<Reports />}></Route>
+        </Routes>
+      </BrowserRouter>
     </CartProvider>
   );
 }
-
 
 export default App;
