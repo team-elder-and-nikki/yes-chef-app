@@ -20,7 +20,6 @@ export const DB_Connect = async () => {
         console.info(`MongoDB Connected: ${conn.connection.name}`);
         console.info(`MongoDB Connected: ${JSON.stringify(conn.connection.models)}`);
         console.info(`MongoDB Connected: ${conn.connection.host}`);
-        return 'Connected';
     } catch (err) {
         console.error('Failed to connect to MongoDB:', err);
         process.exit(1); 
