@@ -1,5 +1,6 @@
 import express from 'express';
 import { SERVER, DB_Connect } from '../config/config.ts';
+import ingredient from './controllers/ingredient.ts';
 
 const PORT = SERVER.SERVER_PORT;
 async function startServer() {
@@ -10,15 +11,17 @@ async function startServer() {
 
 		app.use(express.urlencoded({ extended: true }));
 		app.use(express.json());
+	
+		// Database connection	
+		console.log('Connect to the database');
+		await DB_Connect();
+
+		app.use('/', ingredient);
 
 		await app.listen(PORT, () => {
 			console.log(`The Server is running use ^c to chill server`);
 			console.log(`Server started on ${SERVER.SERVER_HOSTNAME}:${PORT}`);		
 		});
-	
-		// Database connection	
-		console.log('Connect to the database');
-		await DB_Connect();
 
 		return app;
 	} catch (err) {
