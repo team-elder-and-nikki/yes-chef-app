@@ -1,5 +1,10 @@
+import NavBar from "@/components/NavBar"
+
 export default function Reports(){
     return(
-        <h1>Reports</h1>
+        <>
+            <NavBar />
+            <h1>Reports</h1>
+        </>
     )
 }

@@ -1,5 +1,10 @@
+import NavBar from "@/components/NavBar"
+
 export default function Kitchen(){
     return(
-        <h1>Kitchen</h1>
+        <>
+            <NavBar />
+            <h1>Kitchen</h1>
+        </>
     )
 }

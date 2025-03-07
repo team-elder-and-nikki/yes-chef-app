@@ -1,5 +1,10 @@
+import NavBar from "@/components/NavBar"
+
 export default function Inventory(){
     return(
-        <h1>Inventory</h1>
+        <>
+            <NavBar />
+            <h1>Inventory</h1>
+        </>
     )
 }
