@@ -1,5 +1,5 @@
 import express from 'express';
-import { SERVER, DB_Connect } from './config/config.js';
+import { SERVER, DB_Connect } from '../config/config.ts';
 
 const PORT = SERVER.SERVER_PORT;
 async function startServer() {
