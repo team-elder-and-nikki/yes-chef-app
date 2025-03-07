@@ -1,0 +1,31 @@
+import { useState } from "react"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+const categories = ["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"];
+
+interface MenuCategoryNavProps {
+  onCategoryChange: (category: string) => void;
+}
+
+function MenuCategoryNav({ onCategoryChange }: MenuCategoryNavProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
+
+  function handleCategoryChange(category: string) {
+    setSelectedCategory(category);
+    onCategoryChange(category);
+  }
+
+  return (
+    <Tabs value={selectedCategory} onValueChange={handleCategoryChange}>
+      <TabsList>
+        {categories.map((category) => (
+          <TabsTrigger key={category} value={category}>
+            {category}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
+  );
+};
+
+export default MenuCategoryNav;
