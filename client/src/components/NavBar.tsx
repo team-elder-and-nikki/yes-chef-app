@@ -24,7 +24,7 @@ export default function NavBar({}) {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink href="/reports">
-                        <Clipboard />
+                        <Clock />
                         Reports
                     </NavigationMenuLink>
                 </NavigationMenuItem>
