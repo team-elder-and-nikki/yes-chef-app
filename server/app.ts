@@ -1,12 +1,33 @@
-import express from "express";
-import bodyParser from "body-parser";
+import express from 'express';
+import { SERVER, DB_Connect } from '../config/config.ts';
+import ingredient from './controllers/ingredient.ts';
 
-const PORT = 8000;
-const app = express();
+const PORT = SERVER.SERVER_PORT;
+async function startServer() {
 
-app.use(bodyParser.urlencoded({extended : false}));
-app.use(bodyParser.json());
+    try {
+		console.log('Starting Express Application');
+		const app = express();
 
-app.listen(PORT || process.env.PORT, ()=>{
-    console.log(`Backend server ${PORT ?? process.env.PORT}`)
-});
+		app.use(express.urlencoded({ extended: true }));
+		app.use(express.json());
+	
+		// Database connection	
+		console.log('Connect to the database');
+		await DB_Connect();
+
+		app.use('/', ingredient);
+
+		await app.listen(PORT, () => {
+			console.log(`The Server is running use ^c to chill server`);
+			console.log(`Server started on ${SERVER.SERVER_HOSTNAME}:${PORT}`);		
+		});
+
+		return app;
+	} catch (err) {
+		console.error('Failed to start server:', err);
+		process.exit(1);
+	}
+}
+
+startServer();

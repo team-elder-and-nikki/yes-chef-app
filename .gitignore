@@ -3,3 +3,4 @@
 /.pnp 
 package-lock.json
 .DS store
+dist
