@@ -134,7 +134,8 @@ function NavigationMenuLink({
         focus:bg-accent focus:text-accent-foreground focus-visible:ring-4 focus-visible:outline-1 
         ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50 
         [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-[color,box-shadow] [&_svg:not([class*='size-'])]:size-4 
-        w-18 h-18`,
+        w-18 h-18 
+        text-center`,
         className
       )}
       {...props}
