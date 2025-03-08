@@ -52,7 +52,7 @@ function NavigationMenuItem({
   return (
     <NavigationMenuPrimitive.Item
       data-slot="navigation-menu-item"
-      className={cn("relative", className)}
+      className={cn("relative border-2 rounded-sm border-black", className)}
       {...props}
     />
   )
