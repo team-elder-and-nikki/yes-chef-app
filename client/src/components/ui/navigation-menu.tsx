@@ -19,7 +19,8 @@ function NavigationMenu({
       data-viewport={viewport}
       className={cn(
         `group/navigation-menu relative flex flex-1 items-center justify-center 
-        w-screen`,
+        w-screen
+        md:absolute md:w-20`,
         className
       )}
       {...props}
@@ -38,7 +39,8 @@ function NavigationMenuList({
     <NavigationMenuPrimitive.List
       data-slot="navigation-menu-list"
       className={cn(
-        "group flex flex-1 list-none items-center justify-center gap-1",
+        `group flex flex-1 list-none items-center justify-center gap-1
+        md:flex-col md:gap-2 md:justify-center md:items-start md:mt-4`,
         className
       )}
       {...props}

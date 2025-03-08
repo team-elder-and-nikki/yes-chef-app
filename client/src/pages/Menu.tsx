@@ -8,9 +8,11 @@ export default function Menu() {
     return (
         <>
             <NavBar />
-            <MenuItem />
-            <CartTable />
-            <MenuCategoryNav onCategoryChange={() => {}} />
+            <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
+                <MenuItem />
+                <CartTable />
+                <MenuCategoryNav onCategoryChange={() => {}} />
+            </div>
         </>
     )
 }
