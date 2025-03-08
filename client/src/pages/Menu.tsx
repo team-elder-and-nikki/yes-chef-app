@@ -8,7 +8,6 @@ export default function Menu() {
     return (
         <>
             <NavBar />
-            <h1>Menu</h1>
             <MenuItem />
             <CartTable />
             <MenuCategoryNav onCategoryChange={() => {}} />
