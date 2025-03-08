@@ -53,7 +53,7 @@ function NavigationMenuItem({
   return (
     <NavigationMenuPrimitive.Item
       data-slot="navigation-menu-item"
-      className={cn("relative border-2 rounded-sm border-black m-1", className)}
+      className={cn("relative border-2 rounded-sm border-black my-1", className)}
       {...props}
     />
   )
@@ -134,8 +134,8 @@ function NavigationMenuLink({
         hover:bg-accent hover:text-accent-foreground 
         focus:bg-accent focus:text-accent-foreground focus-visible:ring-4 focus-visible:outline-1 
         ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50 
-        [&_svg:not([class*='text-'])]:text-black flex flex-col gap-1 rounded-sm p-2 text-sm transition-[color,box-shadow] [&_svg:not([class*='size-'])]:size-4 
-        w-18 h-18 
+        [&_svg:not([class*='text-'])]:text-black flex flex-col gap-1 rounded-sm p-2 text-xs transition-[color,box-shadow] [&_svg:not([class*='size-'])]:size-4 
+        size-[16vw] sm:size-18
         text-center items-center justify-center`,
         className
       )}
