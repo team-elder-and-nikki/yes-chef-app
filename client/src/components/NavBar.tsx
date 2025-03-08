@@ -2,32 +2,43 @@ import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
-  NavigationMenuContent,
-  NavigationMenuTrigger,
   NavigationMenuLink,
-  NavigationMenuIndicator,
-  NavigationMenuViewport,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { House, ShoppingBag, Clock, Utensils, Clipboard } from "lucide-react"
 
 export default function NavBar({}) {
     return (
         <NavigationMenu>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/">Menu</NavigationMenuLink>
+                    <NavigationMenuLink href="/">
+                        <House />
+                        Menu
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/orders">Orders</NavigationMenuLink>
+                    <NavigationMenuLink href="/orders">
+                        <ShoppingBag />
+                        Orders
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/reports">Inventory</NavigationMenuLink>
+                    <NavigationMenuLink href="/reports">
+                        <Clipboard />
+                        Reports
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/kitchen">Kitchen</NavigationMenuLink>
+                    <NavigationMenuLink href="/kitchen">
+                        <Utensils />
+                        Kitchen
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/inventory">Inventory</NavigationMenuLink>
+                    <NavigationMenuLink href="/inventory">
+                        <Clipboard />
+                        Inventory
+                    </NavigationMenuLink>
                 </NavigationMenuItem>
             </NavigationMenuList>
         </NavigationMenu>
