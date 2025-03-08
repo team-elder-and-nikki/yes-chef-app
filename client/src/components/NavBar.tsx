@@ -1,3 +1,4 @@
+import { useState } from "react"
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -7,35 +8,38 @@ import {
 import { House, ShoppingBag, Clock, Utensils, Clipboard } from "lucide-react"
 
 export default function NavBar({}) {
+    const activeRoute = window.location.pathname
+    const isActiveRoute = (route: string) => activeRoute === route;
+
     return (
         <NavigationMenu>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/">
+                    <NavigationMenuLink href="/" data-active={isActiveRoute("/")}>
                         <House />
                         Menu
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/orders">
+                    <NavigationMenuLink href="/orders" data-active={isActiveRoute("/orders")}>
                         <ShoppingBag />
                         Orders
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/reports">
+                    <NavigationMenuLink href="/reports" data-active={isActiveRoute("/reports")}>
                         <Clock />
                         Reports
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/kitchen">
+                    <NavigationMenuLink href="/kitchen" data-active={isActiveRoute("/kitchen")}>
                         <Utensils />
                         Kitchen
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href="/inventory">
+                    <NavigationMenuLink href="/inventory" data-active={isActiveRoute("/inventory")}>
                         <Clipboard />
                         Inventory
                     </NavigationMenuLink>
