@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
   Accordion,
@@ -40,19 +39,21 @@ export function MobileInventoryCard() {
   return (
     <Accordion type="single" collapsible className="w-full m-4">
       {ingredients.map((ingredient) => (
-      <AccordionItem key={ingredient._id} value={ingredient._id}>
-        <AccordionTrigger className="flex justify-around items-center">
-          <div>{ingredient.name}</div>
-          <Badge>{ingredient.quantity}</Badge>
-          <div>last order date</div>
-        </AccordionTrigger>
-        <AccordionContent className="flex justify-around items-center">
-          <div>${ingredient.unitCost}</div>
-          <div>${(ingredient.unitCost * ingredient.quantity).toFixed(2)}</div>
-          <div>next order date</div>
-          <ShoppingCartIcon></ShoppingCartIcon>
-        </AccordionContent>
-      </AccordionItem>
+        <AccordionItem key={ingredient._id} value={ingredient._id}>
+          <AccordionTrigger className="flex justify-around items-center col-end-3">
+            <div>{ingredient.name}</div>
+            <Badge>{ingredient.quantity}</Badge>
+            <div>${ingredient.unitCost.toFixed(2)}</div>
+          </AccordionTrigger>
+          <AccordionContent className="flex justify-around items-center">
+            {/* reorderqty should be an input field or a +/- */}
+            <div>reorder qty</div>
+           {/* update this to be unit cost * reorder qty from input box above */}
+            <div>${(ingredient.unitCost * ingredient.quantity).toFixed(2)}</div>
+            {/* hitting shopping cart icon should send the order to the distributor api */}
+            <ShoppingCartIcon></ShoppingCartIcon>
+          </AccordionContent>
+        </AccordionItem>
       ))}
     </Accordion>
   );
