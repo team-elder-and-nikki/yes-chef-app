@@ -47,15 +47,23 @@ export function MobileInventoryCard() {
                 {ingredient.quantity}
               </Badge>
             </div>
-            <div>last ordered date</div>
+            <div>last order date</div>
             <div>${ingredient.unitCost.toFixed(2)}</div>
           </AccordionTrigger>
           <AccordionContent className="flex flex-row justify-around items-center">
-            <div>${ingredient.unitCost.toFixed(2)}</div>
+            <div className="flex-col justify-items-center">
+              <div>Unit Cost</div>
+              <div>${ingredient.unitCost.toFixed(2)}</div>
+            </div>
             {/* reorderqty should be an input field or a +/- */}
-            <div>reorder qty</div>
-            {/* update this to be unit cost * reorder qty from input box above */}
-            <div>${(ingredient.unitCost * ingredient.quantity).toFixed(2)}</div>
+            <div className="flex-col justify-items-center">
+                <div>reorder qty</div>
+                <div>input box</div>
+            </div>
+            <div className="flex-col justify-items-center">
+              <div>total cost</div>
+              <div>${(ingredient.unitCost * ingredient.quantity).toFixed(2)}</div>
+            </div>
             {/* hitting shopping cart icon should send the order to the distributor api */}
             <ShoppingCartIcon></ShoppingCartIcon>
           </AccordionContent>
