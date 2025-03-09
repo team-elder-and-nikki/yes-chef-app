@@ -37,18 +37,24 @@ export function MobileInventoryCard() {
   }, []);
 
   return (
-    <Accordion type="single" collapsible className="w-full m-4">
+    <Accordion type="single" collapsible className="w-full">
       {ingredients.map((ingredient) => (
         <AccordionItem key={ingredient._id} value={ingredient._id}>
-          <AccordionTrigger className="flex justify-around items-center col-end-3">
-            <div>{ingredient.name}</div>
-            <Badge>{ingredient.quantity}</Badge>
+          <AccordionTrigger className="grid grid-cols-5 items-center text-center w-full">
+            <div className="text-center">{ingredient.name}</div>
+            <div className="flex justify-center">
+              <Badge className="flex items-center justify-center">
+                {ingredient.quantity}
+              </Badge>
+            </div>
+            <div>last ordered date</div>
             <div>${ingredient.unitCost.toFixed(2)}</div>
           </AccordionTrigger>
-          <AccordionContent className="flex justify-around items-center">
+          <AccordionContent className="flex flex-row justify-around items-center">
+            <div>${ingredient.unitCost.toFixed(2)}</div>
             {/* reorderqty should be an input field or a +/- */}
             <div>reorder qty</div>
-           {/* update this to be unit cost * reorder qty from input box above */}
+            {/* update this to be unit cost * reorder qty from input box above */}
             <div>${(ingredient.unitCost * ingredient.quantity).toFixed(2)}</div>
             {/* hitting shopping cart icon should send the order to the distributor api */}
             <ShoppingCartIcon></ShoppingCartIcon>
