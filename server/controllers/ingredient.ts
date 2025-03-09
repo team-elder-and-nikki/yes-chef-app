@@ -1,6 +1,7 @@
 import express from 'express';
 import {MongoClient, Collection} from "mongodb";
 
+
 const router = express.Router();
 
 interface IIngredient extends Document {
@@ -27,6 +28,8 @@ async function initIngredientFuncs(){
 
     router.get('/ingredients', async (req, res)=>{
         try{
+            //added to for CORS for front end API
+            res.set('Access-Control-Allow-Origin', 'http://localhost:5174');
             console.log('Starting fetching of ingredients');
     
             //Find collection and convert to array
