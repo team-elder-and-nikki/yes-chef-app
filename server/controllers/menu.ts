@@ -12,6 +12,7 @@ const router = express.Router();
 interface IMenu extends Document {
   _id: string;
   name: string;
+  category: string;
   ingredients: IMenuIngredient;
   quantity: number;
   price: number;
