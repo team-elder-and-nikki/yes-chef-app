@@ -1,16 +1,9 @@
 import express from "express";
 import { Collection } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
+import { IIngredient } from "../../client/src/models/Ingredient.ts";
 
 const router = express.Router();
-
-interface IIngredient extends Document {
-  _id: string;
-  name: string;
-  unitCost: number;
-  quantity: number;
-  thresholdLevel: number;
-}
 
 router.get("/ingredients", async (req, res) => {
   try {

@@ -1,13 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Document } from 'mongoose';
-
-export interface IIngredient extends Document {
-    _id: string;
-    name: string;
-    unitCost: number;
-    quantity: number;
-    thresholdLevel: number;
-}
+import { IIngredient } from '../../client/src/models/Ingredient';
 
 const IngredientSchema: Schema = new Schema({
     _id: {type: String, required: true},
