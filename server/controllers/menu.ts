@@ -40,8 +40,7 @@ async function initMenuFuncs(){
     
             res.status(200).json(ingredients);
             console.log('Ingredients were successfully fetched!');
-            client.close();
-        }catch(err){
+        } catch (err) {
             console.error('Failed to fetch ingredients: ', err);
             process.exit(1);
         }
