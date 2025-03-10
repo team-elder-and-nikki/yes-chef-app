@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { SERVER, DB_Connect } from '../config/config.ts';
 import ingredient from './controllers/ingredient.ts';
 
@@ -8,6 +9,8 @@ async function startServer() {
     try {
 		console.log('Starting Express Application');
 		const app = express();
+
+		app.use(cors());
 
 		app.use(express.urlencoded({ extended: true }));
 		app.use(express.json());

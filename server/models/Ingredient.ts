@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Document } from 'mongoose';
 
-export interface IIngredient extends Document {
+export interface Ingredient extends Document {
     _id: string;
     name: string;
     unitCost: number;
@@ -19,4 +19,4 @@ const IngredientSchema: Schema = new Schema({
     timestamps: true
 });
 
-export default model<IIngredient>('Ingredient', IngredientSchema);
+export default model<Ingredient>('Ingredient', IngredientSchema);

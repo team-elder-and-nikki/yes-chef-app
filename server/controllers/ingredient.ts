@@ -1,48 +1,53 @@
 import express from 'express';
-import {MongoClient, Collection} from "mongodb";
+import { MongoClient, Collection } from 'mongodb';
 
 const router = express.Router();
 
-interface IIngredient extends Document {
-    _id: string;
-    name: string;
-    unitCost: number;
-    quantity: number;
-    thresholdLevel: number;
+interface Ingredient extends Document {
+  _id: string;
+  name: string;
+  unitCost: number;
+  quantity: number;
+  thresholdLevel: number;
 }
 
-async function initIngredientFuncs(){
+// Keep the MongoClient instance persistent
+let client: MongoClient;
+let collection: Collection<Ingredient>;
 
-    // connect to DB
-    const client: MongoClient = await MongoClient.connect(process.env.MONGO_URI!, {
-        ssl: true, 
-        connectTimeoutMS: 30000,
-        socketTimeoutMS: 45000,
+async function initIngredientFuncs() {
+  try {
+    // Connect to MongoDB once when the server starts
+    client = await MongoClient.connect(process.env.MONGO_URI!, {
+      ssl: true,
+      connectTimeoutMS: 30000,
+      socketTimeoutMS: 45000,
     });
 
-    //init db by name
-    const db = client.db("Inventory");
-    //init collection by name
-    const collection:Collection<IIngredient> = db.collection("Ingredients");
-
-    router.get('/ingredients', async (req, res)=>{
-        try{
-            console.log('Starting fetching of ingredients');
-    
-            //Find collection and convert to array
-            const ingredients = await collection.find({}).toArray();
-    
-            res.status(200).json(ingredients);
-            console.log('Ingredients were successfully fetched!');
-            client.close();
-        }catch(err){
-            console.error('Failed to fetch ingredients: ', err);
-            process.exit(1);
-        }
-    });
-
+    // Init DB and collection
+    const db = client.db('Inventory');
+    collection = db.collection('Ingredients');
+    console.log('MongoDB Connected');
+  } catch (error) {
+    console.error('MongoDB connection failed:', error);
+    process.exit(1);
+  }
 }
 
-initIngredientFuncs()
+router.get('/ingredients', async (req, res) => {
+  try {
+    console.log('Starting fetching of ingredients');
+
+    const ingredients = await collection.find({}).toArray();
+
+    res.status(200).json(ingredients);
+    console.log('Ingredients were successfully fetched!');
+  } catch (err) {
+    console.error('Failed to fetch ingredients: ', err);
+    res.status(500).json({ error: 'Failed to fetch ingredients' });
+  }
+});
+
+initIngredientFuncs();
 
 export default router;
