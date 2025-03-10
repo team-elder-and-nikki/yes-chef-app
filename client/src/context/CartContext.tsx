@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Define the type for cart items
 type CartItem = {
-    id: number;
+    id: string;
     menuItem: string;
     amount: number;
     price: number;
