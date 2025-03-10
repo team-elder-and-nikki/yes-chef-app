@@ -2,37 +2,37 @@ import express from "express";
 import { Collection } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
 
-const router = express.Router();
-
-interface IIngredient extends Document {
-  _id: string;
-  name: string;
-  unitCost: number;
-  quantity: number;
-  thresholdLevel: number;
+interface IMenuIngredient {
+  ingredientName: string;
+  ingredientId: string;
 }
 
-router.get("/ingredients", async (req, res) => {
-  try {
-    //allows cors for front end api
-    res.set('Access-Control-Allow-Origin', 'http://localhost:5174');
+const router = express.Router();
 
+interface IMenu extends Document {
+  _id: string;
+  name: string;
+  ingredients: IMenuIngredient;
+  quantity: number;
+  price: number;
+  prepTime: number;
+  Image: string;
+}
+router.get("/menu", async (req, res) => {
+  try {
     // init db connection with MongoClient
     const client = await Client_Connect();
-
-    // init db by name
-    const db = client.db("Inventory");
+    //init db by name
+    const db = client.db("Point_of_sale_system");
     //init collection by name
-    const collection: Collection<IIngredient> = db.collection("Ingredients");
+    const collection: Collection<IMenu> = db.collection("Menu");
 
     console.log("Starting fetching of ingredients");
 
-    //Find collection and convert to array
     const ingredients = await collection.find({}).toArray();
 
     res.status(200).json(ingredients);
     console.log("Ingredients were successfully fetched!");
-    client.close();
   } catch (err) {
     console.error("Failed to fetch ingredients: ", err);
     process.exit(1);

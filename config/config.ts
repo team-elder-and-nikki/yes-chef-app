@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import { MongoClient } from "mongodb";
 
 const env = './config/.env';
 dotenv.config({ path: env });
@@ -23,5 +24,26 @@ export const DB_Connect = async () => {
     } catch (err) {
         console.error('Failed to connect to MongoDB:', err);
         process.exit(1); 
+    }
+};
+
+export const Client_Connect = async () => {
+    try{
+    // connect to DB
+    const client: MongoClient = await MongoClient.connect(
+        process.env.MONGO_URI!,
+        {
+          ssl: true,
+          connectTimeoutMS: 30000,
+          socketTimeoutMS: 45000,
+        }
+      );
+  
+    console.log("Client database connection was successful.");
+    return client;
+
+    }catch(err){
+        console.error('Failed to connect to Client:', err);
+        process.exit(1);
     }
 };

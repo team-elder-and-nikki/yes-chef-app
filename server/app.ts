@@ -1,6 +1,8 @@
 import express from 'express';
 import { SERVER, DB_Connect } from '../config/config.ts';
+import menu from './controllers/menu.ts'
 import ingredient from './controllers/ingredient.ts';
+import cors from 'cors';
 
 const PORT = SERVER.SERVER_PORT;
 async function startServer() {
@@ -8,6 +10,8 @@ async function startServer() {
     try {
 		console.log('Starting Express Application');
 		const app = express();
+		//CORS for front end API for ingredients
+		app.use(cors())
 
 		app.use(express.urlencoded({ extended: true }));
 		app.use(express.json());
@@ -17,6 +21,7 @@ async function startServer() {
 		await DB_Connect();
 
 		app.use('/', ingredient);
+		app.use('/', menu);
 
 		await app.listen(PORT, () => {
 			console.log(`The Server is running use ^c to chill server`);
