@@ -1,7 +1,7 @@
 import express from "express";
 import { Collection } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
-import { IIngredient } from "../../client/src/models/Ingredient.ts";
+import type { IIngredient } from "../../client/src/models/Ingredient.ts";
 
 const router = express.Router();
 

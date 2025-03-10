@@ -1,7 +1,7 @@
 import express from "express";
 import { Collection } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
-import {IMenu} from "../../client/src/models/Menu.ts";
+import type {IMenu} from "../../client/src/models/Menu.ts";
 
 const router = express.Router();
 
