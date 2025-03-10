@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { CartTable } from "../components/CartTable";
 import MenuCategoryNav from "../components/ui/MenuCategoryNav";
+
 import MenuCard from "@/components/MenuCard";
 import { useCart } from "../context/CartContext";
 import { useFetchMenu, MenuItem } from "../hooks/useFetchMenu"; // Import from the combined file
+
+import NavBar from "@/components/NavBar";
+
 
 export default function Menu() {
     const { menuItems, loading, error } = useFetchMenu();
@@ -25,7 +29,9 @@ export default function Menu() {
     };
 
     return (
+
         <div>
+            <NavBar />
             <MenuCategoryNav onCategoryChange={setSelectedCategory} />
             <div className="flex flex-wrap justify-center mt-4">
                 {filteredMenuItems.map((item) => (
@@ -44,3 +50,4 @@ export default function Menu() {
         </div>
     );
 }
+
