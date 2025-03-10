@@ -15,7 +15,7 @@ interface IIngredient extends Document {
 router.get("/ingredients", async (req, res) => {
   try {
     //allows cors for front end api
-    res.set('Access-Control-Allow-Origin', 'http://localhost:5174');
+    res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
 
     // init db connection with MongoClient
     const client = await Client_Connect();

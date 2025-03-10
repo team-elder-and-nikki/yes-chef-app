@@ -63,14 +63,14 @@ export default function InventoryTable(){
         <TableBody>
             {data.slice(startIndex, endIndex).map((ingredient)=>{
                 return <>
-                <TableRow>
-                <TableCell className="font-medium">{ingredient.name}</TableCell>
-                <TableCell>{ingredient.quantity}</TableCell>
-                <TableCell>{ingredient.thresholdLevel}</TableCell>
-                <TableCell>{ingredient.unitCost}</TableCell>
-                <TableCell>3/17/2025</TableCell>
-                <TableCell className="text-right">{ingredient.unitCost*ingredient.quantity}</TableCell>
-                </TableRow>
+                  <TableRow key={ingredient._id} value={ingredient._id}>
+                    <TableCell className="font-medium">{ingredient.name}</TableCell>
+                    <TableCell>{ingredient.quantity}</TableCell>
+                    <TableCell>{ingredient.thresholdLevel}</TableCell>
+                    <TableCell>{ingredient.unitCost}</TableCell>
+                    <TableCell>3/17/2025</TableCell>
+                    <TableCell className="text-right">{ingredient.unitCost*ingredient.quantity}</TableCell>
+                  </TableRow>
                 </>
             })}   
         </TableBody>
