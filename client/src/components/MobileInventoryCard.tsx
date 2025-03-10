@@ -37,7 +37,7 @@ export function MobileInventoryCard() {
   }, []);
 
   return (
-    <>
+    <div className="md:hidden">
       <div className="grid grid-cols-4 items-center text-center w-full">
         <div>Item</div>
         <div>In Stock</div>
@@ -77,6 +77,6 @@ export function MobileInventoryCard() {
           </AccordionItem>
         ))}
       </Accordion>
-    </>
+    </div>
   );
 }
