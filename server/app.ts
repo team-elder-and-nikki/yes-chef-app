@@ -1,5 +1,6 @@
 import express from 'express';
-import { SERVER, DB_Connect } from '../config/config.ts';
+import { SERVER } from '../config/config.ts';
+import menu from './controllers/menu.ts'
 import ingredient from './controllers/ingredient.ts';
 
 const PORT = SERVER.SERVER_PORT;
@@ -14,9 +15,9 @@ async function startServer() {
 	
 		// Database connection	
 		console.log('Connect to the database');
-		await DB_Connect();
 
 		app.use('/', ingredient);
+		app.use('/', menu);
 
 		await app.listen(PORT, () => {
 			console.log(`The Server is running use ^c to chill server`);
