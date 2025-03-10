@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 export function CartTable() {
     const { cart, clearCart } = useCart();
     const sendOrder = () => {
-        console.log("Order sent:");
+        console.log(`Order sent:${cart}`);
         alert("Order has been sent!");
     };
 
