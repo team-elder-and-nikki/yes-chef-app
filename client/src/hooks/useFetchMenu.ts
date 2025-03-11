@@ -8,6 +8,7 @@ export interface MenuItem {
     category: string;
     price: number;
     Image: string;
+    quantity: number;
 }
 
 // Data fetching function
