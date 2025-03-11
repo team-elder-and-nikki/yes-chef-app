@@ -1,7 +1,7 @@
 
 import { CartTable } from "../components/CartTable";
 import { MenuItem } from "../components/MenuItemTest";
-import MenuCategoryNav from "../components/ui/MenuCategoryNav";
+import MenuCategoryNav from "../components/ui/CategoryNav";
 import NavBar from "@/components/NavBar";
 
 export default function Menu() {
@@ -11,7 +11,7 @@ export default function Menu() {
             <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
                 <MenuItem />
                 <CartTable />
-                <MenuCategoryNav onCategoryChange={() => {}} />
+                <MenuCategoryNav onCategoryChange={() => {}} categories={["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"]}/>
             </div>
         </>
     )
