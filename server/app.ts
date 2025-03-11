@@ -1,5 +1,5 @@
 import express from 'express';
-import { SERVER, DB_Connect } from '../config/config.ts';
+import { SERVER } from '../config/config.ts';
 import menu from './controllers/menu.ts'
 import ingredient from './controllers/ingredient.ts';
 import cors from 'cors';
@@ -13,13 +13,15 @@ async function startServer() {
 
 	try {
 		console.log('Starting Express Application');
+		const app = express();
+		//CORS for front end API for ingredients
+		app.use(cors())
 
 		app.use(express.urlencoded({ extended: true }));
 		app.use(express.json());
 
 		// Database connection	
 		console.log('Connect to the database');
-		await DB_Connect();
 
 		app.use('/', ingredient);
 		app.use('/', menu);
