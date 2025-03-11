@@ -4,7 +4,8 @@ import MenuCategoryNav from "../components/ui/MenuCategoryNav";
 
 import MenuCard from "@/components/MenuCard";
 import { useCart } from "../context/CartContext";
-import { useFetchMenu, MenuItem } from "../hooks/useFetchMenu"; // Import from the combined file
+import { useFetchMenu } from "../hooks/useFetchMenu"; // Import from the combined file
+import { IMenu } from "@/models/Menu";
 
 import NavBar from "@/components/NavBar";
 
@@ -19,7 +20,7 @@ export default function Menu() {
     if (loading) return <p>Loading menu...</p>;
     if (error) return <p>Error: {error}</p>;
 
-    const handleAddToCart = (item: MenuItem) => {
+    const handleAddToCart = (item: IMenu) => {
 
         addToCart({
             id: item._id,
@@ -38,13 +39,13 @@ export default function Menu() {
             <NavBar />
             <MenuCategoryNav onCategoryChange={setSelectedCategory} />
             <div className="flex flex-wrap justify-center mt-4">
-                {filteredMenuItems.map((item) => (
+                {filteredMenuItems.map((item: IMenu) => (
                     <MenuCard
                         key={item._id}
                         menuName={item.name}
                         menuDescription={item.ingredients.map((i) => i.ingredientName).join(", ")}
                         menuPrice={`$${item.price.toFixed(2)}`}
-                        image={item.Image}
+                        image={item.image}
                         imageAlt={item.name}
                         onClickTrigger={() => handleAddToCart(item)}
                     />
