@@ -2,23 +2,18 @@ import express from "express";
 import { Collection } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
 
-const router = express.Router();
+import type { IIngredient } from "../../client/src/models/Ingredient.ts";
 
-interface IIngredient extends Document {
-  _id: string;
-  name: string;
-  unitCost: number;
-  quantity: number;
-  thresholdLevel: number;
-}
+const router = express.Router();
 
 router.get("/ingredients", async (req, res) => {
   try {
     //allows cors for front end api
     res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
-
+    
     // init db connection with MongoClient
     const client = await Client_Connect();
+
 
     // init db by name
     const db = client.db("Inventory");
