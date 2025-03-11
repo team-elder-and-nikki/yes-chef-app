@@ -1,29 +1,22 @@
 import express from "express";
-import { MongoClient, Collection } from "mongodb";
+import {Client_Connect} from "../../config/config.ts";
 
 const router = express.Router();
 
 router.post("/addToKitchen", async (req, res) => {
   try {
-    const client: MongoClient = await MongoClient.connect(
-      process.env.MONGO_URI!,
-      {
-        ssl: true,
-        connectTimeoutMS: 30000,
-        socketTimeoutMS: 45000,
-      }
-    );
-
+    //connect to the db
+    const client = await Client_Connect();
     //init db by name
     const db = client.db("Kitchen");
     //init collection by name
-    const collection: Collection = db.collection("Cart");
+    const collection = db.collection("Cart");
 
     console.log("Starting to add to cart");
 
-    console.log(req.body);
     //Find collection and convert to array
     const menuItem = await collection.insertOne({
+      cartAmt: req.body.cartAmt,
       name: req.body.name,
       ingredients: req.body.ingredients,
       category: req.body.category,
