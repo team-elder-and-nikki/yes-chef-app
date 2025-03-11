@@ -40,12 +40,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         });
     };
 
-
-    // ! remove items:
     const removeFromCart = (id: string) => {
         setCart((prevCart) => prevCart.filter((item) => item.id !== id)); // Remove item by id
     };
-
 
     const clearCart = () => {
         setCart([]);
