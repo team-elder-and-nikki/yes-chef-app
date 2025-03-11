@@ -4,8 +4,10 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 type CartItem = {
     id: string;
     menuItem: string;
-    amount: number;
+    cartAmount: number;
     price: number;
+    ingredients: { ingredientName: string; ingredientId: string }[];
+    quantity: number;
 };
 
 // Define the type for the context
@@ -28,11 +30,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             if (existingItem) {
                 return prevCart.map((cartItem) =>
                     cartItem.id === item.id
-                        ? { ...cartItem, amount: cartItem.amount + 1 }
+                        ? { ...cartItem, cartAmount: cartItem.cartAmount + 1 }
                         : cartItem
                 );
             } else {
-                return [...prevCart, { ...item, amount: 1 }];
+                return [...prevCart, { ...item, cartAmount: 1 }];
             }
         });
     };
@@ -40,7 +42,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const clearCart = () => {
         setCart([]);
     };
-
     return (
         <CartContext.Provider value={{ cart, addToCart, clearCart }}>
             {children}
