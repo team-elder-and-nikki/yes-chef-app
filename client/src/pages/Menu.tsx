@@ -20,11 +20,15 @@ export default function Menu() {
     if (error) return <p>Error: {error}</p>;
 
     const handleAddToCart = (item: MenuItem) => {
+
         addToCart({
             id: item._id,
             menuItem: item.name,
-            amount: 1,
-            price: item.price
+            cartAmount: 1,
+            price: item.price,
+            ingredients: item.ingredients,
+            quantity: item.quantity,
+
         });
     };
 
