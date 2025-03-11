@@ -30,3 +30,24 @@ export const Client_Connect = async () => {
         process.exit(1);
     }
 };
+
+export const Client_Connect = async () => {
+    try{
+    // connect to DB
+    const client: MongoClient = await MongoClient.connect(
+        process.env.MONGO_URI!,
+        {
+          ssl: true,
+          connectTimeoutMS: 30000,
+          socketTimeoutMS: 45000,
+        }
+      );
+  
+    console.log("Client database connection was successful.");
+    return client;
+
+    }catch(err){
+        console.error('Failed to connect to Client:', err);
+        process.exit(1);
+    }
+};

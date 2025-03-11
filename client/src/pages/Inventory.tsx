@@ -1,12 +1,17 @@
+
+import InventoryTable from "../components/InventoryTable";
 import NavBar from "@/components/NavBar"
+
 
 export default function Inventory(){
     return(
         <>
-            <NavBar />
+         <NavBar />
             <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
                 <h1>Inventory</h1>
-            </div>
+                < InventoryTable />
+           </div>
+            
         </>
     )
 }
