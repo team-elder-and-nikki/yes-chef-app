@@ -1,23 +1,10 @@
 import express from "express";
 import { Collection } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
-
-interface IMenuIngredient {
-  ingredientName: string;
-  ingredientId: string;
-}
+import type {IMenu} from "../../client/src/models/Menu.ts";
 
 const router = express.Router();
 
-interface IMenu extends Document {
-  _id: string;
-  name: string;
-  ingredients: IMenuIngredient;
-  quantity: number;
-  price: number;
-  prepTime: number;
-  Image: string;
-}
 router.get("/menu", async (req, res) => {
   try {
     // init db connection with MongoClient
