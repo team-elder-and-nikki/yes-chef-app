@@ -1,19 +1,9 @@
 import { useState, useEffect } from "react";
-
-// Define the MenuItem interface
-export interface MenuItem {
-    _id: string;
-    name: string;
-    ingredients: { ingredientName: string; ingredientId: string }[];
-    category: string;
-    price: number;
-    Image: string;
-    quantity: number;
-}
+import { IMenu } from "@/models/Menu";
 
 // Data fetching function
-const fetchMenu = async (): Promise<MenuItem[]> => {
-    const response = await fetch("http://localhost:8000/menu");
+const fetchMenu = async (): Promise<IMenu[]> => {
+    const response = await fetch(`http://localhost:8000/menu`);
     if (!response.ok) {
         throw new Error("Failed to fetch menu");
     }
@@ -22,7 +12,7 @@ const fetchMenu = async (): Promise<MenuItem[]> => {
 
 // Custom hook for fetching menu data
 export const useFetchMenu = () => {
-    const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+    const [menuItems, setMenuItems] = useState<IMenu[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
