@@ -11,15 +11,27 @@ import {
     TableCell,
 } from "@/components/ui/table";
 import { Button } from "./ui/button";
+import { v4 as uuidv4 } from 'uuid';
 
 export function CartTable() {
     const { cart, clearCart } = useCart();
     const sendOrder = () => {
-        console.log(`Order sent:${JSON.stringify(cart, null, 2)}`);
+        const orderId = uuidv4(); // Generate a unique ID
+        const timestamp = new Date().toISOString(); // Get the current timestamp
+
+        const orderDetails = {
+            orderId,
+            timestamp,
+            items: cart,
+        };
+
+        console.log(`Order sent: ${JSON.stringify(orderDetails, null, 2)}`);
         alert("Order has been sent!");
+        clearCart()
+        console.log(cart)
     };
 
-    const subTotal = cart.reduce((sum, item) => sum + item.amount * item.price, 0);
+    const subTotal = cart.reduce((sum, item) => sum + item.cartAmount * item.price, 0);
     const tax = subTotal * 0.06;
     const total = subTotal + tax;
 
@@ -37,10 +49,10 @@ export function CartTable() {
                 <TableBody>
                     {cart.map((item) => (
                         <TableRow key={item.id}>
-                            <TableCell>{item.amount}</TableCell>
+                            <TableCell>{item.cartAmount}</TableCell>
                             <TableCell>{item.menuItem}</TableCell>
                             <TableCell>${item.price.toFixed(2)}</TableCell>
-                            <TableCell className="text-right">${(item.price * item.amount).toFixed(2)}</TableCell>
+                            <TableCell className="text-right">${(item.price * item.cartAmount).toFixed(2)}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
