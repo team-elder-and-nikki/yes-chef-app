@@ -1,80 +1,40 @@
 import express from "express";
-import { MongoClient, Collection } from "mongodb";
+import { Collection } from "mongodb";
+import { Client_Connect } from "../../config/config.ts";
+import type { IIngredient } from "../../client/src/models/Ingredient.ts";
+import type { IMenu, IMenuIngredient } from "../../client/src/models/Menu.ts";
 
 const router = express.Router();
 
-interface IIngredient extends Document {
-  _id: string;
-  name: string;
-  unitCost: number;
-  quantity: number;
-  thresholdLevel: number;
-}
+router.get("/ingredients", async (req, res) => {
+  try {
+    // init db connection with MongoClient
+    const client = await Client_Connect();
 
-export interface IMenuIngredient {
-  ingredientName: string;
-  ingredientId: string;
-}
+    // init db by name
+    const db = client.db("Inventory");
+    //init collection by name
+    const collection: Collection<IIngredient> = db.collection("Ingredients");
 
-export interface IMenu extends Document {
-  _id: string;
-  name: string;
-  category: string;
-  ingredients: IMenuIngredient[];
-  quantity: number;
-  price: number;
-  prepTime: number;
-  Image: string;
-  cartAmt?: number;
-}
+    console.log("Starting fetching of ingredients");
 
-async function initIngredientFuncs() {
-  // connect to DB
-  const client: MongoClient = await MongoClient.connect(
-    process.env.MONGO_URI!,
-    {
-      ssl: true,
-      connectTimeoutMS: 30000,
-      socketTimeoutMS: 45000,
-    }
-  );
+    //Find collection and convert to array
+    const ingredients = await collection.find({}).toArray();
 
-  //init db by name
-  const db = client.db("Inventory");
-  //init collection by name
-  const collection: Collection<IIngredient> = db.collection("Ingredients");
-
-  router.get("/ingredients", async (req, res) => {
-    try {
-      console.log("Starting fetching of ingredients");
-
-      //Find collection and convert to array
-      const ingredients = await collection.find({}).toArray();
-
-      res.status(200).json(ingredients);
-      console.log("Ingredients were successfully fetched!");
-      client.close();
-    } catch (err) {
-      console.error("Failed to fetch ingredients: ", err);
-      process.exit(1);
-    }
-  });
-}
-
-initIngredientFuncs();
+    res.status(200).json(ingredients);
+    console.log("Ingredients were successfully fetched!");
+    client.close();
+  } catch (err) {
+    console.error("Failed to fetch ingredients: ", err);
+    process.exit(1);
+  }
+});
 
 router.put("/updateIngredientQuantity", async (req, res) => {
   try {
     if (req.body.status === "completed") {
-      // connect to DB
-      const client: MongoClient = await MongoClient.connect(
-        process.env.MONGO_URI!,
-        {
-          ssl: true,
-          connectTimeoutMS: 30000,
-          socketTimeoutMS: 45000,
-        }
-      );
+      // init db connection with MongoClient
+      const client = await Client_Connect();
 
       //init db by name
       const db = client.db("Inventory");
