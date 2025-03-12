@@ -1,7 +1,7 @@
 export interface IMenuIngredient {
     ingredientName: string;
     ingredientId: string;
-}  
+}
 
 export interface IMenu extends Document {
     _id: string;
@@ -13,4 +13,5 @@ export interface IMenu extends Document {
     prepTime: number;
     Image: string;
     cartAmt?: number;
-  }
+    image: string;
+}
