@@ -4,4 +4,5 @@ export interface IIngredient extends Document {
     unitCost: number;
     quantity: number;
     thresholdLevel: number;
+    lastOrderDate: Date;
 }

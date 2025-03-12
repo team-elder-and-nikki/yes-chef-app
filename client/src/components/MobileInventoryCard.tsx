@@ -14,6 +14,7 @@ interface Ingredient {
   unitCost: number;
   quantity: number;
   thresholdLevel: number;
+  lastOrderDate: Date;
 }
 
 export function MobileInventoryCard() {
@@ -53,8 +54,8 @@ export function MobileInventoryCard() {
                   {ingredient.quantity}
                 </Badge>
               </div>
-              <div>last order date</div>
-            </AccordionTrigger>
+              <div>{new Date(ingredient.lastOrderDate).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" })}</div>
+              </AccordionTrigger>
             <AccordionContent className="flex flex-row justify-around items-center">
               <div className="flex-col justify-items-center">
                 <div>Unit Cost</div>
