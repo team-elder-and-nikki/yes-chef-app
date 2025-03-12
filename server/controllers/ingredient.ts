@@ -1,5 +1,5 @@
 import express from "express";
-import { Collection } from "mongodb";
+import { Collection, ObjectId } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
 import type { IIngredient } from "../../client/src/models/Ingredient.ts";
 import axios from 'axios';
@@ -34,10 +34,18 @@ router.get("/ingredients", async (req, res) => {
   }
 });
 router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
-  const id=req.params.id
-  const updates= Number(req.body.quantity)
-
+  const id = new ObjectId(req.params.id)
+  const updates = Number(req.body.quantity)
+  console.log(!updates, typeof updates, req.body.quantity )
   try{
+  //guard clauses
+    if (!Number.isInteger(updates)) {
+      throw new Error("updates must be a number")
+    } else if (updates<0) {
+      throw new Error("quantity must be greater than 0")
+    }
+
+
   //allows cors for front end api
   res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
 
@@ -50,20 +58,23 @@ router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
    //init collection by name
    const collection: Collection<IIngredient> = db.collection("Ingredients");
 
-   console.log("Starting fetching of ingredients");
+   console.log("Starting updating ingredients");
 
    //Find collection and convert to array
    const result = await collection.updateOne(
-    {id: id},
-    {$set:updates}
+    {_id: id},
+    {$set:
+      {
+        quantity: updates
+      }
+    }
     );
     if (result.matchedCount === 1) {
       res.status(200).send({message:'ingredient updated'});
     } else {
       res.status(404).send('ingredient not found');
     }
-
-  console.log("result:",result,"collection:", collection,"updates:", updates)
+    console.log(id, typeof id)
   }catch (err) {
     console.error("Failed update quantity of ingredient: ", err);
     process.exit(1);

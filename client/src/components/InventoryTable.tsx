@@ -20,7 +20,7 @@ import {
 
 
   import { useEffect, useState } from 'react'
-
+  import { IIngredient } from "../models/Ingredient"
   //Pulled from server/model/ingredient interface
   interface Ingredient{
     _id: string;
@@ -32,7 +32,7 @@ import {
 
 export default function InventoryTable(){
   const rowsPerPage = 15;
-  const [data, setData] = useState<Ingredient[]>([]);
+  const [data, setData] = useState<IIngredient[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
@@ -41,8 +41,8 @@ export default function InventoryTable(){
 
   const getData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/ingredients', {mode:'cors'});
-      const data = await response.json();
+      const response = await axios.get('http://localhost:8000/ingredients');
+      const data = await response.data;
       console.log({data});
       setData(data);
     } catch (error) {
@@ -54,19 +54,20 @@ export default function InventoryTable(){
         getData();
       }, [])
   
-    const handleInputChange = (id: string, value: string) => {
+  const handleInputChange = (id: string, value: string) => {
       setInputValues(prev => ({ ...prev, [id]: value }));
-    };
+      
+  };
 
-    const handleUpdate = async (id: string) => {
-      try {
+  const handleUpdate = async (id: string) => {
+    try {
         const quantity = inputValues[id];
         const response = await axios.patch(`http://localhost:8000/ingredients/updateQuantity/${id}`, { quantity });
         console.log(response);
         getData();
-      } catch (error) {
+     }catch (error) {
       console.error('Error updating data:', error);
-      }
+     }
     } ;
   return(
       <>  
@@ -76,6 +77,7 @@ export default function InventoryTable(){
             <TableRow>
             <TableHead className="w-[100px]">Ingredient</TableHead>
             <TableHead>Quantity</TableHead>
+            <TableHead>Update Stock</TableHead>
             <TableHead>Threshold</TableHead>
             <TableHead>Unit Cost</TableHead>
             <TableHead>Next order</TableHead>
@@ -87,9 +89,12 @@ export default function InventoryTable(){
                 return <>
                   <TableRow key={ingredient._id} value={ingredient._id}>
                     <TableCell className="font-medium">{ingredient.name}</TableCell>
-                      <TableCell className=" flex align-items align-center">
-                        {ingredient.quantity}
+                      <TableCell>
+                        {ingredient.quantity==0 ?  "Out of Stock" : ingredient.quantity}
+                      </TableCell>
+                        <TableCell className=" flex align-items align-center">
                         <Input 
+                          key={ingredient._id}
                           value={inputValues[ingredient._id]}
                           onChange={(e) => handleInputChange(ingredient._id, e.target.value)}
                         />
@@ -98,10 +103,11 @@ export default function InventoryTable(){
                           Update
                         </Button>
                         </TableCell>
+                        
                     <TableCell>{ingredient.thresholdLevel}</TableCell>
                     <TableCell>{ingredient.unitCost}</TableCell>
                     <TableCell>3/17/2025</TableCell>
-                    <TableCell className="text-right">{ingredient.unitCost*ingredient.quantity}</TableCell>
+                    <TableCell className="text-right">{Math.round(ingredient.unitCost*ingredient.quantity *100)/100}</TableCell>
                   </TableRow>
                 </>
             })}   
@@ -136,17 +142,3 @@ export default function InventoryTable(){
     )
 }
 
-// function handleUpdate(){
-//   try {
-//     let data ={
-//       quantity: quantityI
-//     }
-//     axios
-//     .patch(`http://localhost:8000/ingredients/updateQuantity/${id}`, data)
-//     .then(response=>{
-//       console.log(response)
-//     })
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// }
