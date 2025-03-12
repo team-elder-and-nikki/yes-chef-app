@@ -1,4 +1,6 @@
+
 import axios from 'axios';
+
 import {
     Table,
     TableBody,
@@ -15,12 +17,14 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
+
   import { Button } from "@/components/ui/button"
   import { Input } from "@/components/ui/input"
 
 
   import { useEffect, useState } from 'react'
   import { IIngredient } from "../models/Ingredient"
+
   //Pulled from server/model/ingredient interface
   interface Ingredient{
     _id: string;
@@ -36,6 +40,7 @@ export default function InventoryTable(){
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
+
 
 
 
@@ -69,6 +74,7 @@ export default function InventoryTable(){
       console.error('Error updating data:', error);
      }
     } ;
+
   return(
       <>  
         <Table>
@@ -141,4 +147,5 @@ export default function InventoryTable(){
     </>
     )
 }
+
 
