@@ -35,10 +35,11 @@ export default function Menu() {
 
     return (
 
-        <div>
+        <div className="">
+            <div>YES CHEF</div>
             <NavBar />
             <MenuCategoryNav onCategoryChange={setSelectedCategory} />
-            <div className="flex flex-wrap justify-center mt-4">
+            <div className=" menu flex flex-wrap justify-center mt-4 md:ml-21">
                 {filteredMenuItems.map((item: IMenu) => (
                     <MenuCard
                         key={item._id}

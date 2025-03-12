@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "./ui/button";
 import { v4 as uuidv4 } from 'uuid';
+import { CircleX } from 'lucide-react';
 
 export function CartTable() {
     const { cart, clearCart, removeFromCart } = useCart();
@@ -37,32 +38,31 @@ export function CartTable() {
 
     return (
         <div className="space-y-4">
-            <Table>
+            <Table className="">
                 <TableHeader>
                     <TableRow>
+                        <TableHead>Actions</TableHead>
                         <TableHead>Amount</TableHead>
                         <TableHead>Menu Item</TableHead>
                         <TableHead>Price</TableHead>
                         <TableHead className="text-right">Total</TableHead>
-                        <TableHead>Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {cart.map((item) => (
                         <TableRow key={item.id}>
+                            <TableCell>
+                                <CircleX
+                                    className="m-2"
+                                    onClick={() => removeFromCart(item.id)}
+                                >
+
+                                </CircleX>
+                            </TableCell>
                             <TableCell>{item.cartAmount}</TableCell>
                             <TableCell>{item.menuItem}</TableCell>
                             <TableCell>${item.price.toFixed(2)}</TableCell>
                             <TableCell className="text-right">${(item.price * item.cartAmount).toFixed(2)}</TableCell>
-                            <TableCell>
-                                <Button
-                                    variant="destructive"
-                                    size="sm"
-                                    onClick={() => removeFromCart(item.id)}
-                                >
-                                    Delete
-                                </Button>
-                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
