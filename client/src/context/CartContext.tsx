@@ -2,16 +2,19 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Define the type for cart items
 type CartItem = {
-    id: number;
+    id: string;
     menuItem: string;
-    amount: number;
+    cartAmount: number;
     price: number;
+    ingredients: { ingredientName: string; ingredientId: string }[];
+    quantity: number;
 };
 
 // Define the type for the context
 type CartContextType = {
     cart: CartItem[];
     addToCart: (item: CartItem) => void;
+    removeFromCart: (id: string) => void; // Add this
     clearCart: () => void;
 };
 
@@ -28,21 +31,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             if (existingItem) {
                 return prevCart.map((cartItem) =>
                     cartItem.id === item.id
-                        ? { ...cartItem, amount: cartItem.amount + 1 }
+                        ? { ...cartItem, cartAmount: cartItem.cartAmount + 1 }
                         : cartItem
                 );
             } else {
-                return [...prevCart, { ...item, amount: 1 }];
+                return [...prevCart, { ...item, cartAmount: 1 }];
             }
         });
+    };
+
+    const removeFromCart = (id: string) => {
+        setCart((prevCart) => prevCart.filter((item) => item.id !== id)); // Remove item by id
     };
 
     const clearCart = () => {
         setCart([]);
     };
-
     return (
-        <CartContext.Provider value={{ cart, addToCart, clearCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
             {children}
         </CartContext.Provider>
     );
