@@ -5,17 +5,18 @@ import { ITicket } from "../models/Ticket"
 
 
 export default function KitchenCard({ ticket }: { ticket: ITicket }) {
+
     return (
-        <Card className="w-max h-max py-0">
+        <Card className="size-max h-fit max-h-fit py-0">
             <CardHeader className="rounded-t-xl py-3 flex flex-row justify-between bg-amber-300">
                 <CardTitle className="w-max">{`#${ticket.ticket_number}`}</CardTitle>
                 <CardTitle className="w-max">{`${ticket.ordered_at.getHours()}:${ticket.ordered_at.getMinutes()}`}</CardTitle>
             </CardHeader>
-            <CardContent className="px-1">
+            <CardContent className="px-2">
                 <Table>
                     <TableHeader>
                         <TableHead>QTY</TableHead>
-                        <TableHead>Menu Item</TableHead>
+                        <TableHead className="text-right">Menu Item</TableHead>
                     </TableHeader>
                     <TableBody>
                         {ticket.menu_items.map((item) => (
