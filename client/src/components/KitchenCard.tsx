@@ -6,10 +6,15 @@ import { useEffect, useState } from "react"
 
 
 export default function KitchenCard({ ticket }: { ticket: ITicket }) {
-    const headerFooterColorOptions = {
+    const ticketStatusColors = {
         "Unstarted": "bg-red-300",
         "In Progress": "bg-yellow-300",
         "Completed": "bg-green-300"
+    }
+    const headerFooterColorOptions = {
+        "Unstarted": ticketStatusColors["Unstarted"],
+        "In Progress": ticketStatusColors["In Progress"],
+        "Completed": ticketStatusColors["Completed"]
     }
     const [headerFooterColor, setHeaderFooterColor] = useState(headerFooterColorOptions[ticket.status])
     useEffect(() => {
@@ -28,6 +33,34 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                 break;
         }
     }, [ticket.status])
+
+    const buttonTextOptions = {
+        "Unstarted": `Mark 'In Progress'`,
+        "In Progress": `Mark 'Completed'`,
+        "Completed": `Completed`
+    }
+    const buttonColorOptions = {
+        "Unstarted": ticketStatusColors["In Progress"],
+        "In Progress": ticketStatusColors["Completed"],
+        "Completed": "bg-green-300"
+    }
+    const buttonText = buttonTextOptions[ticket.status]
+    const buttonColor = buttonColorOptions[ticket.status]
+
+    const handleStatusChange = () => {
+        switch (ticket.status) {
+            case "Unstarted":
+                // placeholder to update ticket status
+                console.log(`changining status of ticket ${ticket.ticket_number} to 'In Progress'`)
+                break;
+            case "In Progress":
+                // placeholder to update ticket status
+                console.log(`changining status of ticket ${ticket.ticket_number} to 'Completed'`)
+                break;
+            default:
+                break;
+        }
+    };
 
     return (
         <Card className="size-max h-fit max-h-fit py-0">
@@ -52,7 +85,7 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                         ))}
                     </TableBody>
                 </Table>
-                <Button> Change Status</Button>
+                {ticket.status !== "Completed" && <Button className={buttonColor} onClick={() => handleStatusChange()}>{buttonText}</Button>}
             </CardContent>
             <CardFooter className={"rounded-b-xl py-3 justify-center " + headerFooterColor}>
                 <CardTitle className="text-center">{ticket.status}</CardTitle>
