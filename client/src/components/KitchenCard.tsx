@@ -38,8 +38,10 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
             <CardContent className="px-2">
                 <Table>
                     <TableHeader>
-                        <TableHead>QTY</TableHead>
-                        <TableHead className="text-right">Menu Item</TableHead>
+                        <TableRow>
+                            <TableHead>QTY</TableHead>
+                            <TableHead className="text-right">Menu Item</TableHead>
+                        </TableRow>
                     </TableHeader>
                     <TableBody>
                         {ticket.menu_items.map((item) => (
