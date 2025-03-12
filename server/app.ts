@@ -2,6 +2,7 @@ import express from 'express';
 import { SERVER } from '../config/config.ts';
 import menu from './controllers/menu.ts'
 import ingredient from './controllers/ingredient.ts';
+import kitchen from './controllers/kitchen.ts';
 import cors from 'cors';
 
 const app = express();
@@ -25,8 +26,7 @@ async function startServer() {
 		// Database connection	
 		console.log('Connect to the database');
 
-		app.use('/', ingredient);
-		app.use('/', menu);
+		app.use('/', ingredient, kitchen, menu);
 
 		await app.listen(PORT, () => {
 			console.log(`The Server is running use ^c to chill server`);
