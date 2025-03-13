@@ -52,11 +52,11 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
         switch (ticket.status) {
             case "Unstarted":
                 // placeholder to update ticket status
-                console.log(`changining status of ticket ${ticket.ticket_number} to 'In Progress'`)
+                console.log(`changing status of ticket ${ticket.ticket_number} to 'In Progress'`)
                 break;
             case "In Progress":
                 // placeholder to update ticket status
-                console.log(`changining status of ticket ${ticket.ticket_number} to 'Completed'`)
+                console.log(`changing status of ticket ${ticket.ticket_number} to 'Completed'`)
                 break;
             default:
                 break;
