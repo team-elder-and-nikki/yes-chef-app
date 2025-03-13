@@ -67,12 +67,9 @@ router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
       }
     }
     );
-    if (result.matchedCount === 1) {
+  if (result.matchedCount === 1) {
       res.status(200).send({message:'ingredient updated'});
-    } else {
-      res.status(404).send('ingredient not found');
-    }
-    console.log(id, typeof id)
+    } 
   }catch (err) {
     console.error("Failed update quantity of ingredient: ", err);
     process.exit(1);
