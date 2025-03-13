@@ -1,6 +1,7 @@
 import express from "express";
 import { Collection, ObjectId } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
+
 import type { IIngredient } from "../../client/src/models/Ingredient.ts";
 
 
@@ -13,6 +14,7 @@ router.get("/ingredients", async (req, res) => {
 
     // init db connection with MongoClient
     const client = await Client_Connect();
+
 
     // init db by name
     const db = client.db("Inventory");
