@@ -1,4 +1,5 @@
 
+
 import { MobileInventoryCard } from "@/components/MobileInventoryCard";
 import InventoryTable from "../components/InventoryTable";
 import NavBar from "@/components/NavBar"

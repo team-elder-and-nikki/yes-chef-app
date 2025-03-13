@@ -18,8 +18,6 @@ async function startServer() {
 		//CORS for front end API for ingredients
 		app.use(cors())
 
-		app.use(cors());
-
 		app.use(express.urlencoded({ extended: true }));
 		app.use(express.json());
 
