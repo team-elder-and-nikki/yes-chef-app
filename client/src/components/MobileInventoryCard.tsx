@@ -5,6 +5,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
 import { Badge } from "@/components/ui/badge";
 import { ShoppingCartIcon } from "lucide-react";
 
@@ -14,10 +22,14 @@ interface Ingredient {
   unitCost: number;
   quantity: number;
   thresholdLevel: number;
+  lastOrderDate: Date;
 }
 
 export function MobileInventoryCard() {
+  const rowsPerPage = 6;
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(rowsPerPage);
 
   function fetchIngredients() {
     fetch("http://localhost:8000/ingredients")
@@ -44,7 +56,8 @@ export function MobileInventoryCard() {
         <div>Last Order</div>
       </div>
       <Accordion type="single" collapsible className="w-full">
-        {ingredients.map((ingredient) => (
+        {ingredients.slice(startIndex, endIndex).map((ingredient) => (
+          console.log({endIndex}),
           <AccordionItem key={ingredient._id} value={ingredient._id}>
             <AccordionTrigger className="grid grid-cols-4 items-center text-center w-full">
               <div className="text-center">{ingredient.name}</div>
@@ -53,8 +66,8 @@ export function MobileInventoryCard() {
                   {ingredient.quantity}
                 </Badge>
               </div>
-              <div>last order date</div>
-            </AccordionTrigger>
+              <div>{new Date(ingredient.lastOrderDate).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" })}</div>
+              </AccordionTrigger>
             <AccordionContent className="flex flex-row justify-around items-center">
               <div className="flex-col justify-items-center">
                 <div>Unit Cost</div>
@@ -77,6 +90,31 @@ export function MobileInventoryCard() {
           </AccordionItem>
         ))}
       </Accordion>
+        <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              className={
+                startIndex === 0 ? "pointer-events-none opacity-50" : undefined
+              }
+              onClick={() => {
+                setStartIndex(startIndex - rowsPerPage);
+                setEndIndex(endIndex - rowsPerPage);
+              }} />
+          </PaginationItem>
+
+          <PaginationItem>
+            <PaginationNext
+              className={
+                endIndex === 100 ? "pointer-events-none opacity-50" : undefined
+              }
+              onClick={() => {
+                setStartIndex(startIndex + rowsPerPage); 
+                setEndIndex(endIndex + rowsPerPage); 
+              }} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 }
