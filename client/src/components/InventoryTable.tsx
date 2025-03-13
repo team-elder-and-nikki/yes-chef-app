@@ -17,8 +17,6 @@ import {
   } from "@/components/ui/pagination"
   import { Button } from "@/components/ui/button"
   import { Input } from "@/components/ui/input"
-
-
   import { useEffect, useState } from 'react'
   import { IIngredient } from "../models/Ingredient"
   //Pulled from server/model/ingredient interface
@@ -86,15 +84,14 @@ export default function InventoryTable(){
         </TableHeader>
         <TableBody>
             {data.slice(startIndex, endIndex).map((ingredient)=>{
-                return <>
+                return(
                   <TableRow key={ingredient._id} value={ingredient._id}>
                     <TableCell className="font-medium">{ingredient.name}</TableCell>
                       <TableCell>
-                        {ingredient.quantity==0 ?  "Out of Stock" : ingredient.quantity}
+                        {ingredient.quantity ? ingredient.quantity:"Out of Stock" }
                       </TableCell>
                         <TableCell className=" flex align-items align-center">
                         <Input 
-                          key={ingredient._id}
                           value={inputValues[ingredient._id]}
                           onChange={(e) => handleInputChange(ingredient._id, e.target.value)}
                         />
@@ -109,7 +106,7 @@ export default function InventoryTable(){
                     <TableCell>3/17/2025</TableCell>
                     <TableCell className="text-right">{Math.round(ingredient.unitCost*ingredient.quantity *100)/100}</TableCell>
                   </TableRow>
-                </>
+                )
             })}   
         </TableBody>
         </Table>

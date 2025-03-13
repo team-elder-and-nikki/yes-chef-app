@@ -2,7 +2,6 @@ import express from "express";
 import { Collection, ObjectId } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
 import type { IIngredient } from "../../client/src/models/Ingredient.ts";
-import axios from 'axios';
 
 
 const router = express.Router();
@@ -33,11 +32,11 @@ router.get("/ingredients", async (req, res) => {
     process.exit(1);
   }
 });
+  //manual update of ingredient quantity on ingredients
 router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
-  const id = new ObjectId(req.params.id)
-  const updates = Number(req.body.quantity)
-  console.log(!updates, typeof updates, req.body.quantity )
   try{
+    const id = new ObjectId(req.params.id)
+    const updates = Math.ceil(req.body.quantity)
   //guard clauses
     if (!Number.isInteger(updates)) {
       throw new Error("updates must be a number")
@@ -45,11 +44,8 @@ router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
       throw new Error("quantity must be greater than 0")
     }
 
-
   //allows cors for front end api
   res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
-
-  //manual update of ingredient quantity
    // init db connection with MongoClient
    const client = await Client_Connect();
 
