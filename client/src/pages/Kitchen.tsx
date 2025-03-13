@@ -1,8 +1,11 @@
 import NavBar from "@/components/NavBar";
-import KitchenToggle from "@/components/KitchenToggle";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {Stars, AlertCircle} from "lucide-react";
+import {
+  Stars,
+  AlertCircle,
+  NotepadTextIcon,
+  NotepadTextDashed,
+} from "lucide-react";
+import KitchenMenuToggle from "@/components/KitchenMenuToggle";
 
 export default function Kitchen() {
   return (
@@ -14,21 +17,16 @@ export default function Kitchen() {
         <h1>Kitchen</h1>
 
         <section className="flex items-start justify-between">
-        <KitchenToggle />
+          <KitchenMenuToggle text={"Open Tickets"} icon={<NotepadTextIcon />} />
 
-        <Card className="w-1/4 p-2">
-          <CardContent className="justify-between flex items-center">
-            <h2>Predictions</h2>
-            <Button className="text-center"><Stars/></Button>
-          </CardContent>
-        </Card>
+          <KitchenMenuToggle
+            text={"Closed Tickets"}
+            icon={<NotepadTextDashed />}
+          />
 
-        <Card className="w-1/4 p-2">
-          <CardContent className="justify-between flex items-center">
-            <h2>Ingredients Alerts?</h2>
-            <Button className="text-center"><AlertCircle/></Button>
-          </CardContent>
-        </Card>
+          <KitchenMenuToggle text={"Predictions"} icon={<Stars />} />
+
+          <KitchenMenuToggle text={"Alerts"} icon={<AlertCircle />} />
         </section>
       </div>
     </>
