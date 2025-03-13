@@ -1,8 +1,9 @@
 import { Card, CardHeader, CardFooter, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "./ui/button"
-import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell, TableCaption } from "@/components/ui/table"
-import { ITicket } from "../models/Ticket"
-import { useEffect, useState } from "react"
+import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from "@/components/ui/table"
+import { ITicket } from "@/models/Ticket"
+import { IMenu } from "@/models/Menu"
+import { useEffect, useState, Fragment } from "react"
 
 
 export default function KitchenCard({ ticket }: { ticket: ITicket }) {
@@ -62,6 +63,21 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
         }
     };
 
+    // get categories of items
+    let menuItemCategories: string[] = []
+    for (let item of ticket.menu_items) {
+        if (!menuItemCategories.includes(item.category)) {
+            menuItemCategories.push(item.category)
+        }
+    }
+    menuItemCategories = menuItemCategories.sort()
+
+    // sort menu items by categories
+    let sortedMenuItems: { [key: string]: IMenu[] } = {}
+    for (let category of menuItemCategories) {
+        sortedMenuItems[category] = ticket.menu_items.filter((item) => item.category === category)
+    }
+
     return (
         <Card className="size-max h-fit max-h-fit py-0">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
@@ -77,12 +93,23 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {ticket.menu_items.map((item) => (
-                            <TableRow key={item._id}>
-                                <TableCell>{item.quantity}</TableCell>
-                                <TableCell className="text-right">{item.name}</TableCell>
-                            </TableRow>
-                        ))}
+                        {
+                            Object.keys(sortedMenuItems).map((category) => {
+                                return (
+                                    <Fragment key={category}>
+                                        <TableRow>
+                                            <TableCell colSpan={2} className="font-bold bg-gray-200 py-0">{category}</TableCell>
+                                        </TableRow>
+                                        {sortedMenuItems[category].map((item: any) => (
+                                            <TableRow key={item._id}>
+                                                <TableCell>{item.quantity}</TableCell>
+                                                <TableCell className="text-right">{item.name}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </Fragment>
+                                )
+                            })
+                        }
                     </TableBody>
                 </Table>
                 {ticket.status !== "Completed" && <Button className={buttonColor} onClick={() => handleStatusChange()}>{buttonText}</Button>}
