@@ -94,7 +94,7 @@ export default function Kitchen() {
                 prepTime: 10,
                 Image: "fries.jpg",
                 category: "Side",
-            }
+            },
         ],
         status: "Unstarted",
     }
@@ -110,9 +110,11 @@ export default function Kitchen() {
         <>
             <NavBar />
             <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
-                {multipleDummyTickets.map((ticket) => (
-                    <KitchenCard key={ticket._id} ticket={ticket} />
-                ))}
+                <div className="flex flex-row gap-4">
+                    {multipleDummyTickets.map((ticket) => (
+                        <KitchenCard key={ticket._id} ticket={ticket} />
+                    ))}
+                </div>
             </div>
         </>
     )
