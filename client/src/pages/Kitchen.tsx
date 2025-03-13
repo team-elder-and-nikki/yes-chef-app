@@ -6,8 +6,18 @@ import {
   NotepadTextDashed,
 } from "lucide-react";
 import KitchenMenuToggle from "@/components/KitchenMenuToggle";
+import { useState } from "react";
 
 export default function Kitchen() {
+  const [toggleView, setToggleView] = useState("Open Tickets");
+
+  const menuToggles = [
+    { text: "Open Tickets", icon: <NotepadTextIcon /> },
+    { text: "Closed Tickets", icon: <NotepadTextDashed /> },
+    { text: "Predictions", icon: <Stars /> },
+    { text: "Alerts", icon: <AlertCircle /> },
+  ];
+
   return (
     <>
       <NavBar />
@@ -17,16 +27,14 @@ export default function Kitchen() {
         <h1>Kitchen</h1>
 
         <section className="flex items-start justify-between">
-          <KitchenMenuToggle text={"Open Tickets"} icon={<NotepadTextIcon />} />
-
-          <KitchenMenuToggle
-            text={"Closed Tickets"}
-            icon={<NotepadTextDashed />}
-          />
-
-          <KitchenMenuToggle text={"Predictions"} icon={<Stars />} />
-
-          <KitchenMenuToggle text={"Alerts"} icon={<AlertCircle />} />
+          {menuToggles.map((menu) => (
+            <KitchenMenuToggle
+              key={menu.text}
+              onClick={(e) => setToggleView(e)}
+              text={menu.text}
+              icon={menu.icon}
+            />
+          ))}
         </section>
       </div>
     </>
