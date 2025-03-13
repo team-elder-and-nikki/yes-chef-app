@@ -100,6 +100,7 @@ export default function InventoryTable(){
                         <Input 
                           value={inputValues[ingredient._id]}
                           onChange={(e) => handleInputChange(ingredient._id, e.target.value)}
+                          min="0"
                         />
                         <Button 
                           onClick={() => handleUpdate(ingredient._id)}>
