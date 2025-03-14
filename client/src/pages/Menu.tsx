@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CartTable } from "../components/CartTable";
-import MenuCategoryNav from "../components/ui/MenuCategoryNav";
+import MenuCategoryNav from "../components/MenuCategoryNav";
 
 import MenuCard from "@/components/MenuCard";
 import { useCart } from "../context/CartContext";
