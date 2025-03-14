@@ -2,10 +2,10 @@ import NavBar from "@/components/NavBar"
 import KitchenCard from "@/components/KitchenCard";
 import { ITicket } from "../models/Ticket";
 
-function KitchenStatus({ orders }: { orders: IOrder[] }) {
+function KitchenStatus({ orders }: { orders: ITicket[] }) {
   const sortedDate = orders.sort((a, b) => {
-    const dateA = a.timestamp.split("T")[0];
-    const dateB = b.timestamp.split("T")[0];
+    const dateA = a.ordered_at;
+    const dateB = b.ordered_at;
     if (new Date(dateA) < new Date(dateB)) {
       return 1;
     } else {
@@ -13,10 +13,10 @@ function KitchenStatus({ orders }: { orders: IOrder[] }) {
     }
   });
 
-  return sortedDate.sort((a: IOrder, b: IOrder) => {
-    if (a.status === "started") {
+  return sortedDate.sort((a: ITicket, b: ITicket) => {
+    if (a.status === "In Progress") {
       return -1;
-    } else if (a.status == "unstarted") {
+    } else if (a.status == "Unstarted") {
       return 1;
     } else {
       return 0;
