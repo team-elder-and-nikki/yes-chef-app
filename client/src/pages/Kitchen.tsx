@@ -10,6 +10,28 @@ import {
 import KitchenMenuToggle from "@/components/KitchenMenuToggle";
 import { useState } from "react";
 
+function KitchenStatus({ orders }: { orders: ITicket[] }) {
+  const sortedDate = orders.sort((a, b) => {
+    const dateA = a.ordered_at;
+    const dateB = b.ordered_at;
+    if (new Date(dateA) < new Date(dateB)) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
+  return sortedDate.sort((a: ITicket, b: ITicket) => {
+    if (a.status === "In Progress") {
+      return -1;
+    } else if (a.status == "Unstarted") {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+}
+        
 export default function Kitchen() {
 
     const dummyTicketData: ITicket =
