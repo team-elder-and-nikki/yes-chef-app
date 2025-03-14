@@ -105,47 +105,77 @@ export default function Kitchen() {
     dummyTicketData,
   ];
 
-  function recommendItems({completedTickets}: {completedTickets: ITicket[]}) {
-    const menuOrderQuantity:{[key: string]: number} = {
-        BBQChicken: 0,
-        Bruschetta: 0,
-        Calamari: 0,
-        Cannoli: 0,
-        Cheesecake: 0,
-        ChickenParmesan: 0,
-        ChocolateLavaCake: 0,
-        EggplantParmesan: 0,
-        FettuccineAlfredo: 0,
-        FiletMignon: 0,
-        GarlicBread: 0,
-        Gelato: 0,
-        GrilledSalmon: 0,
-        Lasagna: 0,
-        LemonHerbChicken: 0,
-        Margherita: 0,
-        MozzarellaSticks: 0,
-        PenneArrabbiata: 0,
-        Pepperoni: 0,
-        PestoGnocchi: 0,
-        SpaghettiCarbonara: 0,
-        StuffedMushrooms: 0,
-        Tiramisu: 0,
-        VeggieSupreme: 0,
-        WhitePizza: 0
-      };
-      
-    completedTickets.forEach((ticket: ITicket)=>{
-        ticket.menu_items.forEach((menu: IMenu)=>{
-            if(menuOrderQuantity.hasOwnProperty(menu.name)){
-                menuOrderQuantity[menu.name] ++
-            }
-        });
+  function recommendItems({
+    completedTickets,
+  }: {
+    completedTickets: ITicket[];
+  }) {
+    const menuOrderQuantity: { [key: string]: number } = {
+      BBQChicken: 0,
+      Bruschetta: 0,
+      Calamari: 0,
+      Cannoli: 0,
+      Cheesecake: 0,
+      ChickenParmesan: 0,
+      ChocolateLavaCake: 0,
+      EggplantParmesan: 0,
+      FettuccineAlfredo: 0,
+      FiletMignon: 0,
+      GarlicBread: 0,
+      Gelato: 0,
+      GrilledSalmon: 0,
+      Lasagna: 0,
+      LemonHerbChicken: 0,
+      Margherita: 0,
+      MozzarellaSticks: 0,
+      PenneArrabbiata: 0,
+      Pepperoni: 0,
+      PestoGnocchi: 0,
+      SpaghettiCarbonara: 0,
+      StuffedMushrooms: 0,
+      Tiramisu: 0,
+      VeggieSupreme: 0,
+      WhitePizza: 0,
+    };
+
+    // update quantity of each menu item ordered
+    completedTickets.forEach((ticket: ITicket) => {
+      ticket.menu_items.forEach((menu: IMenu) => {
+        if (menuOrderQuantity.hasOwnProperty(menu.name)) {
+          menuOrderQuantity[menu.name]++;
+        }
+      });
     });
 
-    console.log(menuOrderQuantity);
-  }
+    // find highest quantity among all the orders made
+    const highest = Math.max(...Object.values(menuOrderQuantity));
 
-  recommendItems({completedTickets: multipleDummyTickets});
+    const popularMenuItems: string[] = [];
+
+    // get all the menu items equaling the highest quantity
+    for (let keys in menuOrderQuantity) {
+      // if the value (menu total quantity) equals the highest quantity
+      if (menuOrderQuantity[keys] === highest) {
+        //add to the list of popular menu items
+        popularMenuItems.push(keys);
+      }
+    }
+
+    const recommendedItems: { name: string; ordered_at: Date }[] = [];
+
+    completedTickets.forEach((ticket: ITicket) => {
+      ticket.menu_items.forEach((menu: IMenu) => {
+        if (popularMenuItems.includes(menu.name)) {
+          recommendedItems.push({
+            name: menu.name,
+            ordered_at: ticket.ordered_at,
+          });
+        }
+      });
+    });
+
+    return recommendedItems;
+  };
 
   return (
     <>
