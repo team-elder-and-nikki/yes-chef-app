@@ -1,7 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
 import type { Ingredient } from './Ingredient.ts';
-// import type { MenuItem } from './Menu.ts';
-
 
 interface Item {
  id: string;
