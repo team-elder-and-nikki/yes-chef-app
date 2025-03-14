@@ -2,6 +2,7 @@ import express from 'express';
 import { SERVER } from '../config/config.ts';
 import menu from './controllers/menu.ts'
 import ingredient from './controllers/ingredient.ts';
+import orders from './controllers/order.ts';
 import cors from 'cors';
 
 const app = express();
@@ -27,6 +28,7 @@ async function startServer() {
 
 		app.use('/', ingredient);
 		app.use('/', menu);
+		app.use('/', orders);
 
 		await app.listen(PORT, () => {
 			console.log(`The Server is running use ^c to chill server`);
