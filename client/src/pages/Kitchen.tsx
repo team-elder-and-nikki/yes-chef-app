@@ -132,7 +132,6 @@ export default function Kitchen() {
         <>
             <NavBar />
             <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
-              <h1>Kitchen</h1>
                 <div className="flex flex-row gap-4">
                     {multipleDummyTickets.map((ticket) => (
                         <KitchenCard key={ticket._id} ticket={ticket} />
