@@ -1,9 +1,10 @@
 import express from "express";
-import { Collection } from "mongodb";
+import { Collection, ObjectId } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
 
 import type { IIngredient } from "../../client/src/models/Ingredient.ts";
 import type { IMenu, IMenuIngredient } from "../../client/src/models/Menu.ts";
+
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.get("/ingredients", async (req, res) => {
   try {
     //allows cors for front end api
     res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
-    
+
     // init db connection with MongoClient
     const client = await Client_Connect();
 
@@ -34,10 +35,52 @@ router.get("/ingredients", async (req, res) => {
     process.exit(1);
   }
 });
+  //manual update of ingredient quantity on ingredients
+router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
+  try{
+    const id = new ObjectId(req.params.id)
+    const updates = Math.ceil(req.body.quantity)
+  //guard clauses
+    if (!Number.isInteger(updates)) {
+      throw new Error("updates must be a number")
+    } else if (updates<0) {
+      throw new Error("quantity must be greater than 0")
+    }
+
+  //allows cors for front end api
+  res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+   // init db connection with MongoClient
+   const client = await Client_Connect();
+
+   // init db by name
+   const db = client.db("Inventory");
+   //init collection by name
+   const collection: Collection<IIngredient> = db.collection("Ingredients");
+
+   console.log("Starting updating ingredients");
+
+   //Find collection and convert to array
+   const result = await collection.updateOne(
+    {_id: id},
+    {$set:
+      {
+        quantity: updates
+      }
+    }
+    );
+  if (result.matchedCount === 1) {
+      res.status(200).send({message:'ingredient updated'});
+    } 
+  }catch (err) {
+    console.error("Failed update quantity of ingredient: ", err);
+    process.exit(1);
+  }
+})
+
 
 router.put("/updateIngredientQuantity", async (req, res) => {
   try {
-    if (req.body.status === "completed") {
+    if (req.body.status === "Completed") {
       // init db connection with MongoClient
       const client = await Client_Connect();
 
