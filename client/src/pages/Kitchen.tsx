@@ -161,7 +161,7 @@ export default function Kitchen() {
             />
           ))}
         </section>
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-row gap-4 overflow-x-scroll">
                     {multipleDummyTickets.map((ticket) => (
                         <KitchenCard key={ticket._id} ticket={ticket} />
                     ))}
