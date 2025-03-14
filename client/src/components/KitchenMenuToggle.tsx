@@ -11,7 +11,7 @@ export default function KitchenMenuToggle({
   onClick: (e: string) => void;
 }) {
   return (
-    <Card className="w-1/5 p-2" onClick={()=>onClick(text)}>
+    <Card className="w-[95vw] my-1 md:w-1/5 p-2" onClick={() => onClick(text)}>
       <CardContent className="justify-between flex items-center">
         <h2>{text}</h2>
         <Button className="text-center">{icon}</Button>
