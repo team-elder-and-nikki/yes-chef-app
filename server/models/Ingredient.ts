@@ -8,6 +8,7 @@ export interface Ingredient extends Document {
     quantity: number;
     thresholdLevel: number;
     lastOrderDate: Date;
+    orderQty: number;
 }
 
 const IngredientSchema: Schema = new Schema({
@@ -17,6 +18,7 @@ const IngredientSchema: Schema = new Schema({
     quantity: {type: Number, required: true},
     thresholdLevel: {type: Number, required: true},
     lastOrderDate:  {type: Date, required: true},
+    orderQty: { type: Number, required:false}
 },{
     timestamps: true
 });
