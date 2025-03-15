@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { CartTable } from "../components/CartTable";
-import MenuCategoryNav from "../components/ui/CategoryNav";
-
+import MenuCategoryNav from "../components/MenuCategoryNav";
 import MenuCard from "@/components/MenuCard";
 import { useCart } from "../context/CartContext";
 import { useFetchMenu } from "../hooks/useFetchMenu"; // Import from the combined file
