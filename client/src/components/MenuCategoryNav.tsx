@@ -16,9 +16,7 @@ function MenuCategoryNav({ onCategoryChange }: MenuCategoryNavProps) {
   }
 
   return (
-    <Tabs value={selectedCategory} onValueChange={handleCategoryChange} className="flex flex-1 items-center justify-center 
-        w-screen
-        ">
+    <Tabs value={selectedCategory} onValueChange={handleCategoryChange}>
       <TabsList>
         {categories.map((category) => (
           <TabsTrigger key={category} value={category}>
