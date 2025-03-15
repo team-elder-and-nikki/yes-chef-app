@@ -14,8 +14,10 @@ type CartItem = {
 type CartContextType = {
     cart: CartItem[];
     addToCart: (item: CartItem) => void;
-    removeFromCart: (id: string) => void; // Add this
+    removeFromCart: (id: string) => void;
     clearCart: () => void;
+    addOneToExistingItem: (id: string) => void;
+    subtractOneFromExistingItem: (id: string) => void;
 };
 
 // Create the context with an initial empty value
@@ -39,16 +41,42 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             }
         });
     };
-
+    // ! remove items:
     const removeFromCart = (id: string) => {
         setCart((prevCart) => prevCart.filter((item) => item.id !== id)); // Remove item by id
     };
 
+
     const clearCart = () => {
         setCart([]);
     };
+
+    // Add one to the cartAmount of an existing item
+    const addOneToExistingItem = (id: string) => {
+        setCart((prevCart) =>
+            prevCart.map((cartItem) =>
+                cartItem.id === id
+                    ? { ...cartItem, cartAmount: cartItem.cartAmount + 1 }
+                    : cartItem
+            )
+        );
+    };
+
+    // Subtract one from the cartAmount of an existing item
+    const subtractOneFromExistingItem = (id: string) => {
+        setCart((prevCart) =>
+            prevCart.map((cartItem) =>
+                cartItem.id === id
+                    ? {
+                        ...cartItem,
+                        cartAmount: cartItem.cartAmount > 1 ? cartItem.cartAmount - 1 : 1, // Ensure cartAmount doesn't go below 1
+                    }
+                    : cartItem
+            )
+        );
+    };
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, addOneToExistingItem, subtractOneFromExistingItem }}>
             {children}
         </CartContext.Provider>
     );
