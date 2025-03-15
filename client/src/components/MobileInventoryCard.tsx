@@ -72,26 +72,25 @@ export function MobileInventoryCard() {
 
   return (
     <div className="md:hidden">
-      <div className="grid grid-cols-4 items-center text-center w-full">
-        <div>Item</div>
-        <div>Stock</div>
-        <div>Last Order</div>
+      <div className="grid grid-cols-7 items-center text-center w-full">
+        <div className="col-span-2">Item</div>
+        <div className="col-span-2">Stock</div>
+        <div className="col-span-2">Last Order</div>
       </div>
       <Accordion type="single" collapsible className="w-full">
         {ingredients.slice(startIndex, endIndex).map(
           (ingredient) => (
-            console.log({ endIndex }),
             (
               <AccordionItem key={ingredient._id} value={ingredient._id}>
-                <AccordionTrigger className="grid grid-cols-4 items-center text-center w-full">
-                  <div className="text-center">{ingredient.name}</div>
-                  <div className="flex justify-center">
+                <AccordionTrigger className="grid grid-cols-7 items-center text-center w-full">
+                  <div className="col-span-2 text-center">{ingredient.name}</div>
+                  <div className="col-span-2 flex justify-center">
                     <Badge className="flex items-center justify-center">
                       {ingredient.quantity}
                     </Badge>
                   </div>
 
-                  <div>
+                  <div className="col-span-2 flex justify-center">
                     {new Date(ingredient.lastOrderDate).toLocaleDateString(
                       "en-US",
                       { month: "short", day: "2-digit", year: "numeric" }
