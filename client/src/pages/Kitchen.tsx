@@ -376,14 +376,14 @@ export default function Kitchen() {
     });
     
     // find average quantity among all the orders made
-    const highestAvg = Math.floor(Object.values(menuOrderQuantity).reduce((a,b)=>a+b,0)/(Object.values(menuOrderQuantity).filter((order)=>order>0).length));
+    const average = Math.floor(Object.values(menuOrderQuantity).reduce((a,b)=>a+b,0)/(Object.values(menuOrderQuantity).filter((order)=>order>0).length));
 
     const popularMenuItems: string[] = [];
 
-    // get all the menu items equaling or higher than the highest quantity
+    // get all the menu items equaling or higher than the highest average
     for (let keys in menuOrderQuantity) {
-      // if the value (menu total quantity) equals the highest quantity
-      if (menuOrderQuantity[keys] >= highestAvg) {
+      // if the value (menu total quantity) equals the highest average
+      if (menuOrderQuantity[keys] > average) {
         //add to the list of popular menu items
         popularMenuItems.push(keys);
       }
