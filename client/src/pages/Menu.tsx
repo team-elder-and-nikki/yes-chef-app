@@ -6,9 +6,6 @@ import { useCart } from "../context/CartContext";
 import { useFetchMenu } from "../hooks/useFetchMenu"; // Import from the combined file
 import { IMenu } from "@/models/Menu";
 
-import NavBar from "@/components/NavBar";
-
-
 export default function Menu() {
     const { menuItems, loading, error } = useFetchMenu();
     const [selectedCategory, setSelectedCategory] = useState("Appetizers");
@@ -36,17 +33,7 @@ export default function Menu() {
 
         <div className="">
 
-
-            <div className="text-left py-4 bg-white shadow-md">
-                <div className=" ml-2 text-xl font-bold text-gray-800"><h1>YES CHEF</h1></div>
-            </div>
-
-
-
-            <NavBar />
             <MenuCategoryNav onCategoryChange={setSelectedCategory} categories = {["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"]} />
-
-
 
             {/* Main Content */}
             <div className="container mx-auto md:pl-24 px-4 py-8 flex flex-col lg:flex-row gap-8 ">
@@ -71,8 +58,6 @@ export default function Menu() {
                 </div>
 
             </div>
-
-
 
         </div>
     );

@@ -26,6 +26,7 @@ export default function NavBar({}) {
                         Orders
                     </NavigationMenuLink>
                 </NavigationMenuItem>
+                
                 <NavigationMenuItem>
                     <NavigationMenuLink href="/reports" data-active={isActiveRoute("/reports")}>
                         <Clock />
