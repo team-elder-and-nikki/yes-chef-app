@@ -7,7 +7,7 @@ export default function Kitchen() {
   const dummyTicketData: ITicket = {
     _id: "uniqueTicketId",
     ticket_number: 123,
-    ordered_at: new Date(),
+    ordered_at: new Date("2025-02-17T15:24:00"),
     menu_items: [
       {
         _id: "uniqueMenuItemId",
@@ -16,142 +16,6 @@ export default function Kitchen() {
           {
             _id: "uniqueIngredientId",
             name: "Bun",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Patty",
-            unitCost: 2,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Lettuce",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Tomato",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Cheese",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Onion",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Pickles",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-        ],
-        quantity: 1,
-        price: 10,
-        prepTime: 15,
-        Image: "burger.jpg",
-        category: "Main",
-      },
-      {
-        _id: "uniqueMenuItemId",
-        name: "Calamari",
-        ingredients: [
-          {
-            _id: "uniqueIngredientId",
-            name: "Potato",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Salt",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-        ],
-        quantity: 1,
-        price: 5,
-        prepTime: 10,
-        Image: "fries.jpg",
-        category: "Side",
-      },
-    ],
-    status: "Unstarted",
-  };
-
-  const dummyTicketData1: ITicket = {
-    _id: "uniqueTicketId",
-    ticket_number: 123,
-    ordered_at: new Date(),
-    menu_items: [
-      {
-        _id: "uniqueMenuItemId",
-        name: "BBQChicken",
-        ingredients: [
-          {
-            _id: "uniqueIngredientId",
-            name: "Bun",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Patty",
-            unitCost: 2,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Lettuce",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Tomato",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Cheese",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Onion",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Pickles",
             unitCost: 1,
             quantity: 1,
             thresholdLevel: 10,
@@ -174,9 +38,47 @@ export default function Kitchen() {
             quantity: 1,
             thresholdLevel: 10,
           },
+        ],
+        quantity: 1,
+        price: 5,
+        prepTime: 10,
+        Image: "fries.jpg",
+        category: "Side",
+      },
+    ],
+    status: "Unstarted",
+  };
+
+  const dummyTicketData1: ITicket = {
+    _id: "uniqueTicketId",
+    ticket_number: 123,
+    ordered_at: new Date("2025-02-17T18:24:00"),
+    menu_items: [
+      {
+        _id: "uniqueMenuItemId",
+        name: "BBQChicken",
+        ingredients: [
           {
             _id: "uniqueIngredientId",
-            name: "Salt",
+            name: "Bun",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 10,
+        prepTime: 15,
+        Image: "burger.jpg",
+        category: "Main",
+      },
+      {
+        _id: "uniqueMenuItemId",
+        name: "Lasagna",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Potato",
             unitCost: 1,
             quantity: 1,
             thresholdLevel: 10,
@@ -195,57 +97,15 @@ export default function Kitchen() {
   const dummyTicketData2: ITicket = {
     _id: "uniqueTicketId",
     ticket_number: 123,
-    ordered_at: new Date(),
+    ordered_at: new Date("2025-02-17T14:24:00"),
     menu_items: [
       {
         _id: "uniqueMenuItemId",
-        name: "Calamari",
+        name: "BBQChicken",
         ingredients: [
           {
             _id: "uniqueIngredientId",
             name: "Bun",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Patty",
-            unitCost: 2,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Lettuce",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Tomato",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Cheese",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Onion",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
-          {
-            _id: "uniqueIngredientId",
-            name: "Pickles",
             unitCost: 1,
             quantity: 1,
             thresholdLevel: 10,
@@ -259,7 +119,7 @@ export default function Kitchen() {
       },
       {
         _id: "uniqueMenuItemId",
-        name: "Pepperoni",
+        name: "Lasagna",
         ingredients: [
           {
             _id: "uniqueIngredientId",
@@ -268,9 +128,182 @@ export default function Kitchen() {
             quantity: 1,
             thresholdLevel: 10,
           },
+        ],
+        quantity: 1,
+        price: 5,
+        prepTime: 10,
+        Image: "fries.jpg",
+        category: "Side",
+      },
+    ],
+    status: "Unstarted",
+  };
+
+  const dummyTicketData3: ITicket = {
+    _id: "uniqueTicketId",
+    ticket_number: 123,
+    ordered_at: new Date("2025-02-13T12:24:00"),
+    menu_items: [
+      {
+        _id: "uniqueMenuItemId",
+        name: "BBQChicken",
+        ingredients: [
           {
             _id: "uniqueIngredientId",
-            name: "Salt",
+            name: "Bun",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 10,
+        prepTime: 15,
+        Image: "burger.jpg",
+        category: "Main",
+      },
+      {
+        _id: "uniqueMenuItemId",
+        name: "Lasagna",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Potato",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 5,
+        prepTime: 10,
+        Image: "fries.jpg",
+        category: "Side",
+      },
+    ],
+    status: "Unstarted",
+  };
+
+  const dummyTicketData4: ITicket = {
+    _id: "uniqueTicketId",
+    ticket_number: 123,
+    ordered_at: new Date("2025-02-17T14:24:00"),
+    menu_items: [
+      {
+        _id: "uniqueMenuItemId",
+        name: "BBQChicken",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Bun",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 10,
+        prepTime: 15,
+        Image: "burger.jpg",
+        category: "Main",
+      },
+      {
+        _id: "uniqueMenuItemId",
+        name: "Lasagna",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Potato",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 5,
+        prepTime: 10,
+        Image: "fries.jpg",
+        category: "Side",
+      },
+    ],
+    status: "Unstarted",
+  };
+
+  const dummyTicketData5: ITicket = {
+    _id: "uniqueTicketId",
+    ticket_number: 123,
+    ordered_at: new Date("2025-02-17T08:24:00"),
+    menu_items: [
+      {
+        _id: "uniqueMenuItemId",
+        name: "BBQChicken",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Bun",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 10,
+        prepTime: 15,
+        Image: "burger.jpg",
+        category: "Main",
+      },
+      {
+        _id: "uniqueMenuItemId",
+        name: "Lasagna",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Potato",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 5,
+        prepTime: 10,
+        Image: "fries.jpg",
+        category: "Side",
+      },
+    ],
+    status: "Unstarted",
+  };
+
+  const dummyTicketData6: ITicket = {
+    _id: "uniqueTicketId",
+    ticket_number: 123,
+    ordered_at: new Date("2025-02-17T10:24:00"),
+    menu_items: [
+      {
+        _id: "uniqueMenuItemId",
+        name: "Pepperoni",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Bun",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 10,
+        prepTime: 15,
+        Image: "burger.jpg",
+        category: "Main",
+      },
+      {
+        _id: "uniqueMenuItemId",
+        name: "Bruschetta",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Potato",
             unitCost: 1,
             quantity: 1,
             thresholdLevel: 10,
@@ -288,21 +321,19 @@ export default function Kitchen() {
 
   const multipleDummyTickets = [
     dummyTicketData,
-    dummyTicketData,
-    dummyTicketData,
-    dummyTicketData,
-    dummyTicketData1,
-    dummyTicketData1,
-    dummyTicketData1,
     dummyTicketData1,
     dummyTicketData2,
-    dummyTicketData2,
-    dummyTicketData2,
-    dummyTicketData2,
-
+    dummyTicketData3,
+    dummyTicketData4,
+    dummyTicketData5,
+    dummyTicketData6,
+    dummyTicketData6,
+    dummyTicketData6,
+    dummyTicketData6,
+    dummyTicketData6,
   ];
 
-  function recommendItems({
+  function recommendPopularItems({
     completedTickets,
   }: {
     completedTickets: ITicket[];
@@ -343,13 +374,13 @@ export default function Kitchen() {
         }
       });
     });
-
+    
     // find average quantity among all the orders made
-    const highestAvg = Object.values(menuOrderQuantity).reduce((a,b)=>a+b,0)/(Object.values(menuOrderQuantity).filter((order)=>order>0).length);
+    const highestAvg = Math.floor(Object.values(menuOrderQuantity).reduce((a,b)=>a+b,0)/(Object.values(menuOrderQuantity).filter((order)=>order>0).length));
 
     const popularMenuItems: string[] = [];
 
-    // get all the menu items equaling the highest quantity
+    // get all the menu items equaling or higher than the highest quantity
     for (let keys in menuOrderQuantity) {
       // if the value (menu total quantity) equals the highest quantity
       if (menuOrderQuantity[keys] >= highestAvg) {
@@ -360,6 +391,7 @@ export default function Kitchen() {
 
     const recommendations: { name: string; ordered_at: Date }[] = [];
 
+    //grab the most popular menu items with their order date
     completedTickets.forEach((ticket: ITicket) => {
       ticket.menu_items.forEach((menu: IMenu) => {
         if (popularMenuItems.includes(menu.name)) {
@@ -371,9 +403,39 @@ export default function Kitchen() {
       });
     });
 
-    return recommendations;
+    interface IRecommendation {
+      startTime: Date,
+      endTime: Date,
+      items: string[]
+    }
+
+    //static time blocks to represent daily work hours and store menu items
+    const recommendationTimeBlocks: IRecommendation[] = [
+      {startTime: new Date("1000-02-17T08:00:00"), endTime: new Date("3025-02-17T10:00:00"), items: []},
+      {startTime: new Date("1000-02-17T11:00:00"), endTime: new Date("3025-02-17T13:00:00"), items: []},
+      {startTime: new Date("1000-02-17T14:00:00"), endTime: new Date("3025-02-17T16:00:00"), items: []},
+      {startTime: new Date("1000-02-17T17:00:00"), endTime: new Date("3025-02-17T19:00:00"), items: []}
+    ];
+
+    // go through each recommended menu item
+    recommendations.forEach((item)=>{
+      // go through recommendation time blocks
+      for(let i = 0; i < recommendationTimeBlocks.length; i++){
+        const firstTimeBlock = recommendationTimeBlocks[i].startTime;
+        const secondTimeBlock = recommendationTimeBlocks[i].endTime;
+        // check if item order time is greater than or equal to first time blcok
+        // check if item order time is less than or equal to second time block
+        // check if item has already been added to static time blocks
+        if((item.ordered_at >= firstTimeBlock) && (item.ordered_at <= secondTimeBlock) && (recommendationTimeBlocks[i].items.indexOf(item.name) === -1)){
+          recommendationTimeBlocks[i].items.push(item.name);
+        }
+      }
+    });
+
+    return recommendationTimeBlocks;
   };
 
+  console.log(recommendPopularItems({completedTickets: multipleDummyTickets}));
   return (
     <>
       <NavBar />
