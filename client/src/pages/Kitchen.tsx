@@ -98,11 +98,208 @@ export default function Kitchen() {
     status: "Unstarted",
   };
 
+  const dummyTicketData1: ITicket = {
+    _id: "uniqueTicketId",
+    ticket_number: 123,
+    ordered_at: new Date(),
+    menu_items: [
+      {
+        _id: "uniqueMenuItemId",
+        name: "BBQChicken",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Bun",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Patty",
+            unitCost: 2,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Lettuce",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Tomato",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Cheese",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Onion",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Pickles",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 10,
+        prepTime: 15,
+        Image: "burger.jpg",
+        category: "Main",
+      },
+      {
+        _id: "uniqueMenuItemId",
+        name: "Lasagna",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Potato",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Salt",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 5,
+        prepTime: 10,
+        Image: "fries.jpg",
+        category: "Side",
+      },
+    ],
+    status: "Unstarted",
+  };
+
+  const dummyTicketData2: ITicket = {
+    _id: "uniqueTicketId",
+    ticket_number: 123,
+    ordered_at: new Date(),
+    menu_items: [
+      {
+        _id: "uniqueMenuItemId",
+        name: "Calamari",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Bun",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Patty",
+            unitCost: 2,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Lettuce",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Tomato",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Cheese",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Onion",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Pickles",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 10,
+        prepTime: 15,
+        Image: "burger.jpg",
+        category: "Main",
+      },
+      {
+        _id: "uniqueMenuItemId",
+        name: "Pepperoni",
+        ingredients: [
+          {
+            _id: "uniqueIngredientId",
+            name: "Potato",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+          {
+            _id: "uniqueIngredientId",
+            name: "Salt",
+            unitCost: 1,
+            quantity: 1,
+            thresholdLevel: 10,
+          },
+        ],
+        quantity: 1,
+        price: 5,
+        prepTime: 10,
+        Image: "fries.jpg",
+        category: "Side",
+      },
+    ],
+    status: "Unstarted",
+  };
+
   const multipleDummyTickets = [
     dummyTicketData,
     dummyTicketData,
     dummyTicketData,
     dummyTicketData,
+    dummyTicketData1,
+    dummyTicketData1,
+    dummyTicketData1,
+    dummyTicketData1,
+    dummyTicketData2,
+    dummyTicketData2,
+    dummyTicketData2,
+    dummyTicketData2,
+
   ];
 
   function recommendItems({
@@ -147,26 +344,26 @@ export default function Kitchen() {
       });
     });
 
-    // find highest quantity among all the orders made
-    const highest = Math.max(...Object.values(menuOrderQuantity));
+    // find average quantity among all the orders made
+    const highestAvg = Object.values(menuOrderQuantity).reduce((a,b)=>a+b,0)/(Object.values(menuOrderQuantity).filter((order)=>order>0).length);
 
     const popularMenuItems: string[] = [];
 
     // get all the menu items equaling the highest quantity
     for (let keys in menuOrderQuantity) {
       // if the value (menu total quantity) equals the highest quantity
-      if (menuOrderQuantity[keys] === highest) {
+      if (menuOrderQuantity[keys] >= highestAvg) {
         //add to the list of popular menu items
         popularMenuItems.push(keys);
       }
     }
 
-    const recommendedItems: { name: string; ordered_at: Date }[] = [];
+    const recommendations: { name: string; ordered_at: Date }[] = [];
 
     completedTickets.forEach((ticket: ITicket) => {
       ticket.menu_items.forEach((menu: IMenu) => {
         if (popularMenuItems.includes(menu.name)) {
-          recommendedItems.push({
+          recommendations.push({
             name: menu.name,
             ordered_at: ticket.ordered_at,
           });
@@ -174,7 +371,7 @@ export default function Kitchen() {
       });
     });
 
-    return recommendedItems;
+    return recommendations;
   };
 
   return (
