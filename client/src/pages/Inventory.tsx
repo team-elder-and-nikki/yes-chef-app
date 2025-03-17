@@ -17,7 +17,7 @@ export default function Inventory(){
                 </div>
 
                 {/* Tablet & Larger: Show only on screens md (≥ 768px) and up */}
-                <div className="hidden md:block">
+                <div className="hidden md:block mx-4">
                     <InventoryTable />
                 </div>
            </div>

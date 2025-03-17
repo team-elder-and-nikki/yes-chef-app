@@ -80,7 +80,7 @@ router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
 
 router.put("/updateIngredientQuantity", async (req, res) => {
   try {
-    if (req.body.status === "completed") {
+    if (req.body.status === "Completed") {
       // init db connection with MongoClient
       const client = await Client_Connect();
 

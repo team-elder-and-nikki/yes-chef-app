@@ -2,7 +2,37 @@ import NavBar from "@/components/NavBar";
 import KitchenCard from "@/components/KitchenCard";
 import { ITicket } from "../models/Ticket";
 import { IMenu } from "../models/Menu";
+import {
+  Stars,
+  AlertCircle,
+  NotepadTextIcon,
+  NotepadTextDashed,
+} from "lucide-react";
+import KitchenMenuToggle from "@/components/KitchenMenuToggle";
+import { useState } from "react";
 
+function KitchenStatus({ orders }: { orders: ITicket[] }) {
+  const sortedDate = orders.sort((a, b) => {
+    const dateA = a.ordered_at;
+    const dateB = b.ordered_at;
+    if (new Date(dateA) < new Date(dateB)) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
+  return sortedDate.sort((a: ITicket, b: ITicket) => {
+    if (a.status === "In Progress") {
+      return -1;
+    } else if (a.status == "Unstarted") {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+}
+        
 export default function Kitchen() {
   const dummyTicketData: ITicket = {
     _id: "uniqueTicketId",
@@ -450,4 +480,38 @@ export default function Kitchen() {
       </div>
     </>
   );
+
+  const [toggleView, setToggleView] = useState("Open Tickets");
+
+  const menuToggles = [
+    { text: "Open Tickets", icon: <NotepadTextIcon /> },
+    { text: "Closed Tickets", icon: <NotepadTextDashed /> },
+    { text: "Predictions", icon: <Stars /> },
+    { text: "Alerts", icon: <AlertCircle /> },
+  ];
+
+    return (
+        <>
+            <NavBar />
+            <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
+                     <h1>Kitchen</h1>
+
+        <section className="flex flex-wrap md:flex-nowrap flex-col md:flex-row items-center md:items-start justify-between">
+          {menuToggles.map((menu) => (
+            <KitchenMenuToggle
+              key={menu.text}
+              onClick={(e) => setToggleView(e)}
+              text={menu.text}
+              icon={menu.icon}
+            />
+          ))}
+        </section>
+                <div className="flex flex-row gap-4 overflow-x-scroll">
+                    {multipleDummyTickets.map((ticket) => (
+                        <KitchenCard key={ticket._id} ticket={ticket} />
+                    ))}
+                </div>
+            </div>
+        </>
+    )
 }

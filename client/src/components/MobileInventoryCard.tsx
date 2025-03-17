@@ -11,10 +11,11 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
 
 import { Badge } from "@/components/ui/badge";
 import { ShoppingCartIcon } from "lucide-react";
+import { IncrementingInput } from "@/components/ui/incrementingInput";
 
 interface Ingredient {
   _id: string;
@@ -23,6 +24,7 @@ interface Ingredient {
   quantity: number;
   thresholdLevel: number;
   lastOrderDate: Date;
+  orderQty: number;
 }
 
 export function MobileInventoryCard() {
@@ -48,49 +50,98 @@ export function MobileInventoryCard() {
     fetchIngredients();
   }, []);
 
+  function updateQuantity(id: string, newQuantity: number) {
+    setIngredients((prevIngredients) =>
+      prevIngredients.map((ingredient) =>
+        ingredient._id === id
+          ? { ...ingredient, quantity: newQuantity }
+          : ingredient
+      )
+    );
+  }
+
+  function updateOrderQty(id: string, newOrderQty: number) {
+    setIngredients((prevIngredients) =>
+      prevIngredients.map((ingredient) =>
+        ingredient._id === id
+          ? { ...ingredient, orderQty: newOrderQty } // Add a new field for orderQty
+          : ingredient
+      )
+    );
+  }
+
   return (
     <div className="md:hidden">
-      <div className="grid grid-cols-4 items-center text-center w-full">
-        <div>Item</div>
-        <div>In Stock</div>
-        <div>Last Order</div>
+      <div className="grid grid-cols-7 items-center text-center w-full">
+        <div className="col-span-2">Item</div>
+        <div className="col-span-2">Stock</div>
+        <div className="col-span-2">Last Order</div>
       </div>
       <Accordion type="single" collapsible className="w-full">
-        {ingredients.slice(startIndex, endIndex).map((ingredient) => (
-          console.log({endIndex}),
-          <AccordionItem key={ingredient._id} value={ingredient._id}>
-            <AccordionTrigger className="grid grid-cols-4 items-center text-center w-full">
-              <div className="text-center">{ingredient.name}</div>
-              <div className="flex justify-center">
-                <Badge className="flex items-center justify-center">
-                  {ingredient.quantity}
-                </Badge>
-              </div>
-              <div>{new Date(ingredient.lastOrderDate).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" })}</div>
-              </AccordionTrigger>
-            <AccordionContent className="flex flex-row justify-around items-center">
-              <div className="flex-col justify-items-center">
-                <div>Unit Cost</div>
-                <div>${ingredient.unitCost.toFixed(2)}</div>
-              </div>
-              {/* reorderqty should be an input field or a +/- */}
-              <div className="flex-col justify-items-center">
-                <div>reorder qty</div>
-                <div>input box</div>
-              </div>
-              <div className="flex-col justify-items-center">
-                <div>total cost</div>
-                <div>
-                  ${(ingredient.unitCost * ingredient.quantity).toFixed(2)}
-                </div>
-              </div>
-              {/* hitting shopping cart icon should send the order to the distributor api */}
-              <ShoppingCartIcon></ShoppingCartIcon>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
+        {ingredients.slice(startIndex, endIndex).map(
+          (ingredient) => (
+            (
+              <AccordionItem key={ingredient._id} value={ingredient._id}>
+                <AccordionTrigger className="grid grid-cols-7 items-center text-center w-full">
+                  <div className="col-span-2 text-center">{ingredient.name}</div>
+                  <div className="col-span-2 flex justify-center">
+                    <Badge className="flex items-center justify-center">
+                      {ingredient.quantity}
+                    </Badge>
+                  </div>
+
+                  <div className="col-span-2 flex justify-center">
+                    {new Date(ingredient.lastOrderDate).toLocaleDateString(
+                      "en-US",
+                      { month: "short", day: "2-digit", year: "numeric" }
+                    )}
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="flex flex-col items-center">
+                  <div className="flex flex-col items-center w-full mb-4">
+                    <div className="text-center mb-2">Update Stock</div>
+                    <div className="flex justify-center">
+                      <IncrementingInput
+                        value={ingredient.quantity}
+                        onChange={(newQuantity) =>
+                          updateQuantity(ingredient._id, newQuantity)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-row items-center w-full justify-between">
+                    <div className="flex-row justify-items-center">
+                      <div>Unit Cost</div>
+                      <div>${ingredient.unitCost.toFixed(2)}</div>
+                    </div>
+                    <div className="flex-col justify-items-center">
+                      <div>Order Qty</div>
+                      <IncrementingInput
+                        value={ingredient.orderQty || 0}
+                        onChange={(newOrderQty) =>
+                          updateOrderQty(ingredient._id, newOrderQty)
+                        }
+                      />
+                    </div>
+                    <div className="flex-col justify-items-center">
+                      <div>Total</div>
+                      <div>
+                        $
+                        {(
+                          ingredient.unitCost * (ingredient.orderQty || 0)
+                        ).toFixed(2)}
+                      </div>
+                    </div>
+                    {/* hitting shopping cart icon should send the order to the distributor api */}
+                    <ShoppingCartIcon size={16} className=""></ShoppingCartIcon>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            )
+          )
+        )}
       </Accordion>
-        <Pagination>
+      <Pagination>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
@@ -100,7 +151,8 @@ export function MobileInventoryCard() {
               onClick={() => {
                 setStartIndex(startIndex - rowsPerPage);
                 setEndIndex(endIndex - rowsPerPage);
-              }} />
+              }}
+            />
           </PaginationItem>
 
           <PaginationItem>
@@ -109,9 +161,10 @@ export function MobileInventoryCard() {
                 endIndex === 100 ? "pointer-events-none opacity-50" : undefined
               }
               onClick={() => {
-                setStartIndex(startIndex + rowsPerPage); 
-                setEndIndex(endIndex + rowsPerPage); 
-              }} />
+                setStartIndex(startIndex + rowsPerPage);
+                setEndIndex(endIndex + rowsPerPage);
+              }}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

@@ -11,7 +11,6 @@ export interface IMenu extends Document {
     quantity: number;
     price: number;
     prepTime: number;
-    Image: string;
     cartAmt?: number;
     image: string;
 }
