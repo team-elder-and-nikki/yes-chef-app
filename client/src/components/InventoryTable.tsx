@@ -17,7 +17,8 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
-
+  import { ShoppingCartIcon } from "lucide-react";
+  import { IncrementingInput } from "@/components/ui/IncrementingInput"
   import { Button } from "@/components/ui/button"
   import { Input } from "@/components/ui/input"
   import { useEffect, useState } from 'react'
@@ -30,16 +31,33 @@ import {
     unitCost: number;
     quantity: number;
     thresholdLevel: number;
+    orderQty: number;
+
 }
 
 export default function InventoryTable(){
   const rowsPerPage = 15;
-  const [data, setData] = useState<IIngredient[]>([]);
+  const [data, setIngredients] = useState<IIngredient[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rowsPerPage);
   const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
 
-
+ function formatPrice(price:number){ 
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+  }).format(price);
+}
+function updateOrderQty(id: string, newOrderQty: number) {
+  setIngredients((prevIngredients) =>
+    prevIngredients.map((ingredient) =>
+      ingredient._id === id
+        ? { ...ingredient, orderQty: newOrderQty } // Add a new field for orderQty
+        : ingredient
+    )
+  );
+}
 
 
   const getData = async () => {
@@ -47,7 +65,7 @@ export default function InventoryTable(){
       const response = await axios.get('http://localhost:8000/ingredients');
       const data = await response.data;
       console.log({data});
-      setData(data);
+      setIngredients(data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -82,10 +100,12 @@ export default function InventoryTable(){
             <TableHead className="w-[100px]">Ingredient</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Update Stock</TableHead>
-            <TableHead>Threshold</TableHead>
-            <TableHead>Unit Cost</TableHead>
-            <TableHead>Next order</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="text-center">Threshold</TableHead>
+            <TableHead className="text-center">Unit Cost(USD)</TableHead>
+            <TableHead className="text-center">Next order</TableHead>
+            <TableHead className="text-center">Order Now(Units)</TableHead>
+            <TableHead className="text-right">Order Cost(USD)</TableHead>
+
             </TableRow>
         </TableHeader>
         <TableBody>
@@ -93,10 +113,10 @@ export default function InventoryTable(){
                 return(
                   <TableRow key={ingredient._id} value={ingredient._id}>
                     <TableCell className="font-medium">{ingredient.name}</TableCell>
-                      <TableCell>
+                      <TableCell className="text-center">
                         {ingredient.quantity ? ingredient.quantity:"Out of Stock" }
                       </TableCell>
-                        <TableCell className=" flex align-items align-center">
+                        <TableCell className="flex">
                         <Input 
                           value={inputValues[ingredient._id]}
                           onChange={(e) => handleInputChange(ingredient._id, e.target.value)}
@@ -108,10 +128,26 @@ export default function InventoryTable(){
                         </Button>
                         </TableCell>
                         
-                    <TableCell>{ingredient.thresholdLevel}</TableCell>
-                    <TableCell>{ingredient.unitCost}</TableCell>
-                    <TableCell>3/17/2025</TableCell>
-                    <TableCell className="text-right">{Math.round(ingredient.unitCost*ingredient.quantity *100)/100}</TableCell>
+                    <TableCell className="text-center">{ingredient.thresholdLevel}</TableCell>
+                    <TableCell className="text-center">{formatPrice(ingredient.unitCost)}</TableCell>
+                    <TableCell className="text-center">3/17/2025</TableCell>
+                    <TableCell className="flex justify-between">
+                     <IncrementingInput
+                        value={ingredient.orderQty || 0}
+                        onChange={(newOrderQty) =>
+                          updateOrderQty(ingredient._id, newOrderQty)
+                        }
+                      />
+                      <ShoppingCartIcon size={25} className="py-1"></ShoppingCartIcon>
+                    </TableCell>
+                    <TableCell className="text-center">
+
+                      {formatPrice(
+                        Math.round(
+                          ingredient.unitCost *  ingredient.orderQty||0
+                          ))}
+                    </TableCell>
+
                   </TableRow>
                 )
             })}   
