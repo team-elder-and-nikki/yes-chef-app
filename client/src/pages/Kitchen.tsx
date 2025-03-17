@@ -11,9 +11,12 @@ import {
 import KitchenMenuToggle from "@/components/KitchenMenuToggle";
 import { useState } from "react";
 import RecommendationCard from "@/components/RecommendationCard";
+import type { IMenuIngredient } from "@/models/Menu";
+
 export interface IRecommendation {
   name: string;
   quantity: number;
+  ingredients: IMenuIngredient[];
 }
 
 export interface ITimeBlocks {
@@ -54,13 +57,11 @@ export default function Kitchen() {
         _id: "uniqueMenuItemId",
         name: "BBQChicken",
         ingredients: [
-          {
-            _id: "uniqueIngredientId",
-            name: "Bun",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
+          {"ingredientName":"Tomatoes","ingredientId":"1"},
+          {"ingredientName":"Basil","ingredientId":"2"},
+          {"ingredientName":"Garlic","ingredientId":"3"},
+          {"ingredientName":"Olive Oil","ingredientId":"4"},
+          {"ingredientName":"Baguette","ingredientId":"5"},
         ],
         quantity: 1,
         price: 10,
@@ -437,6 +438,7 @@ export default function Kitchen() {
     const recommendations: {
       name: string;
       ordered_at: Date;
+      ingredients: IMenuIngredient[];
       quantity: number;
     }[] = [];
 
@@ -448,6 +450,7 @@ export default function Kitchen() {
             name: menu.name,
             ordered_at: ticket.ordered_at,
             quantity: menuOrderQuantity[menu.name],
+            ingredients: menu.ingredients
           });
         }
       });
@@ -492,6 +495,7 @@ export default function Kitchen() {
           recommendationTimeBlocks[i].items.push({
             name: item.name,
             quantity: menuOrderQuantity[item.name],
+            ingredients: item.ingredients
           });
         }
       }
@@ -518,10 +522,6 @@ export default function Kitchen() {
     return removeDuplicates;
   }
 
-  console.log(
-    recommendPopularItems({ completedTickets: multipleDummyTickets })
-  );
-
   const [toggleView, setToggleView] = useState("Open Tickets");
 
   const menuToggles = [
@@ -530,7 +530,7 @@ export default function Kitchen() {
     { text: "Predictions", icon: <Stars /> },
     { text: "Alerts", icon: <AlertCircle /> },
   ];
-  
+
   return (
     <>
       <NavBar />
@@ -549,6 +549,19 @@ export default function Kitchen() {
             />
           ))}
         </section>
+
+        <div>
+        {
+        recommendPopularItems({ completedTickets: multipleDummyTickets }).map((menu)=>{
+          return menu.items.map((item)=>{
+            return(
+              <RecommendationCard key = {item.name} recommendation={{startTime: menu.startTime, endTime: menu.endTime, name: item.name, quantity: item.quantity, ingredients: item.ingredients }}/>
+            )
+          })
+        })
+        } 
+        </div>
+
         <div className="flex flex-row gap-4 overflow-x-scroll">
           {multipleDummyTickets.map((ticket) => (
             <KitchenCard key={ticket._id} ticket={ticket} />
