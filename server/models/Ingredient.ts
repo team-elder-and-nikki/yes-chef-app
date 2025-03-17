@@ -1,12 +1,14 @@
 import { Schema, model } from 'mongoose';
 import { Document } from 'mongoose';
 
-export interface IIngredient extends Document {
+export interface Ingredient extends Document {
     _id: string;
     name: string;
     unitCost: number;
     quantity: number;
     thresholdLevel: number;
+    lastOrderDate: Date;
+    orderQty: number;
 }
 
 const IngredientSchema: Schema = new Schema({
@@ -15,8 +17,10 @@ const IngredientSchema: Schema = new Schema({
     unitCost: {type: Number, required: true},
     quantity: {type: Number, required: true},
     thresholdLevel: {type: Number, required: true},
+    lastOrderDate:  {type: Date, required: true},
+    orderQty: { type: Number, required:false}
 },{
     timestamps: true
 });
 
-export default model<IIngredient>('Ingredient', IngredientSchema);
+export default model<Ingredient>('Ingredient', IngredientSchema);
