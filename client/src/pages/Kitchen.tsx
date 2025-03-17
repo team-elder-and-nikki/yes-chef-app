@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import KitchenMenuToggle from "@/components/KitchenMenuToggle";
 import { useState } from "react";
-
+import RecommendationCard from "@/components/RecommendationCard";
 export interface IRecommendation {
   name: string;
   quantity: number;
@@ -522,21 +522,6 @@ export default function Kitchen() {
     recommendPopularItems({ completedTickets: multipleDummyTickets })
   );
 
-  return (
-    <>
-      <NavBar />
-      <div
-        className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
-      >
-        <div className="flex flex-row gap-4">
-          {multipleDummyTickets.map((ticket) => (
-            <KitchenCard key={ticket._id} ticket={ticket} />
-          ))}
-        </div>
-      </div>
-    </>
-  );
-
   const [toggleView, setToggleView] = useState("Open Tickets");
 
   const menuToggles = [
@@ -545,7 +530,7 @@ export default function Kitchen() {
     { text: "Predictions", icon: <Stars /> },
     { text: "Alerts", icon: <AlertCircle /> },
   ];
-
+  
   return (
     <>
       <NavBar />
