@@ -80,6 +80,8 @@ export default function Kitchen() {
             quantity: 1,
             thresholdLevel: 10,
           },
+          {"ingredientName":"Tomatoes","ingredientId":"1"},
+          {"ingredientName":"Basil","ingredientId":"2"},
         ],
         quantity: 1,
         price: 5,
@@ -449,7 +451,7 @@ export default function Kitchen() {
           recommendations.push({
             name: menu.name,
             ordered_at: ticket.ordered_at,
-            quantity: menuOrderQuantity[menu.name],
+            quantity: menuOrderQuantity[menu.name] - average,
             ingredients: menu.ingredients
           });
         }
@@ -494,7 +496,7 @@ export default function Kitchen() {
         ) {
           recommendationTimeBlocks[i].items.push({
             name: item.name,
-            quantity: menuOrderQuantity[item.name],
+            quantity: menuOrderQuantity[item.name] - average,
             ingredients: item.ingredients
           });
         }
@@ -550,7 +552,7 @@ export default function Kitchen() {
           ))}
         </section>
 
-        <div>
+        <div className="flex flex-row gap-4 overflow-x-scroll">
         {
         recommendPopularItems({ completedTickets: multipleDummyTickets }).map((menu)=>{
           return menu.items.map((item)=>{

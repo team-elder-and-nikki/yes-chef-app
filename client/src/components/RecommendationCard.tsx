@@ -5,7 +5,6 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/card";
-import { Button } from "./ui/button";
 import {
   Table,
   TableHeader,
@@ -14,7 +13,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { useEffect, useState, Fragment } from "react";
+import { Fragment } from "react";
 import { IMenuIngredient } from "@/models/Menu";
 interface IRecommendationCard {
   endTime: Date;
@@ -57,7 +56,8 @@ export default function RecommendationCard({
               </TableRow>
               {recommendation.ingredients.map((item) => (
                 <TableRow key={item.ingredientId}>
-                  <TableCell>{item.ingredientName}</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell className="text-right">{item.ingredientName}</TableCell>
                 </TableRow>
               ))}
             </Fragment>
