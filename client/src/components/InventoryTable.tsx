@@ -1,6 +1,5 @@
 
 import axios from 'axios';
-
 import {
     Table,
     TableBody,
@@ -17,6 +16,7 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
+  import { toast } from "sonner"
   import { ShoppingCartIcon } from "lucide-react";
   import { IncrementingInput } from "@/components/ui/IncrementingInput"
   import { Button } from "@/components/ui/button"
@@ -76,20 +76,30 @@ function updateOrderQty(id: string, newOrderQty: number) {
       }, [])
   
   const handleInputChange = (id: string, value: string) => {
+      if (parseInt(value) < 0) {
+        toast.warning("Quantity cannot be negative");
+      }
       setInputValues(prev => ({ ...prev, [id]: value }));
-      
   };
 
   const handleUpdate = async (id: string) => {
+    const quantity = inputValues[id];
+
     try {
-        const quantity = inputValues[id];
-        const response = await axios.patch(`http://localhost:8000/ingredients/updateQuantity/${id}`, { quantity });
-        console.log(response);
-        getData();
-     }catch (error) {
-      console.error('Error updating data:', error);
-     }
-    } ;
+        if (parseInt(quantity) < 0) {
+          toast.error("Quantity cannot be negative");
+          throw new Error("Quantity cannot be negative");
+        } else if (quantity === "" || quantity === undefined) {
+          toast.error("Quantity cannot be empty");
+          throw new Error("Quantity cannot be empty");
+        }
+          const response = await axios.patch(`http://localhost:8000/ingredients/updateQuantity/${id}`, { quantity });
+          console.log(response);
+          getData();
+    } catch (error) {
+        console.error('Error updating data:', error);
+    }
+  } ;
 
   return(
       <>  
