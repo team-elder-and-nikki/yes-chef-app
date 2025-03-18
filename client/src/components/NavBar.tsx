@@ -1,11 +1,10 @@
-import { useState } from "react"
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu"
-import { House, ShoppingBag, Clock, Utensils, Clipboard } from "lucide-react"
+import { House, Clock, Utensils, Clipboard } from "lucide-react"
 
 export default function NavBar({}) {
     const activeRoute = window.location.pathname
@@ -18,12 +17,6 @@ export default function NavBar({}) {
                     <NavigationMenuLink href="/" data-active={isActiveRoute("/")}>
                         <House />
                         Menu
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink href="/orders" data-active={isActiveRoute("/orders")}>
-                        <ShoppingBag />
-                        Orders
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
