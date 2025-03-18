@@ -64,7 +64,8 @@ router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
     {_id: id},
     {$set:
       {
-        quantity: updates
+        quantity: updates,
+        updatedAt: new Date()
       }
     }
     );
@@ -96,8 +97,11 @@ router.put("/updateIngredientQuantity", async (req, res) => {
           await collection.updateOne(
             //filter by the ingredient name in the dish
             { name: ingredient.ingredientName },
-            //increase by negative one (decrease by 1)
-            { $inc: { quantity: -1 * (item.cartAmt ?? 1) } }
+            //increase by negative one (decrease by 1) and update timestamp
+            { 
+              $inc: { quantity: -1 * (item.cartAmt ?? 1) },
+              $set: { updatedAt: new Date() }
+            }
           );
         });
       });

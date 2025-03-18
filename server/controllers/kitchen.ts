@@ -24,7 +24,11 @@ router.post("/addToKitchen", async (req, res) => {
       price: req.body.price,
       prepTime: req.body.prepTime,
       image: req.body.image,
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
+    console.log(menuItem.insertedId);  // MongoDB's generated _id
+
 
     res.status(200).json({message: "Menu item was successfully added to the cart.", menuItem});
     client.close();
