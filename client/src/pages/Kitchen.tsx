@@ -10,6 +10,20 @@ import {
 } from "lucide-react";
 import KitchenMenuToggle from "@/components/KitchenMenuToggle";
 import { useState } from "react";
+import RecommendationCard from "@/components/RecommendationCard";
+import type { IMenuIngredient } from "@/models/Menu";
+
+export interface IRecommendation {
+  name: string;
+  quantity: number;
+  ingredients: IMenuIngredient[];
+}
+
+export interface ITimeBlocks {
+  startTime: Date;
+  endTime: Date;
+  items: IRecommendation[];
+}
 
 function KitchenStatus({ orders }: { orders: ITicket[] }) {
   const sortedDate = orders.sort((a, b) => {
@@ -32,7 +46,7 @@ function KitchenStatus({ orders }: { orders: ITicket[] }) {
     }
   });
 }
-        
+
 export default function Kitchen() {
   const dummyTicketData: ITicket = {
     _id: "uniqueTicketId",
@@ -43,13 +57,11 @@ export default function Kitchen() {
         _id: "uniqueMenuItemId",
         name: "BBQChicken",
         ingredients: [
-          {
-            _id: "uniqueIngredientId",
-            name: "Bun",
-            unitCost: 1,
-            quantity: 1,
-            thresholdLevel: 10,
-          },
+          {"ingredientName":"Tomatoes","ingredientId":"1"},
+          {"ingredientName":"Basil","ingredientId":"2"},
+          {"ingredientName":"Garlic","ingredientId":"3"},
+          {"ingredientName":"Olive Oil","ingredientId":"4"},
+          {"ingredientName":"Baguette","ingredientId":"5"},
         ],
         quantity: 1,
         price: 10,
@@ -68,6 +80,8 @@ export default function Kitchen() {
             quantity: 1,
             thresholdLevel: 10,
           },
+          {"ingredientName":"Tomatoes","ingredientId":"1"},
+          {"ingredientName":"Basil","ingredientId":"2"},
         ],
         quantity: 1,
         price: 5,
@@ -368,6 +382,7 @@ export default function Kitchen() {
   }: {
     completedTickets: ITicket[];
   }) {
+
     const menuOrderQuantity: { [key: string]: number } = {
       BBQChicken: 0,
       Bruschetta: 0,
@@ -404,9 +419,12 @@ export default function Kitchen() {
         }
       });
     });
-    
+
     // find average quantity among all the orders made
-    const average = Math.floor(Object.values(menuOrderQuantity).reduce((a,b)=>a+b,0)/(Object.values(menuOrderQuantity).filter((order)=>order>0).length));
+    const average = Math.floor(
+      Object.values(menuOrderQuantity).reduce((a, b) => a + b, 0) /
+        Object.values(menuOrderQuantity).filter((order) => order > 0).length
+    );
 
     const popularMenuItems: string[] = [];
 
@@ -419,7 +437,12 @@ export default function Kitchen() {
       }
     }
 
-    const recommendations: { name: string; ordered_at: Date }[] = [];
+    const recommendations: {
+      name: string;
+      ordered_at: Date;
+      ingredients: IMenuIngredient[];
+      quantity: number;
+    }[] = [];
 
     //grab the most popular menu items with their order date
     completedTickets.forEach((ticket: ITicket) => {
@@ -428,58 +451,78 @@ export default function Kitchen() {
           recommendations.push({
             name: menu.name,
             ordered_at: ticket.ordered_at,
+            quantity: menuOrderQuantity[menu.name] - average,
+            ingredients: menu.ingredients
           });
         }
       });
     });
 
-    interface IRecommendation {
-      startTime: Date,
-      endTime: Date,
-      items: string[]
-    }
-
     //static time blocks to represent daily work hours and store menu items
-    const recommendationTimeBlocks: IRecommendation[] = [
-      {startTime: new Date("1000-02-17T08:00:00"), endTime: new Date("3025-02-17T10:00:00"), items: []},
-      {startTime: new Date("1000-02-17T11:00:00"), endTime: new Date("3025-02-17T13:00:00"), items: []},
-      {startTime: new Date("1000-02-17T14:00:00"), endTime: new Date("3025-02-17T16:00:00"), items: []},
-      {startTime: new Date("1000-02-17T17:00:00"), endTime: new Date("3025-02-17T19:00:00"), items: []}
+    const recommendationTimeBlocks: ITimeBlocks[] = [
+      {
+        startTime: new Date("1000-02-17T08:00:00"),
+        endTime: new Date("3025-02-17T10:00:00"),
+        items: [],
+      },
+      {
+        startTime: new Date("1000-02-17T11:00:00"),
+        endTime: new Date("3025-02-17T13:00:00"),
+        items: [],
+      },
+      {
+        startTime: new Date("1000-02-17T14:00:00"),
+        endTime: new Date("3025-02-17T16:00:00"),
+        items: [],
+      },
+      {
+        startTime: new Date("1000-02-17T17:00:00"),
+        endTime: new Date("3025-02-17T19:00:00"),
+        items: [],
+      },
     ];
 
     // go through each recommended menu item
-    recommendations.forEach((item)=>{
+    recommendations.forEach((item) => {
       // go through recommendation time blocks
-      for(let i = 0; i < recommendationTimeBlocks.length; i++){
+      for (let i = 0; i < recommendationTimeBlocks.length; i++) {
         const firstTimeBlock = recommendationTimeBlocks[i].startTime;
         const secondTimeBlock = recommendationTimeBlocks[i].endTime;
         // check if item order time is greater than or equal to first time blcok
         // check if item order time is less than or equal to second time block
-        // check if item has already been added to static time blocks
-        if((item.ordered_at >= firstTimeBlock) && (item.ordered_at <= secondTimeBlock) && (recommendationTimeBlocks[i].items.indexOf(item.name) === -1)){
-          recommendationTimeBlocks[i].items.push(item.name);
+        if (
+          item.ordered_at >= firstTimeBlock &&
+          item.ordered_at <= secondTimeBlock
+        ) {
+          recommendationTimeBlocks[i].items.push({
+            name: item.name,
+            quantity: menuOrderQuantity[item.name] - average,
+            ingredients: item.ingredients
+          });
         }
       }
     });
 
-    return recommendationTimeBlocks;
-  };
+    // check if item has already been added to static time blocks
+    const removeDuplicates = recommendationTimeBlocks.map((block: ITimeBlocks) => {
+      return {
+        startTime: block.startTime,
+        endTime: block.endTime,
+        items: block.items.reduce(
+          (acc: IRecommendation[], current: IRecommendation) => {
+            const findItem = acc.find((item) => item.name === current.name);
+            if (findItem) {
+              return acc;
+            }
+            return acc.concat([current]);
+          },
+          []
+        ),
+      };
+    });
 
-  console.log(recommendPopularItems({completedTickets: multipleDummyTickets}));
-  return (
-    <>
-      <NavBar />
-      <div
-        className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
-      >
-        <div className="flex flex-row gap-4">
-          {multipleDummyTickets.map((ticket) => (
-            <KitchenCard key={ticket._id} ticket={ticket} />
-          ))}
-        </div>
-      </div>
-    </>
-  );
+    return removeDuplicates;
+  }
 
   const [toggleView, setToggleView] = useState("Open Tickets");
 
@@ -490,11 +533,13 @@ export default function Kitchen() {
     { text: "Alerts", icon: <AlertCircle /> },
   ];
 
-    return (
-        <>
-            <NavBar />
-            <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
-                     <h1>Kitchen</h1>
+  return (
+    <>
+      <NavBar />
+      <div
+        className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
+      >
+        <h1>Kitchen</h1>
 
         <section className="flex flex-wrap md:flex-nowrap flex-col md:flex-row items-center md:items-start justify-between">
           {menuToggles.map((menu) => (
@@ -506,12 +551,25 @@ export default function Kitchen() {
             />
           ))}
         </section>
-                <div className="flex flex-row gap-4 overflow-x-scroll">
-                    {multipleDummyTickets.map((ticket) => (
-                        <KitchenCard key={ticket._id} ticket={ticket} />
-                    ))}
-                </div>
-            </div>
-        </>
-    )
+
+        <div className="flex flex-row gap-4 overflow-x-scroll">
+        {
+        recommendPopularItems({ completedTickets: multipleDummyTickets }).map((menu)=>{
+          return menu.items.map((item)=>{
+            return(
+              <RecommendationCard key = {item.name} recommendation={{startTime: menu.startTime, endTime: menu.endTime, name: item.name, quantity: item.quantity, ingredients: item.ingredients }}/>
+            )
+          })
+        })
+        } 
+        </div>
+
+        <div className="flex flex-row gap-4 overflow-x-scroll">
+          {multipleDummyTickets.map((ticket) => (
+            <KitchenCard key={ticket._id} ticket={ticket} />
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
