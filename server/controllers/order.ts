@@ -26,7 +26,13 @@ router.post("/orders", async (req, res) => {
    const client = await Client_Connect();
    const db = client.db("Point_of_sale_system");
    const collection = db.collection("Order");
-   const newOrder = await collection.insertOne({orderId, items, status});
+   const newOrder = await collection.insertOne({
+     orderId, 
+     items, 
+     status,
+     createdAt: new Date(),
+     updatedAt: new Date()
+   });
    res.status(201).json({ message: 'Order created successfully', order: newOrder });
  } catch (err) {
    console.error(err);
@@ -45,8 +51,8 @@ router.patch("/orders/:orderId/status", async (req, res) => {
    const collection: Collection<IOrder> = db.collection("Order");
 
    const updatedOrder = await collection.findOneAndUpdate(
-     { orderId: orderId },
-     { status, updatedAt: new Date() },
+     { orderId },
+     { $set: { status, updatedAt: new Date() } },
      { returnDocument: "after" }
    );
 

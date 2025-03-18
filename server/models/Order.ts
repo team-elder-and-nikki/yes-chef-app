@@ -13,7 +13,8 @@ interface Item {
 
 export interface IOrder extends Document {
  orderId: string;
- timestamp: string;
+ createdAt: Date;
+ updatedAt: Date;
  items: Item[];
  status: "unstarted" | "in progress" | "completed"; 
 }
@@ -37,9 +38,8 @@ const OrderSchema = new Schema<IOrder>({
     enum: ["unstarted", "in progress", "completed"],
     default: "unstarted"
   },
-},
-{
-    timestamps: true
+  createdAt: { type: Date, default: new Date() },
+  updatedAt: { type: Date, default: new Date() } 
 });
 
 

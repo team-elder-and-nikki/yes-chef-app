@@ -18,9 +18,9 @@ const IngredientSchema: Schema = new Schema({
     quantity: {type: Number, required: true},
     thresholdLevel: {type: Number, required: true},
     lastOrderDate:  {type: Date, required: true},
-    orderQty: { type: Number, required:false}
-},{
-    timestamps: true
+    orderQty: { type: Number, required:false},
+    createdAt: { type: Date, default: new Date() },
+    updatedAt: { type: Date, default: new Date() } 
 });
 
 export default model<Ingredient>('Ingredient', IngredientSchema);
