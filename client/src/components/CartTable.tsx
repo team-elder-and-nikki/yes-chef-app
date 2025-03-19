@@ -83,7 +83,7 @@ export function CartTable() {
           const findIngredient: IIngredient | undefined = ingredients.find((inventory:IIngredient)=>inventory.name === ingredient.ingredientName);
           if(findIngredient){
             if(findIngredient.quantity-menu.cartAmount <= findIngredient.thresholdLevel){
-                handleUpdate({id: findIngredient._id, quantity: findIngredient.thresholdLevel * 2});
+                handleUpdate({id: findIngredient._id, quantity: menu.cartAmount * findIngredient.thresholdLevel * 2});
             };
           }
         });
