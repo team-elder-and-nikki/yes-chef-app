@@ -1,10 +1,6 @@
 import ItemProfitability from "@/components/MenuEngineeringDashComponents/ItemProfitability";
 import TableComponent from "@/components/MenuEngineeringDashComponents/Table";
 
-export default function Reports() {
-  return (
-    <>
-
 import { IIngredient } from "@/models/Ingredient";
 
 export default function Reports() {
