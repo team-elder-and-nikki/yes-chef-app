@@ -1,5 +1,5 @@
 import React from "react";
-import DishProfitability from "../components/MenuEngineeringDashComponents/DishProfitability";
+import DishProfitability from "../components/MenuEngineeringDashComponents/ItemProfitability";
 import TableComponent from "../components/MenuEngineeringDashComponents/Table";
 
 function MenuEngineeringDashboard() {
