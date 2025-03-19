@@ -4,7 +4,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu"
-import { House, Clock, Utensils, Clipboard } from "lucide-react"
+import { House, Clock, Utensils, Clipboard, ShoppingBag } from "lucide-react"
 
 export default function NavBar({}) {
     const activeRoute = window.location.pathname
