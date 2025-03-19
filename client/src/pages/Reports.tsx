@@ -1,4 +1,3 @@
-import NavBar from "@/components/NavBar";
 import { IIngredient } from "@/models/Ingredient";
 
 export default function Reports() {
@@ -18,7 +17,6 @@ export default function Reports() {
 
   return (
     <>
-      <NavBar />
       <div
         className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
       >

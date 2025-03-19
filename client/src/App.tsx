@@ -1,5 +1,6 @@
 import { Route, Routes, BrowserRouter } from "react-router";
 import "./App.css";
+import NavBar from "./components/NavBar";
 import Menu from "./pages/Menu";
 import Inventory from "./pages/Inventory";
 import Reports from "./pages/Reports";
@@ -14,6 +15,7 @@ function App() {
   return (
     <CartProvider>
       <BrowserRouter>
+      <NavBar />
         <Toaster position="top-right"/>
         <Routes>
           <Route path="/" element={<Menu />}></Route>

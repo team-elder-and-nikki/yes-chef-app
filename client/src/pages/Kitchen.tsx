@@ -536,12 +536,11 @@ export default function Kitchen() {
     { text: "Predictions", icon: <Stars /> },
   ];
 
-  return (
-    <>
-      <NavBar />
-      <div
-        className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
-      >
+    return (
+        <>
+            <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
+                     <h1>Kitchen</h1>
+
         <section className="flex flex-wrap md:flex-nowrap flex-col md:flex-row items-center md:items-start justify-between">
           {menuToggles.map((menu) => (
             <KitchenMenuToggle
