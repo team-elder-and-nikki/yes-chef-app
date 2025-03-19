@@ -4,6 +4,7 @@ import Menu from "./pages/Menu";
 import Inventory from "./pages/Inventory";
 import Reports from "./pages/Reports";
 import Kitchen from "./pages/Kitchen";
+import { Toaster } from "@/components/ui/sonner";
 
 import { CartProvider } from "./context/CartContext";
 
@@ -13,6 +14,7 @@ function App() {
   return (
     <CartProvider>
       <BrowserRouter>
+        <Toaster position="top-right"/>
         <Routes>
           <Route path="/" element={<Menu />}></Route>
           <Route path="/inventory" element={<Inventory />}></Route>
