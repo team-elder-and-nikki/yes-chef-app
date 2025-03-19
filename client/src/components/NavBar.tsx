@@ -1,11 +1,10 @@
-import { useState } from "react"
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu"
-import { House, ShoppingBag, Clock, Utensils, Clipboard } from "lucide-react"
+import { House, Clock, Utensils, Clipboard } from "lucide-react"
 
 export default function NavBar({}) {
     const activeRoute = window.location.pathname

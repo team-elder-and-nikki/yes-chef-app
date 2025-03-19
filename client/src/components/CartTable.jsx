@@ -13,12 +13,15 @@ import {
 import { Button } from "./ui/button";
 import { v4 as uuidv4 } from 'uuid';
 import { CircleX } from 'lucide-react';
+import { CirclePlus } from 'lucide-react';
+import { CircleMinus } from 'lucide-react';
+import axios from "axios";
 
 export function CartTable() {
-    const { cart, clearCart, removeFromCart } = useCart();
+    const { cart, clearCart, removeFromCart, addOneToExistingItem, subtractOneFromExistingItem } = useCart();
     const [isLoading, setIsLoading] = React.useState(false);
-    const sendOrder = () => {
 
+    const sendOrder = async () => {
         const orderId = uuidv4(); // Generate a unique ID
         const timestamp = new Date().toISOString(); // Get the current timestamp
 
@@ -26,13 +29,24 @@ export function CartTable() {
             orderId,
             timestamp,
             items: cart,
+            status: "unstarted", // Default status
         };
 
-        console.log(`Order sent: ${JSON.stringify(orderDetails, null, 2)}`);
-        alert("Order has been sent!");
-        clearCart()
-        console.log(cart)
+        try {
+            setIsLoading(true); // Set loading state
+            const response = await axios.post("http://localhost:8000/orders", orderDetails); // Use Axios
+            console.log("Order sent successfully:", response.data);
+            alert("Order has been sent!");
+            clearCart(); // Clear the cart after successful submission
+        } catch (error) {
+            console.error("Error sending order:", error);
+            alert("Failed to send order. Please try again.");
+        } finally {
+            setIsLoading(false); // Reset loading state
+            console.log(orderDetails)
+        }
     };
+
 
     const subTotal = cart.reduce((sum, item) => sum + item.cartAmount * item.price, 0);
     const tax = subTotal * 0.06;
@@ -55,6 +69,16 @@ export function CartTable() {
                         {cart.map((item) => (
                             <TableRow key={item.id}>
                                 <TableCell>
+                                    <CirclePlus
+                                        className="m-1 cursor-pointer hover:text-red-500"
+                                        onClick={() => addOneToExistingItem(item.id)}
+                                    >
+                                    </CirclePlus>
+                                    <CircleMinus
+                                        className="m-1 cursor-pointer hover:text-red-500"
+                                        onClick={() => subtractOneFromExistingItem(item.id)}
+                                    >
+                                    </CircleMinus>
                                     <CircleX
                                         className="m-1 cursor-pointer hover:text-red-500"
                                         onClick={() => removeFromCart(item.id)}
