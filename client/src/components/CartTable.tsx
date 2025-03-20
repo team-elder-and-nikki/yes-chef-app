@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import {
   Table,
@@ -15,8 +15,10 @@ import { CircleX } from "lucide-react";
 import { CirclePlus } from "lucide-react";
 import { CircleMinus } from "lucide-react";
 import axios from "axios";
-import { toast } from "sonner";
 import { ENDPOINT_URL } from "../staticVar";
+import { IIngredient } from "@/models/Ingredient";
+import FloatingCard from "./ui/floatingCard";
+import {toast} from "sonner";
 
 export function CartTable() {
   const {
@@ -27,6 +29,39 @@ export function CartTable() {
     subtractOneFromExistingItem,
   } = useCart();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [ingredients, setIngredients] = useState<IIngredient[]>([]);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/ingredients");
+      const data = await response.data;
+      setIngredients(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+
+  const handleUpdate = async ({id, quantity}:{id:string, quantity: number}) => {
+    try {
+        if (quantity < 0) {
+          toast.error("Quantity cannot be negative");
+          throw new Error("Quantity cannot be negative");
+        } else if (quantity === null || quantity === undefined) {
+          toast.error("Quantity cannot be empty");
+          throw new Error("Quantity cannot be empty");
+        }
+          const response = await axios.patch(`http://localhost:8000/ingredients/updateQuantity/${id}`, { quantity });
+          console.log("Items were updated " + response);
+          getData();
+    } catch (error) {
+        console.error('Error updating data:', error);
+    }
+  } ;
 
   const sendOrder = async () => {
     const orderId = uuidv4(); // Generate a unique ID
@@ -41,11 +76,25 @@ export function CartTable() {
 
     try {
       setIsLoading(true); // Set loading state
-      const response = await axios.post(`${ENDPOINT_URL}/orders`, orderDetails); // Use Axios
+
+      const response = await axios.post("http://localhost:8000/orders", orderDetails); // Use Axios
       console.log("Order sent successfully:", response.data);
+
+      orderDetails.items.forEach((menu) => {
+       menu.ingredients.forEach((ingredient) => {
+          const findIngredient: IIngredient | undefined = ingredients.find((inventory:IIngredient)=>inventory.name === ingredient.ingredientName);
+          if(findIngredient){
+            if(findIngredient.quantity-menu.cartAmount <= findIngredient.thresholdLevel){
+                handleUpdate({id: findIngredient._id, quantity: menu.cartAmount * findIngredient.thresholdLevel * 2});
+            };
+          }
+        });
+      });
+
       toast.success("Order has been sent!");
       clearCart(); // Clear the cart after successful submission
     } catch (error) {
+      console.error("Error sending order:", error);
       toast.error("Failed to send order. Please try again." + error);
     } finally {
       setIsLoading(false); // Reset loading state
@@ -62,6 +111,7 @@ export function CartTable() {
 
   return (
     <div className="space-y-4 h-[400px] flex flex-col bg-gray-50">
+    <FloatingCard className="space-y-4 h-[400px] flex flex-col bg-gray-50">
       <div className="flex-1 overflow-y-auto">
         <Table>
           <TableHeader>
@@ -134,6 +184,7 @@ export function CartTable() {
           </Button>
         </div>
       </div>
+    </FloatingCard>
     </div>
   );
 }

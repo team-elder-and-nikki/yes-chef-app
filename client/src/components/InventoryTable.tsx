@@ -95,7 +95,7 @@ export default function InventoryTable() {
 
   return (
     <>
-      <Table>
+      <Table className="bg-white">
         <TableCaption>A list of inventory ingerdients.</TableCaption>
         <TableHeader>
           <TableRow>

@@ -1,10 +1,11 @@
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+import FloatingCard from "@/components/ui/floatingCard";
 
 export default function MenuCard({
   menuName,
@@ -22,20 +23,15 @@ export default function MenuCard({
   imageAlt?: string;
 }) {
   return (
-    <Card
-      onClick={() => onClickTrigger()}
-      className="w-38 sm:w-40 md:w-48 lg:w-56 hover:cursor-pointer hover:bg-red-50 m-4"
-    >
-      {image && imageAlt && (
-        <CardHeader>
-          <img src={image} alt={imageAlt} />
-        </CardHeader>
-      )}
+    <FloatingCard onClick={() => onClickTrigger()} className="w-38 sm:w-40 md:w-48 lg:w-56 hover:cursor-pointer hover:bg-red-50 m-4">
+      {image && imageAlt && <CardHeader>
+        <img src={image} alt={imageAlt} />
+      </CardHeader>}
       <CardContent className="text-center">
         <CardTitle className="mb-2">{menuName}</CardTitle>
         <CardDescription className="mb-6">{menuDescription}</CardDescription>
         <span className="font-semibold">{menuPrice}</span>
       </CardContent>
-    </Card>
+    </FloatingCard>
   );
 }
