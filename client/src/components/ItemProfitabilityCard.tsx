@@ -1,9 +1,10 @@
 import {
-  Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+import FloatingCard from "@/components/ui/floatingCard";
 
 export default function MenuCard({
   menuName,
@@ -14,7 +15,7 @@ export default function MenuCard({
   menuPrice: string;
 }) {
   return (
-    <Card className="w-38 sm:w-40 md:w-48 lg:w-56 hover:cursor-pointer hover:bg-red-50 m-4">
+    <FloatingCard className="w-38 sm:w-40 md:w-48 lg:w-56 hover:cursor-pointer hover:bg-red-50 m-4">
       <CardHeader/>
       <CardContent className="text-center">
         <CardTitle className="mb-2">{menuName}</CardTitle>
@@ -25,6 +26,6 @@ export default function MenuCard({
         <div className="">Profit: {menuPrice}-sum of ingredients cost</div>
         </div>
       </CardContent>
-    </Card>
+    </FloatingCard>
   );
 }

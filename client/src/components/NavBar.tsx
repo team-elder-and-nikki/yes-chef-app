@@ -11,7 +11,7 @@ export default function NavBar({}) {
     const isActiveRoute = (route: string) => activeRoute === route;
 
     return (
-        <nav className="flex flex-col md:fixed md:left-6 md:top-0 md:h-full md:w-20 items-center">
+        <nav className="flex flex-col md:fixed md:left-6 md:top-0 md:h-full md:w-20 md:mr-4 items-center">
         <img src="/yescheflogo.png" alt="Black frying pan with yellow and orange flames coming out. On top of bold words reading Yes Chef" className="h-16 my-2 md:hidden" />
 
             <NavigationMenu>

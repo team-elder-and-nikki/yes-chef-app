@@ -1,10 +1,10 @@
-import { Card, CardHeader, CardFooter, CardTitle, CardContent } from "@/components/ui/card"
+import { CardHeader, CardFooter, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "./ui/button"
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from "@/components/ui/table"
 import { ITicket } from "@/models/Ticket"
 import { IMenu } from "@/models/Menu"
 import { useEffect, useState, Fragment } from "react"
-
+import FloatingCard from "@/components/ui/floatingCard";
 
 export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     const ticketStatusColors = {
@@ -79,7 +79,7 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     }
 
     return (
-        <Card className="size-max h-fit max-h-fit py-0">
+        <FloatingCard className="size-max h-fit max-h-fit py-0 my-10">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
                 <CardTitle className="w-max">{`#${ticket.ticket_number}`}</CardTitle>
                 <CardTitle className="w-max">{`${ticket.ordered_at.getHours()}:${ticket.ordered_at.getMinutes()}`}</CardTitle>
@@ -112,11 +112,11 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                         }
                     </TableBody>
                 </Table>
-                {ticket.status !== "Completed" && <Button className={buttonColor} onClick={() => handleStatusChange()}>{buttonText}</Button>}
+                {ticket.status !== "Completed" && <Button className={`${buttonColor} mt-4`} onClick={() => handleStatusChange()}>{buttonText}</Button>}
             </CardContent>
             <CardFooter className={"rounded-b-xl py-3 justify-center " + headerFooterColor}>
                 <CardTitle className="text-center">{ticket.status}</CardTitle>
             </CardFooter>
-        </Card>
+        </FloatingCard>
     )
 }
