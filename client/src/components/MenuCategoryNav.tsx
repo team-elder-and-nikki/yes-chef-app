@@ -5,6 +5,7 @@ const categories = ["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"];
 
 interface MenuCategoryNavProps {
   onCategoryChange: (category: string) => void;
+  categories: string[];
 }
 
 function MenuCategoryNav({ onCategoryChange }: MenuCategoryNavProps) {

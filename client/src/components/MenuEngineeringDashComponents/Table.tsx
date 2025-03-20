@@ -4,11 +4,13 @@ import React from "react";
 interface TableComponentProps {
   headings: string[];
   rows: string[][];
+  tableName: string;
 }
 
-function TableComponent({ headings, rows }: TableComponentProps) {
+function TableComponent({ headings, rows, tableName }: TableComponentProps) {
   return (
     <div className="overflow-auto rounded-lg shadow-md border border-gray-200">
+      <h2 className="text-center bg-gray-200">{tableName}</h2>
       <table className="min-w-full border-collapse text-sm">
         <thead className="bg-gray-100">
           <tr>
