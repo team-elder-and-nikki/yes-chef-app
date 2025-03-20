@@ -2,11 +2,9 @@ import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface CategoryNavProps {
-interface CategoryNavProps {
   onCategoryChange: (category: string) => void;
   categories: string[];
-  categories: string[];
-}
+ }
 
 function CategoryNav({ onCategoryChange, categories }: CategoryNavProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>(
