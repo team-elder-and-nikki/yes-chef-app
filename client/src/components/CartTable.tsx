@@ -33,7 +33,7 @@ export function CartTable() {
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/ingredients");
+      const response = await axios.get(`${ENDPOINT_URL}/ingredients`);
       const data = await response.data;
       setIngredients(data);
     } catch (error) {
@@ -55,7 +55,7 @@ export function CartTable() {
           toast.error("Quantity cannot be empty");
           throw new Error("Quantity cannot be empty");
         }
-          const response = await axios.patch(`http://localhost:8000/ingredients/updateQuantity/${id}`, { quantity });
+          const response = await axios.patch(`${ENDPOINT_URL}/ingredients/updateQuantity/${id}`, { quantity });
           console.log("Items were updated " + response);
           getData();
     } catch (error) {
@@ -76,8 +76,7 @@ export function CartTable() {
 
     try {
       setIsLoading(true); // Set loading state
-
-      const response = await axios.post("http://localhost:8000/orders", orderDetails); // Use Axios
+      const response = await axios.post(`${ENDPOINT_URL}/orders`, orderDetails); // Use Axios
       console.log("Order sent successfully:", response.data);
 
       orderDetails.items.forEach((menu) => {

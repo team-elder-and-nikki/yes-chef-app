@@ -20,9 +20,7 @@ function CategoryNav({ onCategoryChange, categories }: CategoryNavProps) {
     <Tabs
       value={selectedCategory}
       onValueChange={handleCategoryChange}
-      className="flex flex-1 items-center justify-center 
-    w-screen
-    "
+      className="flex flex-1 items-center justify-center w-screen"
     >
       <TabsList>
         {categories.map((category) => (
