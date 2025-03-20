@@ -1,15 +1,11 @@
 import { Route, Routes, BrowserRouter } from "react-router";
-import "./App.css";
 import NavBar from "./components/NavBar";
+import { Toaster } from "@/components/ui/sonner";
 import Menu from "./pages/Menu";
 import Inventory from "./pages/Inventory";
 import Reports from "./pages/Reports";
 import Kitchen from "./pages/Kitchen";
-import { Toaster } from "@/components/ui/sonner";
-
 import { CartProvider } from "./context/CartContext";
-
-// Example: import { Button } from "@/components/ui/button";
 
 function App() {
   return (
