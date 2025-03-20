@@ -36,4 +36,3 @@ function CategoryNav({ onCategoryChange, categories }: CategoryNavProps) {
 }
 
 export default CategoryNav;
-export default CategoryNav;
