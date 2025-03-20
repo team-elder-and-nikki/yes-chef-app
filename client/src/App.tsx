@@ -15,15 +15,20 @@ function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-      <NavBar />
-        <Toaster position="top-right"/>
-        <Routes>
-          <Route path="/" element={<Menu />}></Route>
-          <Route path="/inventory" element={<Inventory />}></Route>
-          <Route path="/kitchen" element={<Kitchen />}></Route>
-          <Route path="/reports" element={<Reports />}></Route>
-        </Routes>
+      <div className="bg-[url('/YesChefBackground.png')] bg-cover bg-center bg-no-repeat min-h-screen bg-fixed md:bg-cover md:bg-center sm:bg-contain sm:bg-top">
+        <div className="m-6">
+          <NavBar />
+          <Toaster position="top-right"/>
+          <Routes>
+            <Route path="/" element={<Menu />}></Route>
+            <Route path="/inventory" element={<Inventory />}></Route>
+            <Route path="/kitchen" element={<Kitchen />}></Route>
+            <Route path="/reports" element={<Reports />}></Route>
+          </Routes>
+        </div>
+      </div>
       </BrowserRouter>
+      
     </CartProvider>
   );
 }
