@@ -1,7 +1,7 @@
 import React from "react";
 import DishProfitability from "../components/MenuEngineeringDashComponents/ItemProfitability";
 import TableComponent from "../components/MenuEngineeringDashComponents/Table";
-
+import ProfitabilityTable from "../components/ProfitabilityTable"
 function MenuEngineeringDashboard() {
   //test data, can be deleted whenever
   const tableOneHeadings = [
@@ -111,14 +111,19 @@ function MenuEngineeringDashboard() {
   //test data end
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 bg-gray-100 p-6">
-      <div className="flex-grow lg:w-3/4">
+    <div className="  lg:mx-20 md:mx-20 flex flex-col lg:flex-row gap-6 bg-gray-100 p-6">
+      {/* <div className="flex-grow lg:w-3/4">
         <DishProfitability dishes={dishes} />
-      </div>
-
-      <div className="lg:w-1/4 flex flex-col space-y-6">
-        <TableComponent headings={tableOneHeadings} rows={tableOneRows} />
-        <TableComponent headings={tableTwoHeadings} rows={tableTwoRows} />
+      </div> */}
+    <ProfitabilityTable />
+      <div className=" flex flex-col space-y-6 lg:mx-10 md:mx-20 lg:w-2/3">
+        
+        <TableComponent 
+          headings={tableOneHeadings} rows={tableOneRows} tableName={"Waste Metrics"}
+         />
+        <TableComponent
+         headings={tableTwoHeadings} rows={tableTwoRows} tableName={"Ingredient Cost Tracking"}
+         />
       </div>
     </div>
   );
