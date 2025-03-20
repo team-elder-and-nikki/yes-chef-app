@@ -17,6 +17,7 @@ import { CircleMinus } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner"
 import { IIngredient } from "@/models/Ingredient";
+import FloatingCard from "./ui/floatingCard";
 
 export function CartTable() {
   const {
@@ -108,7 +109,7 @@ export function CartTable() {
   const total = subTotal + tax;
 
   return (
-    <div className="space-y-4 h-[400px] flex flex-col bg-gray-50">
+    <FloatingCard className="space-y-4 h-[400px] flex flex-col bg-gray-50">
       <div className="flex-1 overflow-y-auto">
         <Table>
           <TableHeader>
@@ -181,6 +182,6 @@ export function CartTable() {
           </Button>
         </div>
       </div>
-    </div>
+    </FloatingCard>
   );
 }
