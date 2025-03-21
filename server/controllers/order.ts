@@ -1,7 +1,7 @@
 import express, { Router }  from "express";
-import { Collection } from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
-import type { IOrder } from "../models/Order.ts";
+import type { ITicket } from "../../client/src/models/Ticket.ts";
+import { Collection, ObjectId } from "mongodb";   
 
 const router: Router = express.Router();
 
@@ -9,7 +9,7 @@ router.get("/orders", async (req, res) => {
  try {
    const client = await Client_Connect();
    const db = client.db("Point_of_sale_system");
-   const collection: Collection<IOrder> = db.collection("Order");
+   const collection = db.collection("Order");
    const orders = await collection.find().toArray();
    res.status(200).json(orders);
  } catch (err) {
@@ -41,19 +41,17 @@ router.post("/orders", async (req, res) => {
 });
 
 
-router.patch("/orders/:orderId/status", async (req, res) => {
- const { orderId } = req.params;
- const { status } = req.body;
-
+router.patch("/orders/status", async (req, res) => {
  try {
+   res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+
    const client = await Client_Connect();
    const db = client.db("Point_of_sale_system");
-   const collection: Collection<IOrder> = db.collection("Order");
-
+   const collection: Collection<ITicket> = db.collection("Order");
+   
    const updatedOrder = await collection.findOneAndUpdate(
-     { orderId },
-     { $set: { status, updatedAt: new Date() } },
-     { returnDocument: "after" }
+     { orderId: req.body.ticket.orderId},
+     { $set: {status: req.body.status} },
    );
 
    res.status(200).json({ message: 'Order updated successfully', order: updatedOrder });

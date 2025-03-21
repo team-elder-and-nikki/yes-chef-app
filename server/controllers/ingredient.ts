@@ -81,7 +81,7 @@ router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
 
 router.put("/updateIngredientQuantity", async (req, res) => {
   try {
-    if (req.body.status === "Completed") {
+    if (req.body.status === "completed") {
       // init db connection with MongoClient
       const client = await Client_Connect();
 
@@ -99,7 +99,7 @@ router.put("/updateIngredientQuantity", async (req, res) => {
             { name: ingredient.ingredientName },
             //increase by negative one (decrease by 1) and update timestamp
             { 
-              $inc: { quantity: -1 * (item.cartAmt ?? 1) },
+              $inc: { quantity: -1 * (item.cartAmount ?? 1) },
               $set: { updatedAt: new Date() }
             }
           );
