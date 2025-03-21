@@ -1,35 +1,54 @@
-import ItemProfitability from "@/components/MenuEngineeringDashComponents/ItemProfitability";
-import TableComponent from "@/components/MenuEngineeringDashComponents/Table";
+import { useState } from "react";
+import MenuCategoryNav from "../components/MenuCategoryNav";
+import MenuCard from "@/components/MenuCard";
+import { useCart } from "../context/CartContext";
+import { useFetchMenu } from "../hooks/useFetchMenu"; // Import from the combined file
+import { IMenu } from "@/models/Menu";
 
-import { IIngredient } from "@/models/Ingredient";
+
 
 export default function Reports() {
+    const { menuItems, loading, error } = useFetchMenu();
+    const [selectedCategory, setSelectedCategory] = useState("Appetizers");
+    //filters menu items by category
+    const filteredMenuItems = menuItems.filter((item) => item.category === selectedCategory);
+    const renderReporting=(item: IMenu)=>{
+        console.log(item._id) 
+    }
+    if (loading) return <p>Loading menu...</p>;
+    if (error) return <p>Error: {error}</p>;
 
-  interface IWasteIngredient extends IIngredient{
-    priceOfMenu: number;
-    amtWasted: number;
-  }
 
-  function manageMoneyLost({
-    ingredient,
-  }: {
-    ingredient: IWasteIngredient;
-  }) {
-    return ingredient.amtWasted * ingredient.unitCost;
-  }
 
-  return (
-    <>
-      <div
-        className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
-      >
-        <h1>Reports</h1>
-        <div>
-          <ItemProfitability />
-          {/* <TableComponent /> */}
+    return (
+
+        <div className="">
+            <MenuCategoryNav 
+                onCategoryChange={setSelectedCategory} 
+                categories = {["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"]}
+            />
+
+            {/* Main Content */}
+            <div className="container mx-auto md:pl-24 px-4 py-8 flex flex-col lg:flex-row gap-8 ">
+            
+            
+                {/* Menu Items */}
+                <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {filteredMenuItems.map((item: IMenu) => (
+                        <MenuCard
+                            key={item._id}
+                            menuName={item.name}
+                            menuDescription={item.ingredients.map((i) => i.ingredientName).join(", ")}    
+                            menuPrice={`$${item.price.toFixed(2)}`}                
+                            onClickTrigger={() => renderReporting(item)}
+
+                        />
+                    ))}
+                </div>
+
+            </div>
+
         </div>
-
-      </div>
-    </>
-  );
+    );
 }
+

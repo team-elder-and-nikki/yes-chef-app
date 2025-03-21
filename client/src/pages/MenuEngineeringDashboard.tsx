@@ -1,7 +1,12 @@
 import React from "react";
-import DishProfitability from "../components/MenuEngineeringDashComponents/ItemProfitability";
 import TableComponent from "../components/MenuEngineeringDashComponents/Table";
-import ProfitabilityTable from "../components/ProfitabilityTable"
+import ProfitabilityTable from "../components/ProfitabilityTable";
+
+interface MetricsComponentProps{
+    id: string;
+    name: string;
+    unitCost: number;
+}
 function MenuEngineeringDashboard() {
   //test data, can be deleted whenever
   const tableOneHeadings = [
@@ -9,6 +14,7 @@ function MenuEngineeringDashboard() {
     "Amount Used",
     "Wasted",
     "Dollars Wasted",
+    "Update Waste"
   ];
   const tableOneRows = [
     ["Cheese", "45", "5", "$5"],

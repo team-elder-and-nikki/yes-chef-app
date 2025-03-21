@@ -22,7 +22,7 @@ function App() {
           <Route path="/inventory" element={<Inventory />}></Route>
           <Route path="/kitchen" element={<Kitchen />}></Route>
           <Route path="/reports" element={<Reports />}></Route>
-          <Route path="/MenuEngineeringDashboard" element={<MenuEngineeringDashboard />}></Route>
+          <Route path="/metrics" element={<MenuEngineeringDashboard />}></Route>
         </Routes>
       </BrowserRouter>
       

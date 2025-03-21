@@ -8,22 +8,18 @@ import {
     TableRow,
     TableFooter
   } from "@/components/ui/table";
-  import { toast } from "sonner"
-  import { ShoppingCartIcon } from "lucide-react";
-  import { Button } from "@/components/ui/button"
-  import { Input } from "@/components/ui/input"
   import { useEffect, useState } from 'react'
   import { IIngredient } from "../models/Ingredient"
 
   //Pulled from server/model/ingredient interface
-  interface Ingredient{
-    _id: string;
-    name: string;
-    unitCost: number;
-    quantity: number;
-    thresholdLevel: number;
-    orderQty: number;
-}
+//   interface Ingredient{
+//     _id: string;
+//     name: string;
+//     unitCost: number;
+//     quantity: number;
+//     thresholdLevel: number;
+//     orderQty: number;
+// }
 const ingredients = [
     {
       invoice: "INV001",
@@ -69,13 +65,15 @@ const ingredients = [
     },
   ]
   
+  interface ProfitabilityComponentProps{
+    id: string;
+    name: string;
+    unitCost: number;
+}
 
 
-
-  export default function ProfitabilityTable(){
-    const [data, setIngredients] = useState<IIngredient[]>([]);
-   
-  
+  export default function ProfitabilityTable({ id, name, unitCost}: ProfitabilityComponentProps){
+    // const [data, setIngredients] = useState<IIngredient[]>([]);
     return(
         <>  
 
