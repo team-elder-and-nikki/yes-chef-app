@@ -11,9 +11,8 @@ export default function NavBar({}) {
     const isActiveRoute = (route: string) => activeRoute === route;
 
     return (
-        <nav className="flex flex-col md:fixed md:left-0 md:top-0 md:h-full md:w-20 items-center">
+        <nav className="flex flex-col md:fixed md:left-6 md:top-0 md:h-full md:w-20 md:mr-4 items-center">
         <img src="/yescheflogo.png" alt="Black frying pan with yellow and orange flames coming out. On top of bold words reading Yes Chef" className="h-16 my-2 md:hidden" />
-
 
             <NavigationMenu>
                 <NavigationMenuList >        
@@ -25,32 +24,32 @@ export default function NavBar({}) {
                         />
                     </div>
                     <NavigationMenuItem>
-                        <NavigationMenuLink href="/" data-active={isActiveRoute("/")}>
+                        <NavigationMenuLink className="bg-white text-gray-700" href="/" data-active={isActiveRoute("/")}>
                             <House />
                             Menu
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuLink href="/orders" data-active={isActiveRoute("/orders")}>
+                        <NavigationMenuLink className="bg-white text-gray-700" href="/orders" data-active={isActiveRoute("/orders")}>
                             <ShoppingBag />
                             Orders
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     
                     <NavigationMenuItem>
-                        <NavigationMenuLink href="/reports" data-active={isActiveRoute("/reports")}>
+                        <NavigationMenuLink className="bg-white text-gray-700" href="/reports" data-active={isActiveRoute("/reports")}>
                             <Clock />
                             Reports
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuLink href="/kitchen" data-active={isActiveRoute("/kitchen")}>
+                        <NavigationMenuLink className="bg-white text-gray-700" href="/kitchen" data-active={isActiveRoute("/kitchen")}>
                             <Utensils />
                             Kitchen
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuLink href="/inventory" data-active={isActiveRoute("/inventory")}>
+                        <NavigationMenuLink className="bg-white text-gray-700" href="/inventory" data-active={isActiveRoute("/inventory")}>
                             <Clipboard />
                             Inventory
                         </NavigationMenuLink>

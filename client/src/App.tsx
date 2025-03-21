@@ -7,8 +7,6 @@ import Reports from "./pages/Reports";
 import Kitchen from "./pages/Kitchen";
 import { Toaster } from "@/components/ui/sonner";
 import MenuEngineeringDashboard from "./pages/MenuEngineeringDashboard"
-import ReportsDashboard from "./pages/ReportsDashboard"
-
 import { CartProvider } from "./context/CartContext";
 
 // Example: import { Button } from "@/components/ui/button";
@@ -25,10 +23,9 @@ function App() {
           <Route path="/kitchen" element={<Kitchen />}></Route>
           <Route path="/reports" element={<Reports />}></Route>
           <Route path="/MenuEngineeringDashboard" element={<MenuEngineeringDashboard />}></Route>
-          <Route path="/ReportsDashboard" element={<ReportsDashboard />}></Route>
-
         </Routes>
       </BrowserRouter>
+      
     </CartProvider>
   );
 }

@@ -103,7 +103,7 @@ function updateOrderQty(id: string, newOrderQty: number) {
 
   return(
       <>  
-        <Table>
+        <Table className="bg-white">
         <TableCaption>A list of inventory ingerdients.</TableCaption>
         <TableHeader>
             <TableRow>
