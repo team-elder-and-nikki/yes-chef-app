@@ -2,11 +2,7 @@ import NavBar from "@/components/NavBar";
 import KitchenCard from "@/components/KitchenCard";
 import { ITicket } from "../models/Ticket";
 import { IMenu } from "../models/Menu";
-import {
-  Stars,
-  NotepadTextIcon,
-  NotepadTextDashed,
-} from "lucide-react";
+import { Stars, NotepadTextIcon, NotepadTextDashed } from "lucide-react";
 import KitchenMenuToggle from "@/components/KitchenMenuToggle";
 import { useState } from "react";
 import RecommendationCard from "@/components/RecommendationCard";
@@ -65,13 +61,18 @@ export default function Kitchen() {
         quantity: 1,
         price: 10,
         prepTime: 15,
-        Image: "burger.jpg",
+        image: "burger.jpg",
         category: "Main",
       },
       {
         _id: "uniqueMenuItemId",
         name: "Lasagna",
         ingredients: [
+          { ingredientName: "Tomatoes", ingredientId: "1" },
+          { ingredientName: "Basil", ingredientId: "2" },
+          { ingredientName: "Garlic", ingredientId: "3" },
+          { ingredientName: "Olive Oil", ingredientId: "4" },
+          { ingredientName: "Baguette", ingredientId: "5" },
           {
             _id: "uniqueIngredientId",
             name: "Potato",
@@ -425,7 +426,7 @@ export default function Kitchen() {
     // find average quantity among all the orders made
     const average = Math.floor(
       Object.values(menuOrderQuantity).reduce((a, b) => a + b, 0) /
-        Object.values(menuOrderQuantity).filter((order) => order > 0).length
+        Object.values(menuOrderQuantity).filter((order) => order > 0).length,
     );
 
     const popularMenuItems: string[] = [];
@@ -519,10 +520,10 @@ export default function Kitchen() {
               }
               return acc.concat([current]);
             },
-            []
+            [],
           ),
         };
-      }
+      },
     );
 
     return removeDuplicates;
@@ -536,11 +537,11 @@ export default function Kitchen() {
     { text: "Predictions", icon: <Stars /> },
   ];
 
-    return (
-        <>
-            <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
-                     <h1>Kitchen</h1>
-
+  return (
+    <>
+      <div
+        className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
+      >
         <section className="flex flex-wrap md:flex-nowrap flex-col md:flex-row items-center md:items-start justify-between">
           {menuToggles.map((menu) => (
             <KitchenMenuToggle
@@ -553,47 +554,48 @@ export default function Kitchen() {
           ))}
         </section>
 
+        {toggleView === "Predictions" && (
+          <div className="flex flex-row gap-4 overflow-x-scroll">
+            {recommendPopularItems({
+              completedTickets: multipleDummyTickets,
+            }).map((menu) => {
+              return menu.items.map((item) => {
+                return (
+                  <RecommendationCard
+                    key={item.name}
+                    recommendation={{
+                      startTime: menu.startTime,
+                      endTime: menu.endTime,
+                      name: item.name,
+                      quantity: item.quantity,
+                      ingredients: item.ingredients,
+                    }}
+                  />
+                );
+              });
+            })}
+          </div>
+        )}
 
-        {toggleView === "Predictions" &&
-        <div className="flex flex-row gap-4 overflow-x-scroll">
-          {recommendPopularItems({
-            completedTickets: multipleDummyTickets,
-          }).map((menu) => {
-            return menu.items.map((item) => {
-              return (
-                <RecommendationCard
-                  key={item.name}
-                  recommendation={{
-                    startTime: menu.startTime,
-                    endTime: menu.endTime,
-                    name: item.name,
-                    quantity: item.quantity,
-                    ingredients: item.ingredients,
-                  }}
-                />
-              );
-            });
-          })}
-        </div>}
+        {toggleView === "Closed Tickets" && (
+          <div className="flex flex-row gap-4 overflow-x-scroll">
+            {multipleDummyTickets.map((ticket) => {
+              if (ticket.status === "Completed") {
+                return <KitchenCard key={ticket._id} ticket={ticket} />;
+              }
+            })}
+          </div>
+        )}
 
-        {toggleView === "Closed Tickets" &&
-        <div className="flex flex-row gap-4 overflow-x-scroll">
-        {multipleDummyTickets.map((ticket) => {
-            if (ticket.status === "Completed") {
-              return <KitchenCard key={ticket._id} ticket={ticket} />;
-            }
-          })}
-        </div>}
-
-        {toggleView === "Open Tickets" &&
-        <div className="flex flex-row gap-4 overflow-x-scroll">
-          {KitchenStatus({orders: multipleDummyTickets}).map((ticket) => {
-            if (ticket.status !== "Completed") {
-              return <KitchenCard key={ticket._id} ticket={ticket} />;
-            }
-          })}
-        </div>
-        }
+        {toggleView === "Open Tickets" && (
+          <div className="flex flex-row gap-4 overflow-x-scroll">
+            {KitchenStatus({ orders: multipleDummyTickets }).map((ticket) => {
+              if (ticket.status !== "Completed") {
+                return <KitchenCard key={ticket._id} ticket={ticket} />;
+              }
+            })}
+          </div>
+        )}
       </div>
     </>
   );

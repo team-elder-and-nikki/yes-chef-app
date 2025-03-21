@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-interface CategoryNavProps {
+const categories = ["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"];
+
+interface MenuCategoryNavProps {
   onCategoryChange: (category: string) => void;
-  categories: string[];
 }
 
-function CategoryNav({ onCategoryChange, categories }: CategoryNavProps) {
+function MenuCategoryNav({ onCategoryChange }: MenuCategoryNavProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
 
   function handleCategoryChange(category: string) {
@@ -16,9 +17,9 @@ function CategoryNav({ onCategoryChange, categories }: CategoryNavProps) {
 
   return (
     <Tabs value={selectedCategory} onValueChange={handleCategoryChange} className="flex flex-1 items-center justify-center 
-        w-screen
-        ">
-      <TabsList>
+    w-screen
+    ">
+      <TabsList className="shadow-xl">
         {categories.map((category) => (
           <TabsTrigger key={category} value={category}>
             {category}
@@ -29,4 +30,4 @@ function CategoryNav({ onCategoryChange, categories }: CategoryNavProps) {
   );
 };
 
-export default CategoryNav;
+export default MenuCategoryNav;

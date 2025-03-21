@@ -1,15 +1,16 @@
 import { Route, Routes, BrowserRouter } from "react-router";
-import "./App.css";
 import NavBar from "./components/NavBar";
+import { Toaster } from "@/components/ui/sonner";
 import Menu from "./pages/Menu";
 import Inventory from "./pages/Inventory";
 import Reports from "./pages/Reports";
 import Kitchen from "./pages/Kitchen";
+<<<<<<< HEAD
 import { Toaster } from "@/components/ui/sonner";
 import MenuEngineeringDashboard from "./pages/MenuEngineeringDashboard"
+=======
+>>>>>>> b9a011471a3f21d0ab4c66f5a2349c30e6436976
 import { CartProvider } from "./context/CartContext";
-
-// Example: import { Button } from "@/components/ui/button";
 
 function App() {
   return (
