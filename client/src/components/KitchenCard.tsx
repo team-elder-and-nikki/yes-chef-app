@@ -5,6 +5,8 @@ import { ITicket } from "@/models/Ticket"
 import { IMenu } from "@/models/Menu"
 import { useEffect, useState, Fragment } from "react"
 import FloatingCard from "@/components/ui/floatingCard";
+import axios from "axios";
+import { ENDPOINT_URL } from "@/staticVar";
 
 export default function KitchenCard({ ticket }: { ticket: ITicket }) {
 
@@ -49,15 +51,21 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     const buttonText = buttonTextOptions[ticket.status]
     const buttonColor = buttonColorOptions[ticket.status]
 
-    const handleStatusChange = () => {
+    const handleStatusChange = async ({ticket}:{ticket: ITicket}) => {
+        console.log(`${ENDPOINT_URL}/orders/${ticket._id}/status`);
         switch (ticket.status) {
             case "unstarted":
                 // placeholder to update ticket status
-                console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'started'`)
+                console.log(ticket);
+                console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'started'`);
+                const test1 = await axios.put(`${ENDPOINT_URL}/orders/${ticket._id}/status`, {ticket});
+                console.log(test1);
                 break;
             case "started":
                 // placeholder to update ticket status
-                console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'completed'`)
+                console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'completed'`);
+                const test = await axios.put(`${ENDPOINT_URL}/orders/${ticket._id}/status`, {ticket});
+                console.log(test);  
                 break;
             default:
                 break;
@@ -79,6 +87,7 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
         sortedMenuItems[category] = ticket.items.filter((item) => item.category === category)
     }
 
+    console.log(ticket)
     return (
         <FloatingCard className="size-max h-fit max-h-fit py-0 my-10">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
@@ -113,7 +122,7 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                         }
                     </TableBody>
                 </Table>
-                {ticket.status !== "completed" && <Button className={`${buttonColor} mt-4 capitalize`} onClick={() => handleStatusChange()}>{buttonText}</Button>}
+                {ticket.status !== "completed" && <Button className={`${buttonColor} mt-4 capitalize`} onClick={() => handleStatusChange({ticket: ticket})}>{buttonText}</Button>}
             </CardContent>
             <CardFooter className={"rounded-b-xl py-3 justify-center " + headerFooterColor}>
                 <CardTitle className="text-center capitalize">{ticket.status}</CardTitle>
