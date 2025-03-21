@@ -48,9 +48,9 @@ router.patch("/orders/status", async (req, res) => {
    const client = await Client_Connect();
    const db = client.db("Point_of_sale_system");
    const collection: Collection<ITicket> = db.collection("Order");
-
+   
    const updatedOrder = await collection.findOneAndUpdate(
-     { orderId: req.body.orderId},
+     { orderId: req.body.ticket.orderId},
      { $set: {status: req.body.status} },
    );
 

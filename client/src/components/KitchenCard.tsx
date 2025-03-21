@@ -52,20 +52,20 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     const buttonColor = buttonColorOptions[ticket.status]
 
     const handleStatusChange = async ({ticket}:{ticket: ITicket}) => {
-        console.log(`${ENDPOINT_URL}/orders/${ticket._id}/status`);
         switch (ticket.status) {
             case "unstarted":
                 // placeholder to update ticket status
-                console.log(ticket);
                 console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'started'`);
-                const test1 = await axios.put(`${ENDPOINT_URL}/orders/${ticket._id}/status`, {ticket});
-                console.log(test1);
+                const order = {ticket, status: "started"};
+                await axios.patch(`${ENDPOINT_URL}/orders/status`, order);
+                window.location.reload();
                 break;
             case "started":
                 // placeholder to update ticket status
                 console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'completed'`);
-                const test = await axios.put(`${ENDPOINT_URL}/orders/${ticket._id}/status`, {ticket});
-                console.log(test);  
+                const order1 = {ticket, status: "completed"};
+                await axios.patch(`${ENDPOINT_URL}/orders/status`, order1);
+                window.location.reload();
                 break;
             default:
                 break;
@@ -87,7 +87,6 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
         sortedMenuItems[category] = ticket.items.filter((item) => item.category === category)
     }
 
-    console.log(ticket)
     return (
         <FloatingCard className="size-max h-fit max-h-fit py-0 my-10">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
