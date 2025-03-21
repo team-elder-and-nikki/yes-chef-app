@@ -5,6 +5,8 @@ import { ITicket } from "@/models/Ticket"
 import { IMenu } from "@/models/Menu"
 import { useEffect, useState, Fragment } from "react"
 import FloatingCard from "@/components/ui/floatingCard";
+import axios from "axios";
+import { ENDPOINT_URL } from "@/staticVar";
 
 export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     const ticketStatusColors = {
@@ -78,6 +80,16 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
         sortedMenuItems[category] = ticket.menu_items.filter((item) => item.category === category)
     }
 
+    async function getOrderData(){
+        try{
+            const data = await axios.get(`${ENDPOINT_URL}/orders`);
+            console.log(data);
+        }catch(error){
+            console.error(error);
+        }
+    }
+
+    getOrderData();
     return (
         <FloatingCard className="size-max h-fit max-h-fit py-0 my-10">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
