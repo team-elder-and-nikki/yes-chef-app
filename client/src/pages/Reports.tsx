@@ -1,11 +1,12 @@
 import ItemProfitability from "@/components/MenuEngineeringDashComponents/ItemProfitability";
 import TableComponent from "@/components/MenuEngineeringDashComponents/Table";
-
+import { Suspense } from "react";
+import LoadingMenuItems, { LoadingMenuItemsForReportsPage } from "@/components/Loading";
 import { IIngredient } from "@/models/Ingredient";
 
 export default function Reports() {
 
-  interface IWasteIngredient extends IIngredient{
+  interface IWasteIngredient extends IIngredient {
     priceOfMenu: number;
     amtWasted: number;
   }
@@ -23,10 +24,12 @@ export default function Reports() {
       <div
         className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
       >
-        <h1>Reports</h1>
+
         <div>
-          <ItemProfitability />
-          {/* <TableComponent /> */}
+          <Suspense fallback={<LoadingMenuItemsForReportsPage />}>
+            <ItemProfitability />
+            {/* <TableComponent /> */}
+          </Suspense>
         </div>
 
       </div>

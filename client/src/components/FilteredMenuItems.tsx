@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import MenuCard from "@/components/MenuCard";
 import { useCart } from "../context/CartContext";
 import { IMenu } from "@/models/Menu";
