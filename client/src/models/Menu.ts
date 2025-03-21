@@ -3,7 +3,7 @@ export interface IMenuIngredient {
     ingredientId: string;
 }
 
-export interface IMenu extends Document {
+export interface IMenu {
     _id: string;
     name: string;
     category: string;

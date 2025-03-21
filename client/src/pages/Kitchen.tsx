@@ -4,7 +4,6 @@ import { ITicket } from "../models/Ticket";
 import { IMenu } from "../models/Menu";
 import {
   Stars,
-  AlertCircle,
   NotepadTextIcon,
   NotepadTextDashed,
 } from "lucide-react";
@@ -57,11 +56,11 @@ export default function Kitchen() {
         _id: "uniqueMenuItemId",
         name: "BBQChicken",
         ingredients: [
-          {"ingredientName":"Tomatoes","ingredientId":"1"},
-          {"ingredientName":"Basil","ingredientId":"2"},
-          {"ingredientName":"Garlic","ingredientId":"3"},
-          {"ingredientName":"Olive Oil","ingredientId":"4"},
-          {"ingredientName":"Baguette","ingredientId":"5"},
+          { ingredientName: "Tomatoes", ingredientId: "1" },
+          { ingredientName: "Basil", ingredientId: "2" },
+          { ingredientName: "Garlic", ingredientId: "3" },
+          { ingredientName: "Olive Oil", ingredientId: "4" },
+          { ingredientName: "Baguette", ingredientId: "5" },
         ],
         quantity: 1,
         price: 10,
@@ -80,8 +79,8 @@ export default function Kitchen() {
             quantity: 1,
             thresholdLevel: 10,
           },
-          {"ingredientName":"Tomatoes","ingredientId":"1"},
-          {"ingredientName":"Basil","ingredientId":"2"},
+          { ingredientName: "Tomatoes", ingredientId: "1" },
+          { ingredientName: "Basil", ingredientId: "2" },
         ],
         quantity: 1,
         price: 5,
@@ -90,7 +89,7 @@ export default function Kitchen() {
         category: "Side",
       },
     ],
-    status: "Unstarted",
+    status: "In Progress",
   };
 
   const dummyTicketData1: ITicket = {
@@ -180,7 +179,7 @@ export default function Kitchen() {
         category: "Side",
       },
     ],
-    status: "Unstarted",
+    status: "Completed",
   };
 
   const dummyTicketData3: ITicket = {
@@ -225,7 +224,7 @@ export default function Kitchen() {
         category: "Side",
       },
     ],
-    status: "Unstarted",
+    status: "Completed",
   };
 
   const dummyTicketData4: ITicket = {
@@ -270,7 +269,7 @@ export default function Kitchen() {
         category: "Side",
       },
     ],
-    status: "Unstarted",
+    status: "Completed",
   };
 
   const dummyTicketData5: ITicket = {
@@ -315,7 +314,7 @@ export default function Kitchen() {
         category: "Side",
       },
     ],
-    status: "Unstarted",
+    status: "In Progress",
   };
 
   const dummyTicketData6: ITicket = {
@@ -369,6 +368,10 @@ export default function Kitchen() {
     dummyTicketData2,
     dummyTicketData3,
     dummyTicketData4,
+    dummyTicketData4,
+    dummyTicketData4,
+    dummyTicketData4,
+    dummyTicketData4,
     dummyTicketData5,
     dummyTicketData6,
     dummyTicketData6,
@@ -382,7 +385,6 @@ export default function Kitchen() {
   }: {
     completedTickets: ITicket[];
   }) {
-
     const menuOrderQuantity: { [key: string]: number } = {
       BBQChicken: 0,
       Bruschetta: 0,
@@ -452,7 +454,7 @@ export default function Kitchen() {
             name: menu.name,
             ordered_at: ticket.ordered_at,
             quantity: menuOrderQuantity[menu.name] - average,
-            ingredients: menu.ingredients
+            ingredients: menu.ingredients,
           });
         }
       });
@@ -497,29 +499,31 @@ export default function Kitchen() {
           recommendationTimeBlocks[i].items.push({
             name: item.name,
             quantity: menuOrderQuantity[item.name] - average,
-            ingredients: item.ingredients
+            ingredients: item.ingredients,
           });
         }
       }
     });
 
     // check if item has already been added to static time blocks
-    const removeDuplicates = recommendationTimeBlocks.map((block: ITimeBlocks) => {
-      return {
-        startTime: block.startTime,
-        endTime: block.endTime,
-        items: block.items.reduce(
-          (acc: IRecommendation[], current: IRecommendation) => {
-            const findItem = acc.find((item) => item.name === current.name);
-            if (findItem) {
-              return acc;
-            }
-            return acc.concat([current]);
-          },
-          []
-        ),
-      };
-    });
+    const removeDuplicates = recommendationTimeBlocks.map(
+      (block: ITimeBlocks) => {
+        return {
+          startTime: block.startTime,
+          endTime: block.endTime,
+          items: block.items.reduce(
+            (acc: IRecommendation[], current: IRecommendation) => {
+              const findItem = acc.find((item) => item.name === current.name);
+              if (findItem) {
+                return acc;
+              }
+              return acc.concat([current]);
+            },
+            []
+          ),
+        };
+      }
+    );
 
     return removeDuplicates;
   }
@@ -530,20 +534,17 @@ export default function Kitchen() {
     { text: "Open Tickets", icon: <NotepadTextIcon /> },
     { text: "Closed Tickets", icon: <NotepadTextDashed /> },
     { text: "Predictions", icon: <Stars /> },
-    { text: "Alerts", icon: <AlertCircle /> },
   ];
 
-  return (
-    <>
-      <NavBar />
-      <div
-        className="md:ml-21" /*bump everything to the right when NavBar is fixed to the left*/
-      >
-        <h1>Kitchen</h1>
+    return (
+        <>
+            <div className="md:ml-21"/*bump everything to the right when NavBar is fixed to the left*/>
+                     <h1>Kitchen</h1>
 
         <section className="flex flex-wrap md:flex-nowrap flex-col md:flex-row items-center md:items-start justify-between">
           {menuToggles.map((menu) => (
             <KitchenMenuToggle
+              toggleView={toggleView}
               key={menu.text}
               onClick={(e) => setToggleView(e)}
               text={menu.text}
@@ -552,23 +553,47 @@ export default function Kitchen() {
           ))}
         </section>
 
-        <div className="flex flex-row gap-4 overflow-x-scroll">
-        {
-        recommendPopularItems({ completedTickets: multipleDummyTickets }).map((menu)=>{
-          return menu.items.map((item)=>{
-            return(
-              <RecommendationCard key = {item.name} recommendation={{startTime: menu.startTime, endTime: menu.endTime, name: item.name, quantity: item.quantity, ingredients: item.ingredients }}/>
-            )
-          })
-        })
-        } 
-        </div>
 
+        {toggleView === "Predictions" &&
         <div className="flex flex-row gap-4 overflow-x-scroll">
-          {multipleDummyTickets.map((ticket) => (
-            <KitchenCard key={ticket._id} ticket={ticket} />
-          ))}
+          {recommendPopularItems({
+            completedTickets: multipleDummyTickets,
+          }).map((menu) => {
+            return menu.items.map((item) => {
+              return (
+                <RecommendationCard
+                  key={item.name}
+                  recommendation={{
+                    startTime: menu.startTime,
+                    endTime: menu.endTime,
+                    name: item.name,
+                    quantity: item.quantity,
+                    ingredients: item.ingredients,
+                  }}
+                />
+              );
+            });
+          })}
+        </div>}
+
+        {toggleView === "Closed Tickets" &&
+        <div className="flex flex-row gap-4 overflow-x-scroll">
+        {multipleDummyTickets.map((ticket) => {
+            if (ticket.status === "Completed") {
+              return <KitchenCard key={ticket._id} ticket={ticket} />;
+            }
+          })}
+        </div>}
+
+        {toggleView === "Open Tickets" &&
+        <div className="flex flex-row gap-4 overflow-x-scroll">
+          {KitchenStatus({orders: multipleDummyTickets}).map((ticket) => {
+            if (ticket.status !== "Completed") {
+              return <KitchenCard key={ticket._id} ticket={ticket} />;
+            }
+          })}
         </div>
+        }
       </div>
     </>
   );

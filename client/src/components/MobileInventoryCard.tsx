@@ -16,6 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ShoppingCartIcon } from "lucide-react";
 import { IncrementingInput } from "@/components/ui/incrementingInput";
+import FloatingCard from "./ui/floatingCard";
 
 interface Ingredient {
   _id: string;
@@ -71,13 +72,13 @@ export function MobileInventoryCard() {
   }
 
   return (
-    <div className="md:hidden">
-      <div className="grid grid-cols-7 items-center text-center w-full">
+    <FloatingCard className="md:hidden">
+      <div className="grid grid-cols-7 items-center text-center w-full text-sm">
         <div className="col-span-2">Item</div>
         <div className="col-span-2">Stock</div>
         <div className="col-span-2">Last Order</div>
       </div>
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type="single" collapsible className="w-full bg-white px-2">
         {ingredients.slice(startIndex, endIndex).map(
           (ingredient) => (
             (
@@ -168,6 +169,6 @@ export function MobileInventoryCard() {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-    </div>
+    </FloatingCard>
   );
 }
