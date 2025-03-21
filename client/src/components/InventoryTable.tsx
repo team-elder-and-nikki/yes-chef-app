@@ -117,17 +117,24 @@ export default function InventoryTable() {
                 <TableCell className="text-center">
                   {ingredient.quantity ? ingredient.quantity : "Out of Stock"}
                 </TableCell>
-                <TableCell className="flex">
-                  <Input
-                    value={inputValues[ingredient._id]}
-                    onChange={(e) =>
-                      handleInputChange(ingredient._id, e.target.value)
-                    }
-                    min="0"
-                  />
-                  <Button onClick={() => handleUpdate(ingredient._id)}>
-                    Update
-                  </Button>
+                <TableCell>
+                  <form className="flex">
+                    <Input
+                      value={inputValues[ingredient._id]}
+                      onChange={(e) =>
+                        handleInputChange(ingredient._id, e.target.value)
+                      }
+                      type="submit"
+                      min="0"
+                    />
+                    <Button 
+                    onClick={(e) =>{
+                      e.preventDefault();
+                      handleUpdate(ingredient._id)}}
+                    >
+                      Update
+                    </Button>
+                  </form>
                 </TableCell>
 
                 <TableCell className="text-center">
