@@ -23,7 +23,7 @@ export default function MenuCard({
   imageAlt?: string;
 }) {
   return (
-    <FloatingCard onClick={() => onClickTrigger()} className="w-38 sm:w-40 md:w-48 lg:w-56 hover:cursor-pointer hover:bg-red-50 m-4">
+    <FloatingCard data-testid = "menu-card" onClick={() => onClickTrigger()} className="w-38 sm:w-40 md:w-48 lg:w-56 hover:cursor-pointer hover:bg-red-50 m-4">
       {image && imageAlt && <CardHeader>
         <img src={image} alt={imageAlt} />
       </CardHeader>}
