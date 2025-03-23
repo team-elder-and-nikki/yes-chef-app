@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import CategoryNav from "../components/CategoryNav";
 import MenuCard from "@/components/MenuCard";
-import { useFetchMenu } from "../hooks/useFetchMenu"; // Import from the combined file
+import  useFetchMenuItems  from "../hooks/useFetchMenu"; // Import from the combined file
 import { IMenu } from "@/models/Menu";
 
 
@@ -11,7 +11,7 @@ import { IMenu } from "@/models/Menu";
 
 
 export default function Reports() {
-    const { menuItems, loading, error } = useFetchMenu();
+    const { data: menuItems, isLoading, isError, error } = useFetchMenuItems();
     const [selectedCategory, setSelectedCategory] = useState("Appetizers");
     const navigate= useNavigate()
 
@@ -21,8 +21,10 @@ export default function Reports() {
         navigate(`metrics/${item._id}`)    
 
     }
-    if (loading) return <p>Loading menu...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (isLoading) return <p>Loading menu...</p>;
+    if (isError) return <p>Error: {error.message}</p>;
+    if (!menuItems) return <p>No menu items available.</p>;
+    
 
     return (
         <div className="">
