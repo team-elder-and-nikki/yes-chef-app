@@ -1,29 +1,33 @@
 import { useState } from "react";
-import MenuCategoryNav from "../components/MenuCategoryNav";
+import { useNavigate } from 'react-router-dom';
+import CategoryNav from "../components/CategoryNav";
 import MenuCard from "@/components/MenuCard";
-import { useCart } from "../context/CartContext";
+// import { useCart } from "../context/CartContext";
 import { useFetchMenu } from "../hooks/useFetchMenu"; // Import from the combined file
 import { IMenu } from "@/models/Menu";
+
+
 
 
 
 export default function Reports() {
     const { menuItems, loading, error } = useFetchMenu();
     const [selectedCategory, setSelectedCategory] = useState("Appetizers");
+    const navigate= useNavigate()
+
     //filters menu items by category
     const filteredMenuItems = menuItems.filter((item) => item.category === selectedCategory);
-    const renderReporting=(item: IMenu)=>{
-        console.log(item._id) 
+    const renderMetrics=(item: IMenu)=>{
+        navigate(`metrics/${item._id}`)    
+
     }
     if (loading) return <p>Loading menu...</p>;
     if (error) return <p>Error: {error}</p>;
 
-
-
     return (
 
         <div className="">
-            <MenuCategoryNav 
+            <CategoryNav 
                 onCategoryChange={setSelectedCategory} 
                 categories = {["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"]}
             />
@@ -40,7 +44,7 @@ export default function Reports() {
                             menuName={item.name}
                             menuDescription={item.ingredients.map((i) => i.ingredientName).join(", ")}    
                             menuPrice={`$${item.price.toFixed(2)}`}                
-                            onClickTrigger={() => renderReporting(item)}
+                            onClickTrigger={() => renderMetrics(item)}
 
                         />
                     ))}

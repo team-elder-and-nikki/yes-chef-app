@@ -1,12 +1,14 @@
-import React from "react";
 import TableComponent from "../components/MenuEngineeringDashComponents/Table";
 import ProfitabilityTable from "../components/ProfitabilityTable";
+import { useParams} from "react-router-dom"
+import { ENDPOINT_URL } from '@/staticVar';
+import { toast } from "sonner"
+import axios from 'axios';
+import { useEffect, useState } from 'react'
+import { IIngredient } from "../models/Ingredient"
 
-interface MetricsComponentProps{
-    id: string;
-    name: string;
-    unitCost: number;
-}
+
+
 function MenuEngineeringDashboard() {
   //test data, can be deleted whenever
   const tableOneHeadings = [
@@ -115,13 +117,36 @@ function MenuEngineeringDashboard() {
     },
   ];
   //test data end
+  const params= useParams()
+  const [data, setIngredients] = useState<IIngredient[]>([]);
+  
+  
+  const getData = async () => {
+    try {
+      const response = await axios.get(`${ENDPOINT_URL}/metrics/${params.id}`);
+      const data = await response.data;
+      setIngredients(data);
+    } catch (error) {
+      toast.error("Error fetching data: " + error);
+    }
+  };
 
+ 
+
+  useEffect(() => {
+    getData();
+  }, []);
+console.log(data)
+ 
   return (
     <div className="  lg:mx-20 md:mx-20 flex flex-col lg:flex-row gap-6 bg-gray-100 p-6">
       {/* <div className="flex-grow lg:w-3/4">
         <DishProfitability dishes={dishes} />
       </div> */}
-    <ProfitabilityTable />
+    
+    <ProfitabilityTable 
+    menu={data}
+    />
       <div className=" flex flex-col space-y-6 lg:mx-10 md:mx-20 lg:w-2/3">
         
         <TableComponent 
@@ -132,6 +157,7 @@ function MenuEngineeringDashboard() {
          />
       </div>
     </div>
+    
   );
 }
 

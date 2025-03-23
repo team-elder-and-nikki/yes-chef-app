@@ -5,11 +5,7 @@ import Menu from "./pages/Menu";
 import Inventory from "./pages/Inventory";
 import Reports from "./pages/Reports";
 import Kitchen from "./pages/Kitchen";
-<<<<<<< HEAD
-import { Toaster } from "@/components/ui/sonner";
-import MenuEngineeringDashboard from "./pages/MenuEngineeringDashboard"
-=======
->>>>>>> b9a011471a3f21d0ab4c66f5a2349c30e6436976
+import Metrics from "./pages/Metrics"
 import { CartProvider } from "./context/CartContext";
 
 function App() {
@@ -23,7 +19,7 @@ function App() {
           <Route path="/inventory" element={<Inventory />}></Route>
           <Route path="/kitchen" element={<Kitchen />}></Route>
           <Route path="/reports" element={<Reports />}></Route>
-          <Route path="/metrics" element={<MenuEngineeringDashboard />}></Route>
+          <Route path="reports/metrics/:id" element={<Metrics />}></Route>
         </Routes>
       </BrowserRouter>
       

@@ -8,18 +8,7 @@ import {
     TableRow,
     TableFooter
   } from "@/components/ui/table";
-  import { useEffect, useState } from 'react'
-  import { IIngredient } from "../models/Ingredient"
 
-  //Pulled from server/model/ingredient interface
-//   interface Ingredient{
-//     _id: string;
-//     name: string;
-//     unitCost: number;
-//     quantity: number;
-//     thresholdLevel: number;
-//     orderQty: number;
-// }
 const ingredients = [
     {
       invoice: "INV001",
@@ -66,13 +55,12 @@ const ingredients = [
   ]
   
   interface ProfitabilityComponentProps{
-    id: string;
-    name: string;
-    unitCost: number;
+    menu: [];
+
 }
 
 
-  export default function ProfitabilityTable({ id, name, unitCost}: ProfitabilityComponentProps){
+  export default function ProfitabilityTable({menu}: ProfitabilityComponentProps){
     // const [data, setIngredients] = useState<IIngredient[]>([]);
     return(
         <>  
@@ -80,18 +68,17 @@ const ingredients = [
     <Table>
       <TableCaption>Dish Profitability and expense chart</TableCaption>
       <TableHeader>
-      <h2 className="">[Insert Name of Dish Here] Profitability</h2>
         <TableRow className="">
           <TableHead className="w-3/4">Ingredient</TableHead>
           <TableHead className="text-right w-1/4">Cost</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-      
+      {/* will use menu prop to interiate through ingredients */}
         {ingredients.map((ingredient)=>{
             return(
-            <TableRow key={ingredients}>
-                <TableCell className="font-medium w-3/4">{ingredient.invoice}</TableCell>
+            <TableRow key={ingredients.invoice}>
+                <TableCell className="font-medium w-3/4">{ingredient.paymentStatus}</TableCell>
                 <TableCell className="font-medium text-right w-1/4">{ingredient.totalAmount}</TableCell>
             </TableRow>)
         })

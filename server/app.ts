@@ -4,6 +4,8 @@ import menu from './controllers/menu.ts'
 import ingredient from './controllers/ingredient.ts';
 import orders from './controllers/order.ts';
 import kitchen from './controllers/kitchen.ts';
+import metrics from './controllers/metrics.ts';
+
 import cors from 'cors';
 
 const app = express();
@@ -25,7 +27,7 @@ async function startServer() {
 		// Database connection	
 		console.log('Connect to the database');
 
-		app.use('/', ingredient, kitchen, menu, orders);
+		app.use('/', ingredient, kitchen, menu, orders, metrics);
 
 
 		await app.listen(PORT, () => {
