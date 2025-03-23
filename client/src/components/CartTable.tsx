@@ -109,8 +109,8 @@ export function CartTable() {
   const total = subTotal + tax;
 
   return (
-    <div className="md:space-y-4 h-[400px] w-[calc(100%+16px)] flex flex-col bg-gray-50">
-    <FloatingCard className="space-y-4 h-[400px] :w-[calc(100%+16px)] flex flex-col bg-gray-50">
+    <div className="md:space-y-4 md:h-[400px] w-[calc(100%+16px)] md:w-full lg:w-80 flex flex-col bg-gray-50">
+    <FloatingCard className="space-y-4 h-[400px] flex flex-col bg-gray-50">
       <div className="flex-1 overflow-y-auto">
         <Table>
           <TableHeader>
