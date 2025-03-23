@@ -1,14 +1,15 @@
-import { useState } from "react"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const categories = ["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"];
-
-interface MenuCategoryNavProps {
+interface CategoryNavProps {
   onCategoryChange: (category: string) => void;
-}
+  categories: string[];
+ }
 
-function MenuCategoryNav({ onCategoryChange }: MenuCategoryNavProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]);
+function CategoryNav({ onCategoryChange, categories }: CategoryNavProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    categories[0],
+  );
 
   function handleCategoryChange(category: string) {
     setSelectedCategory(category);
@@ -16,18 +17,20 @@ function MenuCategoryNav({ onCategoryChange }: MenuCategoryNavProps) {
   }
 
   return (
-    <Tabs value={selectedCategory} onValueChange={handleCategoryChange} className="flex flex-1 items-center justify-center 
-    w-screen
-    ">
-      <TabsList className="shadow-xl">
+    <Tabs
+      value={selectedCategory}
+      onValueChange={handleCategoryChange}
+      className="flex flex-1 items-center justify-center w-full"
+    >
+      <TabsList className="flex flex-wrap  bg-transparant md:bg-gray-50">
         {categories.map((category) => (
-          <TabsTrigger key={category} value={category}>
+          <TabsTrigger className="md:text-sm" key={category} value={category}>
             {category}
           </TabsTrigger>
         ))}
       </TabsList>
     </Tabs>
   );
-};
+}
 
-export default MenuCategoryNav;
+export default CategoryNav;

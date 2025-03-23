@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import CategoryNav from "../components/CategoryNav";
 import MenuCard from "@/components/MenuCard";
-// import { useCart } from "../context/CartContext";
 import { useFetchMenu } from "../hooks/useFetchMenu"; // Import from the combined file
 import { IMenu } from "@/models/Menu";
 

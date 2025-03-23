@@ -12,8 +12,6 @@ const router = express.Router();
 
 //metrics for menu items
 router.get("/metrics/:id", async (req, res) => {
-  console.log("bom")
-
   try {
     //store item id into variable
     const id = new ObjectId(req.params.id)
