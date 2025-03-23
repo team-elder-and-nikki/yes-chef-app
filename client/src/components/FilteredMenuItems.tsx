@@ -22,7 +22,7 @@ export default function FilteredMenuItems({ selectedCategory }: { selectedCatego
     };
 
     return (
-        <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-6 ">
             {filteredMenuItems.map((item: IMenu) => (
                 <MenuCard
                     key={item._id}

@@ -24,7 +24,7 @@ function CategoryNav({ onCategoryChange, categories }: CategoryNavProps) {
     >
       <TabsList className="flex flex-wrap  bg-transparant md:bg-gray-50">
         {categories.map((category) => (
-          <TabsTrigger className="text-xs md:text-sm" key={category} value={category}>
+          <TabsTrigger className="md:text-sm" key={category} value={category}>
             {category}
           </TabsTrigger>
         ))}
