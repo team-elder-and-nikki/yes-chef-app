@@ -14,12 +14,12 @@ export default function Menu() {
 
     return (
 
-        <div className="">
+        <div >
             <CategoryNav
                 onCategoryChange={setSelectedCategory}
                 categories={["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"]}
             />
-            <div className="container mx-auto md:pl-24 px-4 py-8 flex flex-col lg:flex-row gap-8 ">
+            <div className="container mx-auto md:pl-24 px-0 md:px-4 py-16 md:py-8 flex flex-col lg:flex-row gap-8 ">
                 {/* Menu Items */}
                 <Suspense fallback={<LoadingMenuItems />}>
                     <FilteredMenuItems selectedCategory={selectedCategory} />

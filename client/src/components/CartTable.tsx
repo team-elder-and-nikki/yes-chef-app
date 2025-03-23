@@ -109,15 +109,15 @@ export function CartTable() {
   const total = subTotal + tax;
 
   return (
-    <div className="space-y-4 h-[400px] flex flex-col bg-gray-50">
+    <div className="md:space-y-4 md:h-[400px] w-[calc(100%+16px)] md:w-full lg:w-80 flex flex-col bg-gray-50">
     <FloatingCard className="space-y-4 h-[400px] flex flex-col bg-gray-50">
       <div className="flex-1 overflow-y-auto">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Actions</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Menu Item</TableHead>
+              <TableHead></TableHead>
+              <TableHead>Qty</TableHead>
+              <TableHead>Item</TableHead>
               <TableHead>Price</TableHead>
               <TableHead className="text-right">Total</TableHead>
             </TableRow>
@@ -125,22 +125,22 @@ export function CartTable() {
           <TableBody className="">
             {cart.map((item) => (
               <TableRow key={item.id}>
-                <TableCell>
+                <TableCell >
                   <CirclePlus
-                    className="m-1 cursor-pointer hover:text-red-500"
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-4 lg:h-4 text-xs sm:text-md lg:text-xs m-1 cursor-pointer hover:text-red-500"
                     onClick={() => addOneToExistingItem(item.id)}
                   ></CirclePlus>
                   <CircleMinus
-                    className="m-1 cursor-pointer hover:text-red-500"
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-4 lg:h-4 m-1 cursor-pointer hover:text-red-500"
                     onClick={() => subtractOneFromExistingItem(item.id)}
                   ></CircleMinus>
                   <CircleX
-                    className="m-1 cursor-pointer hover:text-red-500"
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-4 lg:h-4 m-1 cursor-pointer hover:text-red-500"
                     onClick={() => removeFromCart(item.id)}
                   ></CircleX>
                 </TableCell>
                 <TableCell>{item.cartAmount}</TableCell>
-                <TableCell>{item.menuItem}</TableCell>
+                <TableCell className="w-12 md:w-48 lg:w-12 break-words whitespace-normal">{item.menuItem}</TableCell>
                 <TableCell>${item.price.toFixed(2)}</TableCell>
                 <TableCell className="text-right">
                   ${(item.price * item.cartAmount).toFixed(2)}
