@@ -5,58 +5,67 @@ import { ITicket } from "@/models/Ticket"
 import { IMenu } from "@/models/Menu"
 import { useEffect, useState, Fragment } from "react"
 import FloatingCard from "@/components/ui/floatingCard";
+import axios from "axios";
+import { ENDPOINT_URL } from "@/staticVar";
 
 export default function KitchenCard({ ticket }: { ticket: ITicket }) {
+
     const ticketStatusColors = {
-        "Unstarted": "bg-red-300",
-        "In Progress": "bg-yellow-300",
-        "Completed": "bg-green-300"
+        "unstarted": "bg-red-300",
+        "started": "bg-yellow-300",
+        "completed": "bg-green-300"
     }
     const headerFooterColorOptions = {
-        "Unstarted": ticketStatusColors["Unstarted"],
-        "In Progress": ticketStatusColors["In Progress"],
-        "Completed": ticketStatusColors["Completed"]
+        "unstarted": ticketStatusColors["unstarted"],
+        "started": ticketStatusColors["started"],
+        "completed": ticketStatusColors["completed"]
     }
     const [headerFooterColor, setHeaderFooterColor] = useState(headerFooterColorOptions[ticket.status])
     useEffect(() => {
         switch (ticket.status) {
-            case "Unstarted":
-                setHeaderFooterColor(headerFooterColorOptions["Unstarted"]);
+            case "unstarted":
+                setHeaderFooterColor(headerFooterColorOptions["unstarted"]);
                 break;
-            case "In Progress":
-                setHeaderFooterColor(headerFooterColorOptions["In Progress"])
+            case "started":
+                setHeaderFooterColor(headerFooterColorOptions["started"])
                 break;
-            case "Completed":
-                setHeaderFooterColor(headerFooterColorOptions["Completed"]);
+            case "completed":
+                setHeaderFooterColor(headerFooterColorOptions["completed"]);
                 break;
             default:
-                setHeaderFooterColor(headerFooterColorOptions["Unstarted"]);
+                setHeaderFooterColor(headerFooterColorOptions["unstarted"]);
                 break;
         }
     }, [ticket.status])
 
     const buttonTextOptions = {
-        "Unstarted": `Mark 'In Progress'`,
-        "In Progress": `Mark 'Completed'`,
-        "Completed": `Completed`
+        "unstarted": `Mark 'started'`,
+        "started": `Mark 'completed'`,
+        "completed": `completed`
     }
     const buttonColorOptions = {
-        "Unstarted": ticketStatusColors["In Progress"],
-        "In Progress": ticketStatusColors["Completed"],
-        "Completed": "bg-green-300"
+        "unstarted": ticketStatusColors["started"],
+        "started": ticketStatusColors["completed"],
+        "completed": "bg-green-300"
     }
     const buttonText = buttonTextOptions[ticket.status]
     const buttonColor = buttonColorOptions[ticket.status]
 
-    const handleStatusChange = () => {
+    const handleStatusChange = async ({ticket}:{ticket: ITicket}) => {
         switch (ticket.status) {
-            case "Unstarted":
+            case "unstarted":
                 // placeholder to update ticket status
-                console.log(`changing status of ticket ${ticket.ticket_number} to 'In Progress'`)
+                console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'started'`);
+                const order = {ticket, status: "started"};
+                await axios.patch(`${ENDPOINT_URL}/orders/status`, order);
+                window.location.reload();
                 break;
-            case "In Progress":
+            case "started":
                 // placeholder to update ticket status
-                console.log(`changing status of ticket ${ticket.ticket_number} to 'Completed'`)
+                console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'completed'`);
+                const order1 = {ticket, status: "completed"};
+                await axios.patch(`${ENDPOINT_URL}/orders/status`, order1);
+                window.location.reload();
                 break;
             default:
                 break;
@@ -65,7 +74,7 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
 
     // get categories of items
     let menuItemCategories: string[] = []
-    for (let item of ticket.menu_items) {
+    for (let item of ticket.items) {
         if (!menuItemCategories.includes(item.category)) {
             menuItemCategories.push(item.category)
         }
@@ -75,14 +84,14 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     // sort menu items by categories
     let sortedMenuItems: { [key: string]: IMenu[] } = {}
     for (let category of menuItemCategories) {
-        sortedMenuItems[category] = ticket.menu_items.filter((item) => item.category === category)
+        sortedMenuItems[category] = ticket.items.filter((item) => item.category === category)
     }
 
     return (
         <FloatingCard className="size-max h-fit max-h-fit py-0 my-10">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
-                <CardTitle className="w-max">{`#${ticket.ticket_number}`}</CardTitle>
-                <CardTitle className="w-max">{`${ticket.ordered_at.getHours()}:${ticket.ordered_at.getMinutes()}`}</CardTitle>
+                <CardTitle className="w-max">{`#${ticket._id.substring(19,24)}`}</CardTitle>
+                <CardTitle className="w-max">{`${new Date(ticket.createdAt).getHours()}:${new Date(ticket.createdAt).getMinutes()}`}</CardTitle>
             </CardHeader>
             <CardContent className="px-2">
                 <Table>
@@ -102,8 +111,8 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                                         </TableRow>
                                         {sortedMenuItems[category].map((item: any) => (
                                             <TableRow key={item._id}>
-                                                <TableCell>{item.quantity}</TableCell>
-                                                <TableCell className="text-right">{item.name}</TableCell>
+                                                <TableCell>{item.cartAmount}</TableCell>
+                                                <TableCell className="text-right">{item.menuItem}</TableCell>
                                             </TableRow>
                                         ))}
                                     </Fragment>
@@ -112,10 +121,10 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                         }
                     </TableBody>
                 </Table>
-                {ticket.status !== "Completed" && <Button className={`${buttonColor} mt-4`} onClick={() => handleStatusChange()}>{buttonText}</Button>}
+                {ticket.status !== "completed" && <Button className={`${buttonColor} mt-4 capitalize`} onClick={() => handleStatusChange({ticket: ticket})}>{buttonText}</Button>}
             </CardContent>
             <CardFooter className={"rounded-b-xl py-3 justify-center " + headerFooterColor}>
-                <CardTitle className="text-center">{ticket.status}</CardTitle>
+                <CardTitle className="text-center capitalize">{ticket.status}</CardTitle>
             </CardFooter>
         </FloatingCard>
     )

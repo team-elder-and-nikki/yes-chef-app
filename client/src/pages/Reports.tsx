@@ -9,6 +9,7 @@ import { IMenu } from "@/models/Menu";
 
 
 
+
 export default function Reports() {
     const { menuItems, loading, error } = useFetchMenu();
     const [selectedCategory, setSelectedCategory] = useState("Appetizers");
@@ -24,7 +25,6 @@ export default function Reports() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-
         <div className="">
             <CategoryNav 
                 onCategoryChange={setSelectedCategory} 

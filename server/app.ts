@@ -7,6 +7,7 @@ import kitchen from './controllers/kitchen.ts';
 import metrics from './controllers/metrics.ts';
 
 import cors from 'cors';
+import distributorRoutes from './api/distributor/distributorRoutes.ts';
 
 const app = express();
 
@@ -29,6 +30,7 @@ async function startServer() {
 
 		app.use('/', ingredient, kitchen, menu, orders, metrics);
 
+		app.use('/api/distributor', distributorRoutes);
 
 		await app.listen(PORT, () => {
 			console.log(`The Server is running use ^c to chill server`);
