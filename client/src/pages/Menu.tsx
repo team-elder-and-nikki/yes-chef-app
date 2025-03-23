@@ -14,7 +14,7 @@ export default function Menu() {
 
     return (
 
-        <div className="">
+        <div >
             <CategoryNav
                 onCategoryChange={setSelectedCategory}
                 categories={["Appetizers", "Pizza", "Pasta", "Entrees", "Desserts"]}
