@@ -30,19 +30,6 @@ export default function NavBar({}) {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuLink className="bg-white text-gray-700" href="/orders" data-active={isActiveRoute("/orders")}>
-                            <ShoppingBag />
-                            Orders
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
-                    
-                    <NavigationMenuItem>
-                        <NavigationMenuLink className="bg-white text-gray-700" href="/reports" data-active={isActiveRoute("/reports")}>
-                            <Clock />
-                            Reports
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
                         <NavigationMenuLink className="bg-white text-gray-700" href="/kitchen" data-active={isActiveRoute("/kitchen")}>
                             <Utensils />
                             Kitchen
@@ -52,6 +39,12 @@ export default function NavBar({}) {
                         <NavigationMenuLink className="bg-white text-gray-700" href="/inventory" data-active={isActiveRoute("/inventory")}>
                             <Clipboard />
                             Inventory
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink className="bg-white text-gray-700" href="/reports" data-active={isActiveRoute("/reports")}>
+                            <Clock />
+                            Reports
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
