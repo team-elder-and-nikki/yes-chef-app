@@ -90,8 +90,8 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     return (
         <FloatingCard className="size-max h-fit max-h-fit py-0 my-10">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
-                <CardTitle className="w-max">{`#${ticket._id.substring(19,24)}`}</CardTitle>
-                <CardTitle className="w-max">{`${new Date(ticket.createdAt).getHours()}:${new Date(ticket.createdAt).getMinutes()}`}</CardTitle>
+                <CardTitle className="w-max">{`#${ticket._id.substring(19, 24)}`}</CardTitle>
+                <CardTitle className="w-max">{new Date(ticket.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</CardTitle>
             </CardHeader>
             <CardContent className="px-2">
                 <Table>
