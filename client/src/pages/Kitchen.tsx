@@ -11,7 +11,7 @@ import axios from "axios";
 import { ENDPOINT_URL } from "@/staticVar";
 
 export interface IRecommendation {
-  name: string;
+  menuItem: string;
   quantity: number;
   ingredients: IMenuIngredient[];
 }
@@ -94,8 +94,8 @@ export default function Kitchen() {
     // update quantity of each menu item ordered
     completedTickets.forEach((ticket: ITicket) => {
       ticket.items.forEach((menu: IMenu) => {
-        if (menuOrderQuantity.hasOwnProperty(menu.name)) {
-          menuOrderQuantity[menu.name]+=1*menu.cartAmount;
+        if (menuOrderQuantity.hasOwnProperty(menu.menuItem) && ticket.status==="completed") {
+          menuOrderQuantity[menu.menuItem]+=1*menu.cartAmount;
         }
       });
     });
@@ -118,7 +118,7 @@ export default function Kitchen() {
     }
 
     const recommendations: {
-      name: string;
+      menuItem: string;
       createdAt: Date;
       ingredients: IMenuIngredient[];
       quantity: number;
@@ -127,11 +127,11 @@ export default function Kitchen() {
     //grab the most popular menu items with their order date
     completedTickets.forEach((ticket: ITicket) => {
       ticket.items.forEach((menu: IMenu) => {
-        if (popularMenuItems.includes(menu.name)) {
+        if (popularMenuItems.includes(menu.menuItem)) {
           recommendations.push({
-            name: menu.name,
+            menuItem: menu.menuItem,
             createdAt: ticket.createdAt,
-            quantity: menuOrderQuantity[menu.name] - average,
+            quantity: menuOrderQuantity[menu.menuItem] - average,
             ingredients: menu.ingredients,
           });
         }
@@ -171,15 +171,15 @@ export default function Kitchen() {
         // check if item order time is greater than or equal to first time blcok
         // check if item order time is less than or equal to second time block
         if (
-          item.createdAt >= firstTimeBlock &&
-          item.createdAt <= secondTimeBlock
+          new Date(item.createdAt) >= firstTimeBlock &&
+          new Date(item.createdAt) <= secondTimeBlock
         ) {
           recommendationTimeBlocks[i].items.push({
-            name: item.name,
-            quantity: menuOrderQuantity[item.name] - average,
+            menuItem: item.menuItem,
+            quantity: menuOrderQuantity[item.menuItem] - average,
             ingredients: item.ingredients,
           });
-        }
+        } 
       }
     });
 
@@ -191,7 +191,7 @@ export default function Kitchen() {
           endTime: block.endTime,
           items: block.items.reduce(
             (acc: IRecommendation[], current: IRecommendation) => {
-              const findItem = acc.find((item) => item.name === current.name);
+              const findItem = acc.find((item) => item.menuItem === current.menuItem);
               if (findItem) {
                 return acc;
               }
@@ -204,6 +204,7 @@ export default function Kitchen() {
     );
 
     return removeDuplicates;
+          
   }
 
   const [toggleView, setToggleView] = useState("Open Tickets");
@@ -213,7 +214,6 @@ export default function Kitchen() {
     { text: "Closed Tickets", icon: <NotepadTextDashed /> },
     { text: "Predictions", icon: <Stars /> },
   ];
-
   return (
     <>
       <div
@@ -239,11 +239,11 @@ export default function Kitchen() {
               return menu.items.map((item) => {
                 return (
                   <RecommendationCard
-                    key={item.name}
+                    key={item.menuItem}
                     recommendation={{
                       startTime: menu.startTime,
                       endTime: menu.endTime,
-                      name: item.name,
+                      name: item.menuItem,
                       quantity: item.quantity,
                       ingredients: item.ingredients,
                     }}
