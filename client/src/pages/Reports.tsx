@@ -42,7 +42,7 @@ export default function Reports() {
                     {filteredMenuItems.map((item: IMenu) => (
                         <MenuCard
                             key={item._id}
-                            menuName={item.name}
+                            menuName={item.menuItem}
                             menuDescription={item.ingredients.map((i) => i.ingredientName).join(", ")}    
                             menuPrice={`$${item.price.toFixed(2)}`}                
                             onClickTrigger={() => renderMetrics(item)}

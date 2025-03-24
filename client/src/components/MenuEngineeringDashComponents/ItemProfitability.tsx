@@ -27,7 +27,7 @@ export default function ItemProfitability() {
                     {menuItems.map((item: IMenu) => (
                         <ItemProfitabilityCard
                             key={item._id}
-                            menuName={item.name}
+                            menuName={item.menuItem}
                             menuDescription={item.ingredients.map((i) => i.ingredientName).join(", ")}
                             menuPrice={`$${item.price.toFixed(2)}`}
                         />
