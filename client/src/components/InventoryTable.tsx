@@ -120,6 +120,7 @@ export default function InventoryTable() {
                 <TableCell>
                   <form className="flex">
                     <Input
+                      className="max-w-18"
                       value={inputValues[ingredient._id]}
                       onChange={(e) =>
                         handleInputChange(ingredient._id, e.target.value)
@@ -144,7 +145,7 @@ export default function InventoryTable() {
                   {formatPrice(ingredient.unitCost)}
                 </TableCell>
                 <TableCell className="text-center">3/17/2025</TableCell>
-                <TableCell className="flex justify-between">
+                <TableCell className="flex items-center justify-between">
                   <IncrementingInput
                     value={ingredient.orderQty || 0}
                     onChange={(newOrderQty) =>
