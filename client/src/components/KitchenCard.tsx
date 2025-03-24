@@ -51,19 +51,19 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     const buttonText = buttonTextOptions[ticket.status]
     const buttonColor = buttonColorOptions[ticket.status]
 
-    const handleStatusChange = async ({ticket}:{ticket: ITicket}) => {
+    const handleStatusChange = async ({ ticket }: { ticket: ITicket }) => {
         switch (ticket.status) {
             case "unstarted":
                 // placeholder to update ticket status
-                console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'started'`);
-                const order = {ticket, status: "started"};
+                console.log(`changing status of ticket ${ticket._id.substring(19, 24)} to 'started'`);
+                const order = { ticket, status: "started" };
                 await axios.patch(`${ENDPOINT_URL}/orders/status`, order);
                 window.location.reload();
                 break;
             case "started":
                 // placeholder to update ticket status
-                console.log(`changing status of ticket ${ticket._id.substring(19,24)} to 'completed'`);
-                const order1 = {ticket, status: "completed"};
+                console.log(`changing status of ticket ${ticket._id.substring(19, 24)} to 'completed'`);
+                const order1 = { ticket, status: "completed" };
                 await axios.patch(`${ENDPOINT_URL}/orders/status`, order1);
                 window.location.reload();
                 break;
@@ -90,8 +90,8 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     return (
         <FloatingCard className="size-max h-fit max-h-fit py-0 my-10">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
-                <CardTitle className="w-max">{`#${ticket._id.substring(19,24)}`}</CardTitle>
-                <CardTitle className="w-max">{`${new Date(ticket.createdAt).getHours()}:${new Date(ticket.createdAt).getMinutes()}`}</CardTitle>
+                <CardTitle className="w-max">{`#${ticket._id.substring(19, 24)}`}</CardTitle>
+                <CardTitle className="w-max">{new Date(ticket.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</CardTitle>
             </CardHeader>
             <CardContent className="px-2">
                 <Table>
@@ -121,7 +121,7 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                         }
                     </TableBody>
                 </Table>
-                {ticket.status !== "completed" && <Button className={`${buttonColor} mt-4 capitalize`} onClick={() => handleStatusChange({ticket: ticket})}>{buttonText}</Button>}
+                {ticket.status !== "completed" && <Button className={`${buttonColor} mt-4 capitalize`} onClick={() => handleStatusChange({ ticket: ticket })}>{buttonText}</Button>}
             </CardContent>
             <CardFooter className={"rounded-b-xl py-3 justify-center " + headerFooterColor}>
                 <CardTitle className="text-center capitalize">{ticket.status}</CardTitle>
