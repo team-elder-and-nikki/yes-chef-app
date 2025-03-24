@@ -32,7 +32,6 @@ A smart restaurant kitchen management system where users can track orders from t
 
 ## Members:
 - [Anton Shelkovnikov](https://github.com/Antosha9108)
-- [Jamal Hall](https://github.com/JamalHall)
 - [Megan McNeill](https://github.com/bluethreadmade)
 - [Richard Choi](https://github.com/choir241)
 - [Sarah A](https://github.com/Sah11-0)
