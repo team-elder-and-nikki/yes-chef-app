@@ -5,5 +5,6 @@ export interface IIngredient {
     quantity: number;
     thresholdLevel: number;
     lastOrderDate: Date;
-    orderQty: number
+    orderQty: number;
+    wasteToday: number
 }
