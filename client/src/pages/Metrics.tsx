@@ -6,23 +6,35 @@ import { toast } from "sonner"
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { IIngredient } from "../models/Ingredient"
+import { Badge } from "@/components/ui/badge";
+import { ShoppingCartIcon } from "lucide-react";
+import { IncrementingInput } from "@/components/ui/incrementingInput";
 
+interface Ingredient {
+  _id: string;
+  name: string;
+  unitCost: number;
+  quantity: number;
+  thresholdLevel: number;
+  lastOrderDate: Date;
+  orderQty: number;
+  wasteToday: number
+}
 
 
 function MenuEngineeringDashboard() {
   //test data, can be deleted whenever
   const tableOneHeadings = [
     "Ingredient",
-    "Amount Used",
     "Wasted",
     "Dollars Wasted",
     "Update Waste"
   ];
   const tableOneRows = [
-    ["Cheese", "45", "5", "$5"],
-    ["Cheese", "45", "5", "$5"],
-    ["Cheese", "45", "5", "$5"],
-    ["Cheese", "45", "5", "$5"],
+    ["Cheese", "5", "$5"],
+    ["Cheese", "5", "$5"],
+    ["Cheese", "5", "$5"],
+    ["Cheese", "5", "$5"],
   ];
 
   const tableTwoHeadings = [
