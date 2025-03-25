@@ -28,9 +28,7 @@ async function startServer() {
 		// Database connection	
 		console.log('Connect to the database');
 
-		app.use('/', ingredient, kitchen, menu, orders, metrics);
-
-		app.use('/api/distributor', distributorRoutes);
+		app.use('/', ingredient, kitchen, menu, orders, metrics, distributorRoutes);
 
 		await app.listen(PORT, () => {
 			console.log(`The Server is running use ^c to chill server`);

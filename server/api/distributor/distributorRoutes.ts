@@ -1,8 +1,9 @@
 import express from 'express';
-import { getProductData } from './distributorController.ts';
+import { getDistributorIngredients } from './distributorController.ts';
 
 const router = express.Router();
 
-router.get('/products', getProductData);
+// router.get('/api/distributor', getDistributorIngredients);
+router.get('/api/distributor/search/:query', getDistributorIngredients);
 
 export default router;
