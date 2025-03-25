@@ -8,60 +8,57 @@ import {
     TableRow,
     TableFooter
   } from "@/components/ui/table";
+  import { useEffect, useState } from 'react'
+  import { toast } from "sonner"
+  import axios from 'axios';
+  import { ENDPOINT_URL } from '@/staticVar';
 
-const ingredients = [
-    {
-      invoice: "INV001",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV002",
-      paymentStatus: "Pending",
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV003",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV004",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV005",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV006",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV007",
-      paymentStatus: "Unpaid",
-      totalAmount: "$300.00",
-      paymentMethod: "Credit Card",
-    },
-  ]
+  interface ProfitabilityComponentProps {
+    menu: any[];
+    price: number;
+    ingredientArr: [];
+    ingredientName: string;
+  }
+
+
+  export default function ProfitabilityTable({price, ingredientArr}: ProfitabilityComponentProps){
+    const [loading, setLoading] = useState(true);
+    const ingredients = ingredientArr.map((item) => item.ingredientName );
+    const [datas, setIngredientss] = useState(ingredients);
+
+    const getData = async () => {
+      try {
+        const response = await axios.post(`${ENDPOINT_URL}/metrics`,{ing: ingredients });
+        const datas = await response.data;
+        setIngredientss(datas);
+      } catch (error) {
+        toast.error("Error fetching data: " + error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    useEffect(() => {
+      getData();
+    }, []);
+
+  function formatPrice(price: number) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    }).format(price);
+  } 
+  //total cost of all of the dishes 
+  const menuItemTotal = datas.reduce((acc, item)=> acc+item.unitCost,0)
+  const profit= price-menuItemTotal
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (datas.length === 0) {
+    return <div>No data available</div>;
+  }
   
-  interface ProfitabilityComponentProps{
-    menu: [];
-
-}
-
-
-  export default function ProfitabilityTable({menu}: ProfitabilityComponentProps){
-    // const [data, setIngredients] = useState<IIngredient[]>([]);
     return(
         <>  
 
@@ -75,28 +72,28 @@ const ingredients = [
       </TableHeader>
       <TableBody>
       {/* will use menu prop to interiate through ingredients */}
-        {ingredients.map((ingredient)=>{
+        {datas.map((ingredient)=>{
             return(
-            <TableRow key={ingredients.invoice}>
-                <TableCell className="font-medium w-3/4">{ingredient.paymentStatus}</TableCell>
-                <TableCell className="font-medium text-right w-1/4">{ingredient.totalAmount}</TableCell>
+            <TableRow key={ingredients._id}>
+                <TableCell className="font-medium w-3/4">{ingredient.name}</TableCell>
+                <TableCell className="font-medium text-right w-1/4">{formatPrice(ingredient.unitCost)}</TableCell>
             </TableRow>)
         })
         }
         
       </TableBody>
-      <TableFooter>
+      <TableFooter className=" ">
         <TableRow>
-          <TableCell>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
+          <TableCell>Total Expense</TableCell>
+          <TableCell className="text-right">{formatPrice(menuItemTotal)}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Expense</TableCell>
-          <TableCell className="text-right">$1000</TableCell>
+          <TableCell>Price of Dish</TableCell>
+          <TableCell className="text-right">-{formatPrice(price)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Profit</TableCell>
-          <TableCell className="text-right">$1000</TableCell>
+          <TableCell className="text-right">{formatPrice(profit)}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
