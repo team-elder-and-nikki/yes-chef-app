@@ -5,7 +5,8 @@ import { ENDPOINT_URL } from '@/staticVar';
 import { toast } from "sonner"
 import axios from 'axios';
 import { useEffect, useState } from 'react'
-import { IIngredient } from "../models/Ingredient"
+// import { IIngredient } from "../models/Ingredient"
+import { IMenu } from "../models/Menu"
 
 
 
@@ -118,8 +119,9 @@ function MenuEngineeringDashboard() {
   ];
   //test data end
   const params= useParams()
-  const [data, setIngredients] = useState<IIngredient[]>([]);
-  
+  const [data, setIngredients] = useState<IMenu[]>([]);
+  const [loading, setLoading] = useState(true);
+
   
   const getData = async () => {
     try {
@@ -128,15 +130,25 @@ function MenuEngineeringDashboard() {
       setIngredients(data);
     } catch (error) {
       toast.error("Error fetching data: " + error);
+    } finally {
+      setLoading(false);
     }
   };
-
- 
 
   useEffect(() => {
     getData();
   }, []);
-console.log(data)
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (data.length === 0) {
+    return <div>No data available</div>;
+  }
+
+  const dishPrice = data[0].price;
+  const ingredientsArray = data[0].ingredients
+  
  
   return (
     <div className="  lg:mx-20 md:mx-20 flex flex-col lg:flex-row gap-6 bg-gray-100 p-6">
@@ -145,7 +157,8 @@ console.log(data)
       </div> */}
     
     <ProfitabilityTable 
-    menu={data}
+    price={dishPrice}
+    ingredientArr={ingredientsArray}
     />
       <div className=" flex flex-col space-y-6 lg:mx-10 md:mx-20 lg:w-2/3">
         

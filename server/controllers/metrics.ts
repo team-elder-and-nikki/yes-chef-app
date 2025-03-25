@@ -3,7 +3,7 @@ import { Collection, ObjectId} from "mongodb";
 import { Client_Connect } from "../../config/config.ts";
 import type {IMenu} from "../../client/src/models/Menu.ts";
 //will use in later iteration for ingredients
-// import type {IIngredient} from "../../client/src/models/Ingredient.ts";
+import type {IIngredient} from "../../client/src/models/Ingredient.ts";
 
 
 
@@ -34,5 +34,37 @@ router.get("/metrics/:id", async (req, res) => {
     process.exit(1);
   }
 });
+router.post("/metrics", async (req, res) => {
+  console.log("it is on the post route")
+      try {
+        const ingredientNames=req.body.ing
+        // init db connection with MongoClient
+    const client = await Client_Connect();
+
+
+    // init db by name
+    const db = client.db("Inventory");
+    //init collection by name
+    const collection: Collection<IIngredient> = db.collection("Ingredients");
+
+    console.log("Starting fetching of ingredients");
+
+    //Find collection and convert to array
+    // const ingredients = await collection.find({}).toArray();
+    const newIngredients = await collection.find({
+      name: { $in: ingredientNames }
+    }).toArray();
+      console.log("new", newIngredients)
+
+        // console.log("Array of ing obj",ingredients)
+  
+      res.json(newIngredients)
+  
+      } catch (err) {
+        console.error("Failed to fetch ingredients: ", err);
+        process.exit(1);
+      }
+    });
+
 
 export default router;

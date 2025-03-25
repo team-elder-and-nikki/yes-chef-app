@@ -8,6 +8,13 @@ import {
     TableRow,
     TableFooter
   } from "@/components/ui/table";
+  import { useEffect, useState } from 'react'
+  import { toast } from "sonner"
+  import axios from 'axios';
+  import { IIngredient } from "../models/Ingredient"
+  import { ENDPOINT_URL } from '@/staticVar';
+
+
 
 const ingredients = [
     {
@@ -54,14 +61,61 @@ const ingredients = [
     },
   ]
   
-  interface ProfitabilityComponentProps{
-    menu: [];
 
-}
+  
+  interface ProfitabilityComponentProps {
+    menu: any[];
+    price: number;
+    ingredientArr: [];
+    ingredientName: string;
+  }
 
 
-  export default function ProfitabilityTable({menu}: ProfitabilityComponentProps){
-    // const [data, setIngredients] = useState<IIngredient[]>([]);
+  export default function ProfitabilityTable({price, menu, ingredientArr, ingredientName}: ProfitabilityComponentProps){
+
+    console.log(ingredientArr)
+    const [loading, setLoading] = useState(true);
+    const ingredients = ingredientArr.map((item) => item.ingredientName );
+    const [datas, setIngredientss] = useState(ingredients);
+    console.log("Map results",ingredients)
+
+    
+    
+    const getData = async () => {
+      try {
+        const response = await axios.post(`${ENDPOINT_URL}/metrics`,{ing: ingredients });
+        const datas = await response.data;
+        setIngredientss(datas);
+      } catch (error) {
+        toast.error("Error fetching data: " + error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  console.log("this is the data", datas)
+    useEffect(() => {
+      getData();
+    }, []);
+   //total cost of all of the dishes 
+  function formatPrice(price: number) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    }).format(price);
+  } 
+  const dishTotalCost =   datas.reduce((acc, item)=> acc+item.unitCost,0)
+  const profit= price-dishTotalCost
+
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (datas.length === 0) {
+    return <div>No data available</div>;
+  }
+  
     return(
         <>  
 
@@ -75,11 +129,11 @@ const ingredients = [
       </TableHeader>
       <TableBody>
       {/* will use menu prop to interiate through ingredients */}
-        {ingredients.map((ingredient)=>{
+        {datas.map((ingredient)=>{
             return(
-            <TableRow key={ingredients.invoice}>
-                <TableCell className="font-medium w-3/4">{ingredient.paymentStatus}</TableCell>
-                <TableCell className="font-medium text-right w-1/4">{ingredient.totalAmount}</TableCell>
+            <TableRow key={ingredients._id}>
+                <TableCell className="font-medium w-3/4">{ingredient.name}</TableCell>
+                <TableCell className="font-medium text-right w-1/4">{formatPrice(ingredient.unitCost)}</TableCell>
             </TableRow>)
         })
         }
@@ -87,16 +141,16 @@ const ingredients = [
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
+          <TableCell>Total Expense</TableCell>
+          <TableCell className="text-right">{formatPrice(dishTotalCost)}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Expense</TableCell>
-          <TableCell className="text-right">$1000</TableCell>
+          <TableCell>Dish Cost</TableCell>
+          <TableCell className="text-right">{formatPrice(price)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Profit</TableCell>
-          <TableCell className="text-right">$1000</TableCell>
+          <TableCell className="text-right">{formatPrice(profit)}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
