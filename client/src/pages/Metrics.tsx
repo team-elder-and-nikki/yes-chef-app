@@ -148,26 +148,37 @@ function MenuEngineeringDashboard() {
 
   const dishPrice = data[0].price;
   const ingredientsArray = data[0].ingredients
+  const dishName= data[0].name
+  console.log("this is the dishes name", dishName)
   
  
   return (
-    <div className="  lg:mx-20 md:mx-20 flex flex-col lg:flex-row gap-6 bg-gray-100 p-6">
-      {/* <div className="flex-grow lg:w-3/4">
-        <DishProfitability dishes={dishes} />
-      </div> */}
-    
-    <ProfitabilityTable 
-    price={dishPrice}
-    ingredientArr={ingredientsArray}
-    />
-      <div className=" flex flex-col space-y-6 lg:mx-10 md:mx-20 lg:w-2/3">
-        
-        <TableComponent 
-          headings={tableOneHeadings} rows={tableOneRows} tableName={"Waste Metrics"}
-         />
-        <TableComponent
-         headings={tableTwoHeadings} rows={tableTwoRows} tableName={"Ingredient Cost Tracking"}
-         />
+    <div>
+        <div className="text-center text-3xl my-2">
+          <h1>
+            Menu Engineering Dashboard
+          </h1>
+        </div>
+        <div>
+          <h2 className="text-center text-xl my-2">
+            Displaying Metrics for {dishName}
+          </h2>
+       
+        <div className="  lg:mx-20 md:mx-20 flex flex-col lg:flex-row gap-6 bg-gray-100 p-6">
+        <ProfitabilityTable 
+        price={dishPrice}
+        ingredientArr={ingredientsArray}
+        />
+          <div className=" flex flex-col space-y-6 lg:mx-10 md:mx-20 lg:w-2/3">
+            
+            <TableComponent 
+              headings={tableOneHeadings} rows={tableOneRows} tableName={"Waste Metrics"}
+            />
+            <TableComponent
+            headings={tableTwoHeadings} rows={tableTwoRows} tableName={"Ingredient Cost Tracking"}
+            />
+          </div>
+      </div>
       </div>
     </div>
     
