@@ -8,6 +8,7 @@ type CartItem = {
   price: number;
   ingredients: { ingredientName: string; ingredientId: string }[];
   quantity: number;
+  category: string;
 };
 
 // Define the type for the context
