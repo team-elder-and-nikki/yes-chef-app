@@ -6,8 +6,6 @@ import  useFetchMenuItems  from "../hooks/useFetchMenu"; // Import from the comb
 import { IMenu } from "@/models/Menu";
 import WasteTable from "@/components/WasteTable"
 import FilteredMenuItems from "@/components/FilteredMenuItems";
-import LoadingMenuItems from "@/components/Loading";
-
 
 export default function Reports() {
     const { data: menuItems, isLoading, isError, error } = useFetchMenuItems();
@@ -33,11 +31,21 @@ export default function Reports() {
                 />
                 <div className="container mx-auto md:pl-24 px-0 md:px-4 py-16 md:py-8 flex flex-col lg:flex-row gap-8 ">
                     {/* Menu Items */}
-                                   {/* Menu Items */}
-                                   <Suspense fallback={<LoadingMenuItems />}>
-                                       <FilteredMenuItems selectedCategory={selectedCategory} />
-                                   </Suspense>
+                    <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                        {filteredMenuItems.map((item: IMenu) => (
+                            <MenuCard
+                                key={item._id}
+                                menuName={item.name}
+                                menuDescription={item.ingredients.map((i) => i.ingredientName).join(", ")}    
+                                menuPrice={`$${item.price.toFixed(2)}`}                
+                                onClickTrigger={() => renderMetrics(item)}
+                            />
+                        ))}
+                    </div>            
+                    <div >
+                        <div className="mb-6 text-center text-xl">Waste Record</div>
                         <WasteTable />
+                    </div>
                 </div>
             </div>
 
