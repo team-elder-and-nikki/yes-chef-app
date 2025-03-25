@@ -161,9 +161,9 @@ console.log(data)
     />
       <div className=" flex flex-col space-y-6 lg:mx-10 md:mx-20 lg:w-2/3">
         
-        <TableComponent 
+        {/* <TableComponent 
           headings={tableOneHeadings} rows={tableOneRows} tableName={"Waste Metrics"}
-         />
+         /> */}
         <TableComponent
          headings={tableTwoHeadings} rows={tableTwoRows} tableName={"Ingredient Cost Tracking"}
          />
