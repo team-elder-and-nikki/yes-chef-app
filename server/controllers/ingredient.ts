@@ -78,6 +78,23 @@ router.patch("/ingredients/updateQuantity/:id", async (req, res) => {
   }
 })
 
+export const decrementIngredients = async (menuItems: IMenu[], ingredientsCollection: Collection<IIngredient>) => {
+    menuItems.map((item: IMenu) => {
+    // go through each ingredient
+    item.ingredients.map(async (ingredient: IMenuIngredient) => {
+      await ingredientsCollection.updateOne(
+        //filter by the ingredient name in the dish
+        { name: ingredient.ingredientName },
+        //increase by negative one (decrease by 1) and update timestamp
+        { 
+          $inc: { quantity: -1 * (item.cartAmount ?? 1) },
+          $set: { updatedAt: new Date() }
+        }
+      );
+    });
+  });
+}
+
 
 router.put("/updateIngredientQuantity", async (req, res) => {
   try {
@@ -89,22 +106,9 @@ router.put("/updateIngredientQuantity", async (req, res) => {
       const db = client.db("Inventory");
       //init collection by name
       const collection: Collection<IIngredient> = db.collection("Ingredients");
+      const menuItems = req.body.items
 
-      // go through each order
-      req.body.items.map((item: IMenu) => {
-        // go through each ingredient
-        item.ingredients.map(async (ingredient: IMenuIngredient) => {
-          await collection.updateOne(
-            //filter by the ingredient name in the dish
-            { name: ingredient.ingredientName },
-            //increase by negative one (decrease by 1) and update timestamp
-            { 
-              $inc: { quantity: -1 * (item.cartAmount ?? 1) },
-              $set: { updatedAt: new Date() }
-            }
-          );
-        });
-      });
+      await decrementIngredients(menuItems, collection)
 
       res.status(200).json("Ingredients quantities were successfully updated");
     } else {
