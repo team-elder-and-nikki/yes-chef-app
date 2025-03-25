@@ -87,9 +87,9 @@ export default function WasteTable() {
   };
 
   return (
-    <>
+    <div className="md:space-y-4 md:h-[400px] w-[calc(100%+16px)] md:w-full lg:w-80 flex flex-col bg-gray-50">
       <Table className="bg-white">
-        <TableCaption>A list of inventory ingerdients.</TableCaption>
+        <TableCaption>A list of inventory ingredients.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Ingredient</TableHead>
@@ -103,11 +103,9 @@ export default function WasteTable() {
             return (
               <TableRow key={ingredient._id}>
                 <TableCell className="font-medium">{ingredient.name}</TableCell>
-                {/* waste today */}
                 <TableCell className="text-center">
                   {ingredient.wasteToday ? ingredient.wasteToday : "None"}
                 </TableCell>
-                {/* update waste */}
                 <TableCell>
                   <form className="flex">
                     <Input
@@ -128,11 +126,6 @@ export default function WasteTable() {
                     </Button>
                   </form>
                 </TableCell>
-                {/* waste unit cost
-                <TableCell className="text-center">
-                  {formatPrice(ingredient.unitCost)}
-                </TableCell> */}
-                {/* Waste Cost Today */}
                 <TableCell className="text-center">
                   {formatPrice(
                     Math.round(ingredient.unitCost * ingredient.wasteToday || 0),
@@ -170,6 +163,6 @@ export default function WasteTable() {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-    </>
+    </div>
   );
 }
