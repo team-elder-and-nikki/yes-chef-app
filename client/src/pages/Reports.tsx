@@ -46,6 +46,7 @@ export default function Reports() {
                         <div className="mb-6 text-center text-xl">Waste Record</div>
                         <WasteTable />
                     </div>
+
                 </div>
             </div>
 

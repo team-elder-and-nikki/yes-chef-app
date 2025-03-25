@@ -5,7 +5,7 @@ export interface IMenuIngredient {
 
 export interface IMenu {
     _id: string;
-    name: string;
+    menuItem: string;
     category: string;
     ingredients: IMenuIngredient[];
     quantity: number;
