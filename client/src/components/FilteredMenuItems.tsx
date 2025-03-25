@@ -17,6 +17,7 @@ export default function FilteredMenuItems({ selectedCategory }: { selectedCatego
             price: item.price,
             ingredients: item.ingredients,
             quantity: item.quantity,
+            category: item.category,
 
         });
     };
