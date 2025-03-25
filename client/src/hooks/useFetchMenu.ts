@@ -7,7 +7,15 @@ import { ENDPOINT_URL } from "../staticVar";
 export default function useFetchMenuItems() {
   return useQuery<IMenu[]>({
     queryKey: ['menuItems'],
-    queryFn: () => fetch(`${ENDPOINT_URL}/menu`).then(res => res.json()),
+    queryFn: async () => {
+      const response = await fetch(`${ENDPOINT_URL}/menu`);
+      const data = await response.json();
+      
+      return data.map((item: any) => ({
+        ...item,
+        menuItem: item.name 
+      }));
+    },
     suspense: true,
     throwOnError: true,
   });

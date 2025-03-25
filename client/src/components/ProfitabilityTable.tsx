@@ -22,15 +22,10 @@ import {
 
 
   export default function ProfitabilityTable({price, ingredientArr}: ProfitabilityComponentProps){
-
-    console.log(ingredientArr)
     const [loading, setLoading] = useState(true);
     const ingredients = ingredientArr.map((item) => item.ingredientName );
     const [datas, setIngredientss] = useState(ingredients);
-    console.log("Map results",ingredients)
 
-    
-    
     const getData = async () => {
       try {
         const response = await axios.post(`${ENDPOINT_URL}/metrics`,{ing: ingredients });
@@ -42,7 +37,6 @@ import {
         setLoading(false);
       }
     };
-  console.log("this is the data", datas)
     useEffect(() => {
       getData();
     }, []);
@@ -55,8 +49,8 @@ import {
     }).format(price);
   } 
   //total cost of all of the dishes 
-  const dishTotalCost =   datas.reduce((acc, item)=> acc+item.unitCost,0)
-  const profit= price-dishTotalCost
+  const menuItemTotal = datas.reduce((acc, item)=> acc+item.unitCost,0)
+  const profit= price-menuItemTotal
 
   if (loading) {
     return <div>Loading...</div>;
@@ -91,11 +85,11 @@ import {
       <TableFooter className=" ">
         <TableRow>
           <TableCell>Total Expense</TableCell>
-          <TableCell className="text-right">{formatPrice(dishTotalCost)}</TableCell>
+          <TableCell className="text-right">{formatPrice(menuItemTotal)}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Dish Cost</TableCell>
-          <TableCell className="text-right">{formatPrice(price)}</TableCell>
+          <TableCell>Price of Dish</TableCell>
+          <TableCell className="text-right">-{formatPrice(price)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Profit</TableCell>

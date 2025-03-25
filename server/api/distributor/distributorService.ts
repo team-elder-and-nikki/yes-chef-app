@@ -1,38 +1,43 @@
 import axios from 'axios';
+import { fallbackData } from './fallbackData.ts';
 
 const BASE_URL = 'https://api.spoonacular.com';
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 
-//set up backup data for API going offline
-const backupData = {
-  fallback: true,
-  data: [
-    {
-      id: 1,
-      name: 'Product 1',
-      description: 'Mock product 1',
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      description: 'Mock Product 2',
-    },
-  ],
-};
-
-export const fetchProductData = async (query: string) => {
+export const fetchIngredientData = async (query: string) => {
   try {
-    const response = await axios.get(`${BASE_URL}/food/products/search`, {
+    //fetch data from Spoonacular API
+    const response = await axios.get(`${BASE_URL}/food/ingredients/search`, {
       params: {
         query,
         apiKey: API_KEY,
         number: 1,
       },
     });
-    
-    return response.data.products;  
+      //check if no results returned
+      if (!response.data.results || response.data.results.length === 0) {
+      return {
+        success: false,
+        error: true,
+        message: `No ingredients found for query "${query}".`,
+        data: fallbackData.data
+      };
+    }
+    //return data if results are found
+    return {
+      success: true,
+      data: response.data.results 
+    };
+ 
   } catch (error) {
     console.error('Error fetching data:', error);
-    return backupData.data;  
+    
+    //return fallback data in case of error
+    return {
+      success: false,
+      fallback: true,
+      data: fallbackData.data,
+      message: 'Using backup data due to API error'
+    }; 
   }
 };

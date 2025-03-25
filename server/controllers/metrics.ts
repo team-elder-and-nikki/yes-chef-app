@@ -14,7 +14,7 @@ router.get("/metrics/:id", async (req, res) => {
   try {
     //store item id into variable
     const id = new ObjectId(req.params.id)
-    console.log("This is the menu itemID:",id, typeof id)
+    
     // init db connection with MongoClient
     const client = await Client_Connect();
     //init db by name
@@ -25,7 +25,7 @@ router.get("/metrics/:id", async (req, res) => {
     console.log("Starting fetching of ingredients");
 
     const ingredients = await collection.find({_id: id}).toArray();
-    console.log(ingredients)
+
     res.status(200).json(ingredients);
     console.log("Ingredients were successfully fetched!");
   } catch (err) {
