@@ -51,7 +51,7 @@ A smart restaurant kitchen management system where users can track orders from t
 
 3. Ensure you're on the [latest Node version](https://nodejs.org/en/download)
 
-4. Create your `.env` file in the root folder and add your environment variables here (should look like `.env`)
+4. Create your `.env` file in the root folder and add your environment variables here (should look like `.env`). A MongoDB connection string and Spoonacular API key should be added.
 
 5. To run the project (client and server) run `npm start` in root
 

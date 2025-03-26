@@ -1,7 +1,9 @@
 import express, { Router }  from "express";
 import { Client_Connect } from "../../config/config.ts";
 import type { ITicket } from "../../client/src/models/Ticket.ts";
-import { Collection, ObjectId } from "mongodb";   
+import { Collection, ObjectId } from "mongodb";
+import { decrementIngredients } from "./ingredient.ts";
+import type { IIngredient } from "../../client/src/models/Ingredient.ts";
 
 const router: Router = express.Router();
 
@@ -52,7 +54,15 @@ router.patch("/orders/status", async (req, res) => {
    const updatedOrder = await collection.findOneAndUpdate(
      { orderId: req.body.ticket.orderId},
      { $set: {status: req.body.status} },
+     { returnDocument: "after" }
    );
+
+   if (updatedOrder?.status === "completed") {
+    const ingredientsDb = client.db("Inventory")
+    const ingredientsCollection: Collection<IIngredient> = ingredientsDb.collection("Ingredients")
+    
+    await decrementIngredients(updatedOrder.items, ingredientsCollection)
+   }
 
    res.status(200).json({ message: 'Order updated successfully', order: updatedOrder });
  } catch (err) {
