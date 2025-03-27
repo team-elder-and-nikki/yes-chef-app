@@ -62,8 +62,8 @@ import {
     return(
         <>  
 
-    <Table>
-      <TableCaption>Dish Profitability and expense chart</TableCaption>
+    <Table className="md:mx-1 h-100 border-1 shadow-lg">
+      <TableCaption>Dish Profitability and Expense Chart</TableCaption>
       <TableHeader>
         <TableRow className="">
           <TableHead className="w-3/4">Ingredient</TableHead>
@@ -72,28 +72,35 @@ import {
       </TableHeader>
       <TableBody>
       {/* will use menu prop to interiate through ingredients */}
-        {datas.map((ingredient)=>{
+        {datas.map((ingredient,index)=>{
             return(
-            <TableRow key={ingredients._id}>
-                <TableCell className="font-medium w-3/4">{ingredient.name}</TableCell>
-                <TableCell className="font-medium text-right w-1/4">{formatPrice(ingredient.unitCost)}</TableCell>
+            <TableRow 
+            key={ingredients._id}>
+                <TableCell className="font-medium w-3/4 ">{ingredient.name}</TableCell>
+                <TableCell className="font-medium text-right w-1/4 ">{ index ===0 ? formatPrice(ingredient.unitCost) : "+" +formatPrice(ingredient.unitCost) }</TableCell>
             </TableRow>)
         })
         }
         
       </TableBody>
-      <TableFooter className=" ">
+      <TableFooter>
         <TableRow>
-          <TableCell>Total Expense</TableCell>
-          <TableCell className="text-right">{formatPrice(menuItemTotal)}</TableCell>
+          <TableCell className="font-semibold">
+          <div  className="my-10"></div>
+            Total Expense
+          </TableCell>
+          <TableCell className="text-right font-semibold">
+            <div className="my-10"></div>
+            {formatPrice(menuItemTotal)}
+          </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Price of Dish</TableCell>
-          <TableCell className="text-right">-{formatPrice(price)}</TableCell>
+          <TableCell className="font-semibold">Price of Dish</TableCell>
+          <TableCell className="text-right font-semibold">-{formatPrice(price)}</TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow className="font-semibold">
           <TableCell>Profit</TableCell>
-          <TableCell className="text-right">{formatPrice(profit)}</TableCell>
+          <TableCell className="text-right font-semibold">{formatPrice(profit)}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
