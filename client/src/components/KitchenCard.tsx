@@ -124,7 +124,7 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
             </CardContent>
             <div className="mt-auto">
                 <CardContent className="flex justify-center px-0">
-                    {ticket.status !== "completed" && <Button className={`${buttonColor}  capitalize w-full rounded-b-none`} onClick={() => handleStatusChange({ ticket: ticket })}>{buttonText}</Button>}
+                    {ticket.status !== "completed" && <Button className={`${buttonColor}  capitalize w-full rounded-none`} onClick={() => handleStatusChange({ ticket: ticket })}>{buttonText}</Button>}
                 </CardContent>
                 <CardFooter className={"rounded-b-xl py-3 justify-center " + headerFooterColor}>
                     <CardTitle className="text-center capitalize">{ticket.status}</CardTitle>
