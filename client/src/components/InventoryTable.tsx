@@ -92,11 +92,38 @@ export default function InventoryTable() {
       toast.error("Error updating data: " + error);
     }
   };
+  
 
+  function displayNextOrderDate(ingredient: IIngredient){
+
+    let displayDate = "";
+
+    const lastOrdered = new Date(ingredient.lastOrderDate)
+    // const lastOrdered = new Date(ingredient.lastOrderDate)
+
+    const readableLastOrderedMonth = lastOrdered.getMonth() + 1;
+    const readableLastOrderedDate = lastOrdered.getDate() + 1;
+    const readableLastOrderedYear = lastOrdered.getFullYear();
+
+    const currentDate = new Date();
+
+    if (lastOrdered <= currentDate){
+      const nextOrderDate = new Date(lastOrdered);
+      nextOrderDate.setMonth(nextOrderDate.getMonth() + 1);
+
+      const readableNewMonth = nextOrderDate.getMonth() + 1;
+      const readableNewDate = nextOrderDate.getDate() + 1;
+      const readableNewYear = nextOrderDate.getFullYear()
+
+      displayDate = `${readableNewMonth}/${readableNewDate}/${readableNewYear}`
+    }else{
+      displayDate = `${readableLastOrderedMonth}/${readableLastOrderedDate}/${readableLastOrderedYear}`
+    }
+    return <>{displayDate}</>
+  }
   return (
     <>
       <Table className="bg-white">
-        <TableCaption>A list of inventory ingerdients.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Ingredient</TableHead>
@@ -120,7 +147,7 @@ export default function InventoryTable() {
                 <TableCell>
                   <form className="flex">
                     <Input
-                      className="max-w-18"
+                      className="max-w-18 cursor-pointer"
                       value={inputValues[ingredient._id]}
                       onChange={(e) =>
                         handleInputChange(ingredient._id, e.target.value)
@@ -144,7 +171,7 @@ export default function InventoryTable() {
                 <TableCell className="text-center">
                   {formatPrice(ingredient.unitCost)}
                 </TableCell>
-                <TableCell className="text-center">3/17/2025</TableCell>
+                <TableCell className="text-center">{displayNextOrderDate(ingredient)}</TableCell>
                 <TableCell className="flex items-center justify-between">
                   <IncrementingInput
                     value={ingredient.orderQty || 0}
@@ -152,14 +179,15 @@ export default function InventoryTable() {
                       updateOrderQty(ingredient._id, newOrderQty)
                     }
                   />
+                  <Button>
                   <ShoppingCartIcon
-                    size={25}
-                    className="py-1"
                   ></ShoppingCartIcon>
+                  </Button>
+
                 </TableCell>
                 <TableCell className="text-center">
                   {formatPrice(
-                    Math.round(ingredient.unitCost * ingredient.orderQty || 0),
+                    (ingredient.unitCost * ingredient.orderQty || 0),
                   )}
                 </TableCell>
               </TableRow>
@@ -172,7 +200,7 @@ export default function InventoryTable() {
           <PaginationItem>
             <PaginationPrevious
               className={
-                startIndex === 0 ? "pointer-events-none opacity-50" : undefined
+                startIndex === 0 ? "pointer-events-none opacity-50" : "cursor-pointer"
               }
               onClick={() => {
                 setStartIndex(startIndex - rowsPerPage);
@@ -184,7 +212,7 @@ export default function InventoryTable() {
           <PaginationItem>
             <PaginationNext
               className={
-                endIndex === 100 ? "pointer-events-none opacity-50" : undefined
+                endIndex === 100 ? "pointer-events-none opacity-50" : "cursor-pointer"
               }
               onClick={() => {
                 setStartIndex(startIndex + rowsPerPage);
