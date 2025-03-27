@@ -87,7 +87,9 @@ export default function WasteTable() {
   };
 
   return (
-    <div className="md:space-y-4 md:h-[400px] w-[calc(100%+16px)] md:w-full lg:w-80 flex flex-col bg-gray-50">
+    // <div className="md:space-y-4 md:h-[400px] w-[calc(100%+16px)] md:w-full lg:w-80 flex flex-col bg-gray-50">
+  <div className="md:space-y-4  md:w-full flex flex-col bg-gray-50  ">
+
       <Table className="bg-white">
         <TableCaption>A list of inventory ingredients.</TableCaption>
         <TableHeader>

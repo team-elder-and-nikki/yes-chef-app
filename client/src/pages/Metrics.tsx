@@ -4,6 +4,8 @@ import { ENDPOINT_URL } from '@/staticVar';
 import { toast } from "sonner"
 import axios from 'axios';
 import { useEffect, useState } from 'react'
+import WasteTable from "@/components/WasteTable"
+
 
 
 interface Ingredient {
@@ -53,28 +55,28 @@ function MenuEngineeringDashboard() {
   
  
   return (
-    <div>
-        <div className="text-center text-3xl my-2">
-          <h1>
-            Menu Engineering Dashboard
-          </h1>
-        </div>
-        <div>
-          <h2 className="text-center text-xl my-2">
-            Displaying Metrics for {dishName}
-          </h2>
-       
-        <div className=" lg:mx-20 md:mx-20 flex align-center lg:flex-row gap-6 bg-gray-100 p-6">
-        <ProfitabilityTable 
-        price={dishPrice}
-        ingredientArr={ingredientsArray}
-        />
-          <div className=" flex flex-col space-y-6 lg:mx-10 md:mx-20 lg:w-2/3">
-            
+    <div className="sm:flex sm:flex-col  flex items-center ">
+      <div className="h-15"></div>
+        <div className="grid lg:grid-flow-col  gap-10">
+          <div className="flex flex-col lg:w-150">
+            <h2 className="text-center text-xl my-2 mb-6">
+              Displaying Profitability for {dishName}
+            </h2>
+              <ProfitabilityTable 
+              price={dishPrice}
+              ingredientArr={ingredientsArray}
+              />
           </div>
+          <div className="">
+          <h2 className="text-center text-xl my-2 mb-6">
+            Waste Tracking
+          </h2>
+            <WasteTable />
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
+     
+   
     
   );
 }
