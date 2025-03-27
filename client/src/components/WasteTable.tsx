@@ -91,7 +91,7 @@ export default function WasteTable() {
     <div className="md:space-y-4  md:w-full flex flex-col bg-gray-50  ">
 
       <Table className="bg-white">
-        <TableCaption>A list of inventory ingredients.</TableCaption>
+        <TableCaption className='pb-4'>A list of inventory ingredients.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Ingredient</TableHead>

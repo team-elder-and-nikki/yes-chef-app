@@ -27,10 +27,10 @@ export default function MenuCard({
       {image && imageAlt && <CardHeader>
         <img src={image} alt={imageAlt} />
       </CardHeader>}
-      <CardContent className="text-center px-2 md:px-6 text-sm md:text-lg">
+      <CardContent className="text-center px-2 md:px-6 text-sm md:text-lg flex flex-col justify-between h-full">
         <CardTitle className="mb-2">{menuName}</CardTitle>
         <CardDescription className="mb-6 text-sm md:text-base">{menuDescription}</CardDescription>
-        <span className="font-semibold">{menuPrice}</span>
+        <span className="font-semibold ">{menuPrice}</span>
       </CardContent>
     </FloatingCard>
   );
