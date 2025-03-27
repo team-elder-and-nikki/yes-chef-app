@@ -88,12 +88,12 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
     }
 
     return (
-        <FloatingCard className="size-max h-fit max-h-fit py-0 my-10">
+        <FloatingCard className="size-max h-[400px] py-0 my-10 flex flex-col">
             <CardHeader className={"rounded-t-xl py-3 flex flex-row justify-between " + headerFooterColor}>
                 <CardTitle className="w-max">{`#${ticket._id.substring(19, 24)}`}</CardTitle>
                 <CardTitle className="w-max">{new Date(ticket.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</CardTitle>
             </CardHeader>
-            <CardContent className="px-2">
+            <CardContent className="px-2 overflow-y-auto ">
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -121,11 +121,15 @@ export default function KitchenCard({ ticket }: { ticket: ITicket }) {
                         }
                     </TableBody>
                 </Table>
-                {ticket.status !== "completed" && <Button className={`${buttonColor} mt-4 capitalize`} onClick={() => handleStatusChange({ ticket: ticket })}>{buttonText}</Button>}
             </CardContent>
-            <CardFooter className={"rounded-b-xl py-3 justify-center " + headerFooterColor}>
-                <CardTitle className="text-center capitalize">{ticket.status}</CardTitle>
-            </CardFooter>
+            <div className="mt-auto">
+                <CardContent className="flex justify-center px-0">
+                    {ticket.status !== "completed" && <Button className={`${buttonColor}  capitalize w-full rounded-b-none`} onClick={() => handleStatusChange({ ticket: ticket })}>{buttonText}</Button>}
+                </CardContent>
+                <CardFooter className={"rounded-b-xl py-3 justify-center " + headerFooterColor}>
+                    <CardTitle className="text-center capitalize">{ticket.status}</CardTitle>
+                </CardFooter>
+            </div>
         </FloatingCard>
     )
 }
