@@ -1,5 +1,5 @@
 import ProfitabilityTable from "../components/ProfitabilityTable";
-import { useParams} from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { ENDPOINT_URL } from '@/staticVar';
 import { toast } from "sonner"
 import axios from 'axios';
@@ -20,12 +20,12 @@ interface Ingredient {
 }
 
 
-function MenuEngineeringDashboard() { 
-  const params= useParams()
+function MenuEngineeringDashboard() {
+  const params = useParams()
   const [data, setIngredients] = useState<IMenu[]>([]);
   const [loading, setLoading] = useState(true);
 
-  
+
   const getData = async () => {
     try {
       const response = await axios.get(`${ENDPOINT_URL}/metrics/${params.id}`);
@@ -51,33 +51,31 @@ function MenuEngineeringDashboard() {
 
   const dishPrice = data[0].price;
   const ingredientsArray = data[0].ingredients
-  const dishName= data[0].name
-  
- 
+  const dishName = data[0].name
+
+
   return (
-    <div className="sm:flex sm:flex-col  flex items-center ">
-      <div className="h-15"></div>
-        <div className="grid lg:grid-flow-col  gap-10">
-          <div className="flex flex-col lg:w-150">
-            <h2 className="text-center text-xl my-2 mb-6">
-              Displaying Profitability for {dishName}
-            </h2>
-              <ProfitabilityTable 
-              price={dishPrice}
-              ingredientArr={ingredientsArray}
-              />
-          </div>
-          <div className="">
-          <h2 className="text-center text-xl my-2 mb-6">
-            Waste Tracking
-          </h2>
-            <WasteTable />
-          </div>
-        </div>
+
+    <div className="sm:flex sm:flex-col  flex flex-col items-center md:pl-40 ">
+      <div className="flex flex-col ">
+        <h2 className="text-center text-xl my-2 mb-6">
+          Displaying Profitability for {dishName}
+        </h2>
+        <ProfitabilityTable
+          price={dishPrice}
+          ingredientArr={ingredientsArray}
+        />
       </div>
-     
-   
-    
+      <div className="lg:w-150">
+        <h2 className="text-center text-xl my-6">
+          Waste Tracking
+        </h2>
+        <WasteTable />
+      </div>
+    </div>
+
+
+
   );
 }
 
