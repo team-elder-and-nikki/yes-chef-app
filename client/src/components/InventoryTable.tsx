@@ -98,58 +98,26 @@ export default function InventoryTable() {
 
     let displayDate = "";
 
-    const lastOrderedMonth = new Date(ingredient.lastOrderDate).getMonth()+1;
-    const lastOrderedDate = new Date(ingredient.lastOrderDate).getDate()+1;
-    const lastOrderedYear = new Date(ingredient.lastOrderDate).getFullYear();
+    const lastOrdered = new Date(ingredient.lastOrderDate)
+    // const lastOrdered = new Date(ingredient.lastOrderDate)
 
-    const date = new Date();
-    const currentMonth= date.getMonth()+1;
-    const currentDate= date.getDate();
-    const currentYear= date.getFullYear();
+    const readableLastOrderedMonth = lastOrdered.getMonth() + 1;
+    const readableLastOrderedDate = lastOrdered.getDate() + 1;
+    const readableLastOrderedYear = lastOrdered.getFullYear();
 
-    if ((lastOrderedYear <= currentYear) && (lastOrderedMonth <= currentMonth) && (lastOrderedDate <= currentDate)){
+    const currentDate = new Date();
 
-      let newMonth = lastOrderedMonth;
-      let newDate = lastOrderedDate;
-      let newYear = lastOrderedYear;
+    if (lastOrdered <= currentDate){
+      const nextOrderDate = new Date(lastOrdered);
+      nextOrderDate.setMonth(nextOrderDate.getMonth() + 1);
 
-      newMonth += 1;
+      const readableNewMonth = nextOrderDate.getMonth() + 1;
+      const readableNewDate = nextOrderDate.getDate() + 1;
+      const readableNewYear = nextOrderDate.getFullYear()
 
-      switch(lastOrderedMonth){
-        case 11:
-        case 4:
-        case 6:
-        case 9:
-          if(lastOrderedDate == 30){
-            newMonth++;
-            newDate = 1;
-          }
-        case 10:
-        case 8:
-        case 7:
-        case 5:
-        case 3:
-        case 1:
-          if(lastOrderedDate == 31){
-            newMonth++;
-            newDate = 1;
-          }
-        case 2:
-          if(lastOrderedDate == 28 || lastOrderedDate == 29){
-            newMonth++;
-            newDate = 1;
-          }
-        case 12:
-          if(lastOrderedDate == 31){
-            newMonth++;
-            newDate = 1;
-            newYear++;
-          }
-      }
-
-      displayDate = `${newMonth}/${newDate}/${newYear}`
+      displayDate = `${readableNewMonth}/${readableNewDate}/${readableNewYear}`
     }else{
-      displayDate = `${lastOrderedMonth}/${lastOrderedDate}/${lastOrderedYear}`
+      displayDate = `${readableLastOrderedMonth}/${readableLastOrderedDate}/${readableLastOrderedYear}`
     }
     return <>{displayDate}</>
   }
