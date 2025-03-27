@@ -1,28 +1,28 @@
 
 import axios from 'axios';
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table";
-  import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationNext,
-    PaginationPrevious,
-  } from "@/components/ui/pagination"
-  import { toast } from "sonner"
-  import { Button } from "@/components/ui/button"
-  import { Input } from "@/components/ui/input"
-  import { useEffect, useState } from 'react'
-  import { IIngredient } from "../models/Ingredient"
-  import { ENDPOINT_URL } from '@/staticVar';
-  import { CircleCheckBig } from 'lucide-react';
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+import { toast } from "sonner"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useEffect, useState } from 'react'
+import { IIngredient } from "../models/Ingredient"
+import { ENDPOINT_URL } from '@/staticVar';
+import { CircleCheckBig } from 'lucide-react';
 
 export default function WasteTable() {
   const rowsPerPage = 15;
@@ -75,7 +75,7 @@ export default function WasteTable() {
       console.log(`Updating waste at: ${ENDPOINT_URL}/ingredients/wasteToday/${id}`);
 
       const response = await axios.patch(
-        
+
         `${ENDPOINT_URL}/ingredients/wasteToday/${id}`,
         { wasteToday },
       );
@@ -88,7 +88,7 @@ export default function WasteTable() {
 
   return (
     // <div className="md:space-y-4 md:h-[400px] w-[calc(100%+16px)] md:w-full lg:w-80 flex flex-col bg-gray-50">
-  <div className="md:space-y-4  md:w-full flex flex-col bg-gray-50  ">
+    <div className="md:space-y-4  md:w-full flex flex-col bg-gray-50  ">
 
       <Table className="bg-white">
         <TableCaption>A list of inventory ingredients.</TableCaption>
@@ -119,12 +119,13 @@ export default function WasteTable() {
                       type="submit"
                       min="0"
                     />
-                    <Button 
-                    onClick={(e) =>{
-                      e.preventDefault();
-                      handleUpdate(ingredient._id)}}
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleUpdate(ingredient._id)
+                      }}
                     >
-                      <CircleCheckBig/>
+                      <CircleCheckBig />
                     </Button>
                   </form>
                 </TableCell>
