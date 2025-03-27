@@ -62,8 +62,8 @@ export default function ProfitabilityTable({ price, ingredientArr }: Profitabili
   return (
     <>
 
-      <Table className="h-100 w-110 border-1 shadow-lg md:w-124 lg:w-150">
-        <TableCaption>Dish Profitability and Expense Chart</TableCaption>
+      <Table className="h-100 w-125 border-1 shadow-lg md:w-124 lg:w-150 ">
+        <TableCaption className="pb-4">Dish Profitability and Expense Chart</TableCaption>
         <TableHeader>
           <TableRow className="">
             <TableHead className="w-3/4">Ingredient</TableHead>
