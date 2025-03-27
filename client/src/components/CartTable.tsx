@@ -18,7 +18,7 @@ import axios from "axios";
 import { ENDPOINT_URL } from "../staticVar";
 import { IIngredient } from "@/models/Ingredient";
 import FloatingCard from "./ui/floatingCard";
-import {toast} from "sonner";
+import { toast } from "sonner";
 
 export function CartTable() {
   const {
@@ -46,22 +46,22 @@ export function CartTable() {
   }, []);
 
 
-  const handleUpdate = async ({id, quantity}:{id:string, quantity: number}) => {
+  const handleUpdate = async ({ id, quantity }: { id: string, quantity: number }) => {
     try {
-        if (quantity < 0) {
-          toast.error("Quantity cannot be negative");
-          throw new Error("Quantity cannot be negative");
-        } else if (quantity === null || quantity === undefined) {
-          toast.error("Quantity cannot be empty");
-          throw new Error("Quantity cannot be empty");
-        }
-          const response = await axios.patch(`${ENDPOINT_URL}/ingredients/updateQuantity/${id}`, { quantity });
-          console.log("Items were updated " + response);
-          getData();
+      if (quantity < 0) {
+        toast.error("Quantity cannot be negative");
+        throw new Error("Quantity cannot be negative");
+      } else if (quantity === null || quantity === undefined) {
+        toast.error("Quantity cannot be empty");
+        throw new Error("Quantity cannot be empty");
+      }
+      const response = await axios.patch(`${ENDPOINT_URL}/ingredients/updateQuantity/${id}`, { quantity });
+      console.log("Items were updated " + response);
+      getData();
     } catch (error) {
-        console.error('Error updating data:', error);
+      console.error('Error updating data:', error);
     }
-  } ;
+  };
 
   const sendOrder = async () => {
     const orderId = uuidv4(); // Generate a unique ID
@@ -80,11 +80,11 @@ export function CartTable() {
       console.log("Order sent successfully:", response.data);
 
       orderDetails.items.forEach((menu) => {
-       menu.ingredients.forEach((ingredient) => {
-          const findIngredient: IIngredient | undefined = ingredients.find((inventory:IIngredient)=>inventory.name === ingredient.ingredientName);
-          if(findIngredient){
-            if(findIngredient.quantity-menu.cartAmount <= findIngredient.thresholdLevel){
-                handleUpdate({id: findIngredient._id, quantity: menu.cartAmount * findIngredient.thresholdLevel * 2});
+        menu.ingredients.forEach((ingredient) => {
+          const findIngredient: IIngredient | undefined = ingredients.find((inventory: IIngredient) => inventory.name === ingredient.ingredientName);
+          if (findIngredient) {
+            if (findIngredient.quantity - menu.cartAmount <= findIngredient.thresholdLevel) {
+              handleUpdate({ id: findIngredient._id, quantity: menu.cartAmount * findIngredient.thresholdLevel * 2 });
             };
           }
         });
@@ -110,80 +110,80 @@ export function CartTable() {
 
   return (
     <div className="md:space-y-4 md:h-[400px] w-[calc(100%+16px)] md:w-full lg:w-80 flex flex-col bg-gray-50">
-    <FloatingCard className="space-y-4 h-[400px] flex flex-col bg-gray-50">
-      <div className="flex-1 overflow-y-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead></TableHead>
-              <TableHead>Qty</TableHead>
-              <TableHead>Item</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead className="text-right">Total</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="">
-            {cart.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell >
-                  <CirclePlus
-                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-4 lg:h-4 text-xs sm:text-md lg:text-xs m-1 cursor-pointer hover:text-red-500"
-                    onClick={() => addOneToExistingItem(item.id)}
-                  ></CirclePlus>
-                  <CircleMinus
-                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-4 lg:h-4 m-1 cursor-pointer hover:text-red-500"
-                    onClick={() => subtractOneFromExistingItem(item.id)}
-                  ></CircleMinus>
-                  <CircleX
-                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-4 lg:h-4 m-1 cursor-pointer hover:text-red-500"
-                    onClick={() => removeFromCart(item.id)}
-                  ></CircleX>
-                </TableCell>
-                <TableCell>{item.cartAmount}</TableCell>
-                <TableCell className="w-12 md:w-48 lg:w-12 break-words whitespace-normal">{item.menuItem}</TableCell>
-                <TableCell>${item.price.toFixed(2)}</TableCell>
+      <FloatingCard className="space-y-4 h-[400px] lg:min-h-[500px] md:h-[500px] flex flex-col bg-gray-50 py-0">
+        <div className="flex-1 overflow-y-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead></TableHead>
+                <TableHead>Qty</TableHead>
+                <TableHead>Item</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead className="text-right">Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className="">
+              {cart.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell >
+                    <CirclePlus
+                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-5 lg:h-5 text-xs sm:text-md lg:text-xs m-1 cursor-pointer hover:text-red-500"
+                      onClick={() => addOneToExistingItem(item.id)}
+                    ></CirclePlus>
+                    <CircleMinus
+                      className="w-4 h- sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-5 lg:h-5 m-1 cursor-pointer hover:text-red-500"
+                      onClick={() => subtractOneFromExistingItem(item.id)}
+                    ></CircleMinus>
+                    <CircleX
+                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-5 lg:h-5 m-1 cursor-pointer hover:text-red-500"
+                      onClick={() => removeFromCart(item.id)}
+                    ></CircleX>
+                  </TableCell>
+                  <TableCell>{item.cartAmount}</TableCell>
+                  <TableCell className="w-12 md:w-48 lg:w-12 break-words whitespace-normal">{item.menuItem}</TableCell>
+                  <TableCell>${item.price.toFixed(2)}</TableCell>
+                  <TableCell className="text-right">
+                    ${(item.price * item.cartAmount).toFixed(2)}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+
+        <div className="bottom-0">
+          <Table>
+            <TableFooter className="bg-gray-100">
+              <TableRow>
+                <TableCell colSpan={4}>SubTotal</TableCell>
                 <TableCell className="text-right">
-                  ${(item.price * item.cartAmount).toFixed(2)}
+                  ${subTotal.toFixed(2)}
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-
-      <div className="bottom-0">
-        <Table>
-          <TableFooter className="bg-gray-100">
-            <TableRow>
-              <TableCell colSpan={4}>SubTotal</TableCell>
-              <TableCell className="text-right">
-                ${subTotal.toFixed(2)}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={4}>Tax</TableCell>
-              <TableCell className="text-right">${tax.toFixed(2)}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={4}>Total</TableCell>
-              <TableCell className="text-right">${total.toFixed(2)}</TableCell>
-            </TableRow>
-          </TableFooter>
-        </Table>
-        <div className="flex justify-end gap-4 p-4">
-          <Button
-            variant="destructive"
-            onClick={clearCart}
-            disabled={cart.length === 0}
-          >
-            Clear All
-          </Button>
-          <Button onClick={sendOrder} disabled={cart.length === 0 || isLoading}>
-            {isLoading ? "Sending..." : "Send"}
-          </Button>
+              <TableRow>
+                <TableCell colSpan={4}>Tax</TableCell>
+                <TableCell className="text-right">${tax.toFixed(2)}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell colSpan={4}>Total</TableCell>
+                <TableCell className="text-right">${total.toFixed(2)}</TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+          <div className="flex justify-end gap-4 p-4">
+            <Button
+              variant="destructive"
+              onClick={clearCart}
+              disabled={cart.length === 0}
+            >
+              Clear All
+            </Button>
+            <Button onClick={sendOrder} disabled={cart.length === 0 || isLoading}>
+              {isLoading ? "Sending..." : "Send"}
+            </Button>
+          </div>
         </div>
-      </div>
-    </FloatingCard>
+      </FloatingCard>
     </div>
   );
 }
