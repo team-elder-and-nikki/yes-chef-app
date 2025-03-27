@@ -31,7 +31,6 @@ export function CartTable() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
 
-  console.log(cart);
   const getData = async () => {
     try {
       const response = await axios.get(`${ENDPOINT_URL}/ingredients`);
